@@ -13,7 +13,7 @@ import MainPage from './components/MainPage/MainPage';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <h2>hello</h2>,
+    element: <MainPage/>,
   },
 ]);
 
