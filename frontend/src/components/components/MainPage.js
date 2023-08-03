@@ -6,6 +6,7 @@ function MainPage() {
     <div>
       <Navbar />
       <p>jaueksw</p>
+      <p>dsjn</p>
     </div>
   );
 }
