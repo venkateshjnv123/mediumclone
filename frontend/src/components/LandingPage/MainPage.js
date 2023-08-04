@@ -10,7 +10,7 @@ function MainPage() {
       <Navbar />
       <MainPoster />
       <HomePosts />
-      {/* <PostsPage /> */}
+     {/* <PostsPage />  */}
     </>
   );
 }

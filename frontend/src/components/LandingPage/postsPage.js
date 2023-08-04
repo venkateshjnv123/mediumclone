@@ -1,7 +1,7 @@
 import React from "react";
 import "./postsPage.css";
 
-function postsPage() {
+function PostsPage() {
   return (
     <div>
       <div className="postsPage py-[40px]">
@@ -427,4 +427,4 @@ function postsPage() {
   );
 }
 
-export default postsPage;
+export default PostsPage;

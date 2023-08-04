@@ -10,6 +10,7 @@ import LoginPage from "./components/User/Signin";
 import RegistrationPage from "./components/User/Signup";
 import MainPage from "./components/LandingPage/MainPage";
 import HomePage from "./components/HomePage/MainPage";
+import PostsPage from "./components/LandingPage/postsPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <RegistrationPage />,
   },
+  {
+    path : '/postpage',
+    element : <PostsPage/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
