@@ -5,7 +5,26 @@
 
 @media (max-width: 768px) {
   .postsPage {
+    padding: 10px;
     max-width: 100% !important;
+  }
+
+  .profileListItem {
+    padding: 20px 10px !important;
+  }
+
+  .moreFromPosts {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .moreFromPostsDiv {
+    margin: 10px auto;
+  }
+
+  .postPageShowAll {
+    margin: auto;
+    width: fit-content;
   }
 }
 

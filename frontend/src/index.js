@@ -11,8 +11,10 @@ import RegistrationPage from "./components/User/Signup";
 import MainPage from "./components/LandingPage/MainPage";
 import HomePage from "./components/HomePage/MainPage";
 import PostsPage from "./components/LandingPage/postsPage";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Profile from "./components/User/profile";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +22,8 @@ const router = createBrowserRouter([
     element: <MainPage />,
   },
   {
-    path : '/home',
-    element : <HomePage/>
+    path: "/home",
+    element: <HomePage />,
   },
   {
     path: "/add",
@@ -40,12 +42,16 @@ const router = createBrowserRouter([
     element: <RegistrationPage />,
   },
   {
-    path : '/postpage',
-    element : <PostsPage/>
-  }
+    path: "/postpage",
+    element: <PostsPage />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ToastContainer />

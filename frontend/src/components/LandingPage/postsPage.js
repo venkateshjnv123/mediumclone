@@ -5,7 +5,7 @@ function PostsPage() {
   return (
     <div>
       <div className="postsPage py-[40px]">
-        <h2 className="text-[42px] font-bold">
+        <h2 className="text-[30px] sm:text-[42px] font-bold">
           Oppenheimer Isn't a Story About the Atomic Bomb, It's About Ourselves
         </h2>
         <div className="homePosts flex justify-start my-[30px]">
@@ -216,11 +216,8 @@ function PostsPage() {
             <div>
               <div className="postAuthorDetails pt-[5px]">
                 <div>
-                  <div
-                    className="text-[20px]"
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    <h6 className="font-[700] text-[25px]">
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <h6 className="font-[700] text-[20px] md:text-[25px]">
                       Written by John Abraham
                     </h6>
                   </div>
@@ -250,7 +247,7 @@ function PostsPage() {
           <div className="my-[40px]">
             <h6 className="font-[700]">More from John Abraham</h6>
             <div className="moreFromPosts my-[40px]">
-              <div className="max-w-[320px]">
+              <div className="moreFromPostsDiv max-w-[320px]">
                 <img
                   className="imgMorePosts"
                   src="https://findbestcourses.com/wp-content/uploads/2022/08/Blogging.png"
@@ -331,7 +328,7 @@ function PostsPage() {
                 </div>
               </div>
 
-              <div className="max-w-[320px]">
+              <div className="moreFromPostsDiv max-w-[320px]">
                 <img
                   className="imgMorePosts"
                   src="https://findbestcourses.com/wp-content/uploads/2022/08/Blogging.png"
@@ -413,7 +410,7 @@ function PostsPage() {
               </div>
             </div>
 
-            <div>
+            <div className="postPageShowAll">
               <span>
                 <button className="seeAllPostsByAuth">
                   See all from John Abraham
