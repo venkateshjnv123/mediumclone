@@ -1,13 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import Navbar from "./Navbar";
+import MainPoster from "./mainPoster";
+import HomePosts from "./homePosts";
+import PostsPage from "./postsPage";
 
 function MainPage() {
   return (
-    <div>
+    <>
       <Navbar />
-      <p>jaueksw</p>
-      <p>dsjn</p>
-    </div>
+      <MainPoster />
+      <HomePosts />
+      {/* <PostsPage /> */}
+    </>
   );
 }
 

@@ -1,0 +1,120 @@
+/* .mainPoster2 {
+  display: flex;
+  flex: 1 1;
+  margin-bottom: -39px;
+}
+
+.searchbox {
+  border-radius: 6px;
+}
+
+.input-group-text {
+  border-radius: 20px;
+}
+.searchbox1 {
+  background-color: #fff;
+}
+.selecttag {
+  border: none;
+}
+
+.searchboxbutton {
+  font-size: 12px;
+  width: 90px;
+  padding: 1px 4px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  background: #36bb22;
+  border: 1px solid #36bb22;
+  border-radius: 15px;
+}
+
+.mainPoster1 {
+  width: 1200px;
+}
+
+@media (max-width: 767px) {
+  .mainPoster1 {
+    width: 100% !important;
+    height: 552px !important;
+    display: flex !important;
+    flex-direction: column-reverse !important;
+  }
+
+  .mainPosterright {
+    width: 100% !important;
+    justify-content: center;
+  }
+
+  .mainPoster {
+    min-width: 0px !important;
+  }
+
+  .mainPoster2 {
+    width: 100% !important;
+  }
+
+  .mainPosterleft {
+    flex: 1 1;
+    width: 100% !important;
+    padding-top: 60px !important;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .selecttag {
+    font-size: 14px;
+  }
+
+  .inpDiv > .searchbox {
+    max-width: 460px;
+  }
+}
+
+@media (max-width: 450px) {
+  .mainPosterleft {
+    padding-top: 40px !important;
+  }
+
+  .mainPoster2 {
+    margin-top: -60px;
+  }
+} */
+.mainPoster1 {
+  min-width: 1200px;
+  height: 400px;
+  /* padding: 16px; */
+  /* margin-left: auto;
+  margin-right: auto; */
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mainPoster {
+  min-width: 1200px;
+  /* margin-left: auto;
+  margin-right: auto; */
+  background-color: #fddc00 !important;
+}
+
+.mainPosterImg {
+  width: 400px;
+}
+
+@media (max-width: 767px) {
+  .mainPoster1 {
+    min-width: 0 !important;
+    width: 100% !important;
+    flex-direction: column-reverse;
+    height: 500px !important;
+    padding: 20px;
+    margin-top: 40px;
+  }
+
+  .mainPoster {
+    min-width: 0px !important;
+  }
+}

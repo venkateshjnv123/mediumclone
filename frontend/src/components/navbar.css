@@ -1,0 +1,243 @@
+#navbarmain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  /* width: 1200px !important; */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0 10px 0;
+  color: #000;
+  font-weight: 500;
+}
+
+.navBarr {
+  background: #fddc00;
+}
+
+.nav-btn > img {
+  margin-right: 5px;
+  margin-bottom: 3px;
+}
+
+.nav-link {
+  color: #000;
+}
+
+.nav {
+  background: #fddc00;
+  min-width: 1200px;
+}
+
+@media (max-width: 767px) {
+  #navbarmain {
+    width: 100%;
+  }
+
+  .nav {
+    min-width: 0 !important;
+  }
+
+  #navbarmain {
+    justify-content: start;
+  }
+
+  /* .logoimage {
+    margin-left: 50px !important;
+  } */
+}
+
+.loginbtnsdiv {
+  display: flex;
+  align-items: center;
+  margin-right: 5%;
+}
+
+.loginbtnsdiv1 {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.loginbuttons {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin-right: auto;
+  margin-bottom: 0px;
+  font-family: var(--font-family-heading);
+  list-style-type: none;
+}
+.signupbtn {
+  color: #fff;
+  background-color: black;
+  border: 1px solid black;
+  min-width: 72px;
+  height: 36px;
+  padding: 4px 16px;
+  border-radius: 25px;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  margin-right: 16px;
+  justify-content: center;
+}
+
+.logoimage {
+  cursor: pointer;
+  margin-left: 5%;
+}
+
+.navbarmainsub {
+  margin-right: auto;
+  margin-left: auto;
+  align-items: center;
+  display: flex;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+.nav-item {
+  margin-left: 20px;
+  border-radius: 4px;
+}
+
+.nav-btn {
+  margin-right: 16px;
+}
+
+/* .navbar-toggler {
+  position: absolute;
+  left: -170px;
+} */
+
+@media only screen and (max-width: 767px) {
+  .loginbtnsdiv {
+    display: none;
+  }
+}
+
+.sidebar {
+  display: none;
+  width: 100%;
+  background-color: #fbdc00;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  padding-top: 60px;
+}
+.show-sidebar .sidebar {
+  display: block;
+}
+
+.sidebarul {
+  display: block;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  list-style-type: none;
+}
+
+.sidebarlist {
+  padding: 16px;
+  overflow-y: scroll;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
+}
+
+.side-link {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+@media (min-width: 1200px) {
+  .logoimage {
+    cursor: pointer;
+    margin-left: 3%;
+  }
+
+  .loginbtnsdiv {
+    margin-right: 3%;
+  }
+}
+
+@media (min-width: 768px) {
+  .navIconToggle {
+    display: none !important;
+  }
+}
+
+.navIconToggle {
+  display: block;
+}
+
+.navbar-toggler-icon {
+  width: 1em !important;
+  height: 1.2em !important;
+}
+
+/* header.nav {
+  width: 100%;
+  position: fixed;
+  transition: 0.3s ease-in-out;
+} */
+
+.navBarScroll {
+  position: fixed;
+  top: 0px;
+  width: 100% !important;
+  background-color: #fff;
+  z-index: 10000;
+  box-shadow: 5px -1px 12px -5px grey;
+}
+
+.navColor {
+  background-color: #fff;
+}
+
+.loginbtnsdiv2 {
+  visibility: visible;
+  margin-top: 15px;
+}
+
+.loginbtns2 {
+  padding-left: 15px !important;
+}
+
+.wIcon {
+  width: 40px;
+  padding-bottom: 5px;
+}
+
+@media (max-width: 767px) {
+  .logoimage {
+    margin-left: 0 !important;
+  }
+}
+
+.navIconToggle {
+  padding: 0 20px;
+}
+
+.navMob {
+  display: block !important;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+}

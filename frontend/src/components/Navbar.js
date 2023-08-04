@@ -1,66 +1,121 @@
-import React, { Component, useState } from 'react';
-import AvatarMenu from './AvatarMenu';
+import React, { useState } from "react";
+import "./navbar.css";
+import "./footermob.css";
+import logo from "./Logos/logo.svg";
+import happyface from "./Logos/happyface.svg";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import navToggleIcon from "./Logos/navToggleIcon.svg";
+import rightarrow from "./Logos/rightarrow.svg";
+import downCopyArrow from "./Logos/downCopyArrow.svg";
+import navToggleCross from "./Logos/navToggleCross.svg";
+import whatsappIcon from "./Logos/whatsappIcon.svg";
 
-function Navbar () {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function Navbar() {
+  window.onscroll = () => {
+    if (window.scrollY > 0) {
+      document.querySelector(".nav").classList.add("navBarScroll");
+    } else {
+      document.querySelector(".nav").classList.remove("navBarScroll");
+    }
+  };
 
-    const toggleMenu = () => {
-      setIsMenuOpen((prev) => !prev);
-    };
-    return(
-<nav className="bg-blue-500 p-4 flex items-center justify-between">
-      {/* Left Section */}
-      <div className="flex items-center">
-        {/* Search Bar (Replace the input field with your actual search implementation) */}
-        <div className="bg-white rounded-lg px-4 py-2 mr-4">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-40 sm:w-48 focus:outline-none"
-          />
-        </div>
+  window.onscroll = () => {
+    if (window.scrollY > 0) {
+      document.getElementById("navbarmain").style.backgroundColor = "#ffffff";
+    } else {
+      document.getElementById("navbarmain").style.backgroundColor = "#fddc00";
+    }
+  };
 
-        {/* Logo or Navbar title */}
-        <span className="text-white text-lg font-bold">Your Logo</span>
-      </div>
+  window.onscroll = () => {
+    if (window.scrollY > 300) {
+      document.getElementById("whatsappIcon").style.display = "block";
+    } else {
+      document.getElementById("whatsappIcon").style.display = "none";
+    }
+  };
 
-      {/* Right Section */}
-      <div className="relative">
-        {/* Avatar */}
+  const [bar, setbar] = useState(true);
+  const [cross, setcross] = useState(false);
+
+  const [sideBar, setsideBar] = useState(false);
+
+  return (
+    <div className="nav navBarScroll">
+      <div id="navbarmain" className="navBarr">
         <button
-          className="flex items-center text-white focus:outline-none"
-          onClick={toggleMenu}
+          className="navbar-toggler navIconToggle"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          onClick={() => {
+            setsideBar(!sideBar);
+            setbar(!bar);
+            setcross(!cross);
+          }}
         >
-          <img
-            src="/path-to-your-avatar-image.jpg"
-            alt="Avatar"
-            className="w-8 h-8 rounded-full mr-2"
-          />
-          <span className="hidden sm:inline-block">Your Username</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="w-4 h-4 ml-1"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 12a2 2 0 100-4 2 2 0 000 4z"
-              clipRule="evenodd"
-            />
-            <path
-              fillRule="evenodd"
-              d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-6a6 6 0 00-6 6c0 1.747.77 3.311 2 4.389v1.153A3.968 3.968 0 008 16a3.968 3.968 0 002-.558v-1.153A4.008 4.008 0 0012 10a6 6 0 00-6-6zm1 14a1 1 0 100 2 1 1 0 000-2z"
-              clipRule="evenodd"
-            />
-          </svg>
+          <span className="navbar-toggler-icon">
+            {bar && (
+              <img src={navToggleIcon} alt="=" style={{ width: "20px" }} />
+            )}
+            {cross && (
+              <img src={navToggleCross} alt="X" style={{ width: "20px" }} />
+            )}
+          </span>
         </button>
-
-        {/* Avatar Dropdown */}
-        {isMenuOpen && <AvatarMenu onClose={() => setIsMenuOpen(false)} />}
+        <div role="button" className="logoimage">
+          <img src={logo} alt="cogoport logo" />
+        </div>
+        <div className="loginbtnsdiv">
+          <ul className="loginbuttons">
+            <li className="nav-btn">
+              {/* <img src={happyface} alt="happyface" /> */}
+              login
+            </li>
+            <li className="signinbtn">
+              <button className="signupbtn"> Sign Up</button>
+            </li>
+          </ul>
+        </div>
       </div>
-    </nav>
-    )
-}
 
-export default Navbar;
+      {/* sidebar */}
+      {sideBar && (
+        <div className="footMob navMob">
+          <div className="footDrop">
+            <button className="footButton">
+              <h4 className="footleftText">Write</h4>
+            </button>
+          </div>
+          <div className="footDrop">
+            <button className="footButton">
+              <h4 className="footleftText">Signin</h4>
+            </button>
+          </div>
+          <div className="footDrop" style={{ paddingBottom: "20px" }}>
+            <button className="footButton">
+              <h4 className="signupbtn">Sign Up</h4>
+            </button>
+          </div>
+
+          <div className="loginbtnsdiv loginbtnsdiv2">
+            <ul className="loginbuttons loginbtns2">
+              <li className="signinbtn">
+                <button className="signupbtn"> Sign Up</button>
+              </li>
+              <li className="nav-btn">
+                <img src={happyface} alt="happyface" />
+                login
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* sidebar ends */}
+    </div>
+  );
+}

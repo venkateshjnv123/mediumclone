@@ -1,0 +1,9 @@
+.postsPage {
+  max-width: 680px;
+}
+
+@media (max-width: 768px) {
+  .postsPage {
+    max-width: 100% !important;
+  }
+}
