@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./navbar.css";
 import "./footermob.css";
-import logo from "./Logos/logo.svg";
-import happyface from "./Logos/happyface.svg";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import navToggleIcon from "./Logos/navToggleIcon.svg";
-import rightarrow from "./Logos/rightarrow.svg";
-import downCopyArrow from "./Logos/downCopyArrow.svg";
-import navToggleCross from "./Logos/navToggleCross.svg";
-import whatsappIcon from "./Logos/whatsappIcon.svg";
+import logo from "../Logos/logo.svg";
+import happyface from "../Logos/happyface.svg";
+import navToggleIcon from "../Logos/navToggleIcon.svg";
+import rightarrow from "../Logos/rightarrow.svg";
+import downCopyArrow from "../Logos/downCopyArrow.svg";
+import navToggleCross from "../Logos/navToggleCross.svg";
+import whatsappIcon from "../Logos/whatsappIcon.svg";
 
 export default function Navbar() {
   window.onscroll = () => {
@@ -19,21 +18,21 @@ export default function Navbar() {
     }
   };
 
-  window.onscroll = () => {
-    if (window.scrollY > 0) {
-      document.getElementById("navbarmain").style.backgroundColor = "#ffffff";
-    } else {
-      document.getElementById("navbarmain").style.backgroundColor = "#fddc00";
-    }
-  };
+  // window.onscroll = () => {
+  //   if (window.scrollY > 0) {
+  //     document.getElementById("navbarmain").style.backgroundColor = "#ffffff";
+  //   } else {
+  //     document.getElementById("navbarmain").style.backgroundColor = "#fddc00";
+  //   }
+  // };
 
-  window.onscroll = () => {
-    if (window.scrollY > 300) {
-      document.getElementById("whatsappIcon").style.display = "block";
-    } else {
-      document.getElementById("whatsappIcon").style.display = "none";
-    }
-  };
+  // window.onscroll = () => {
+  //   if (window.scrollY > 300) {
+  //     document.getElementById("whatsappIcon").style.display = "block";
+  //   } else {
+  //     document.getElementById("whatsappIcon").style.display = "none";
+  //   }
+  // };
 
   const [bar, setbar] = useState(true);
   const [cross, setcross] = useState(false);

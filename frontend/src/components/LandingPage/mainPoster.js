@@ -1,6 +1,5 @@
 import React from "react";
 // import { FormControl, InputGroup } from "react-bootstrap";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import "./mainPoster.css";
 export default function Homepage() {
   return (
