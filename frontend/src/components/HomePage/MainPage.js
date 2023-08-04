@@ -4,7 +4,7 @@ import HorizontalScroll from 'react-scroll-horizontal';
 import './mainpage.css';
 import TabContent from "./TabContent";
 
-function MainPage() {
+function HomePage() {
   const [selectedTab, setSelectedTab] = useState('For You');
   const fetchapi = async() => {
     const url = 'https://medium2.p.rapidapi.com/';
@@ -116,4 +116,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default HomePage;

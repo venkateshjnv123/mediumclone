@@ -4,11 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainPage from "./components/HomePage/MainPage";
 import BlogForm from "./components/Posts/Addpost";
 import Myposts from "./components/Posts/Mypost";
 import LoginPage from "./components/User/Signin";
 import RegistrationPage from "./components/User/Signup";
+import MainPage from "./components/LandingPage/MainPage";
+import HomePage from "./components/HomePage/MainPage";
 
 const router = createBrowserRouter([
   {
@@ -16,22 +17,28 @@ const router = createBrowserRouter([
     element: <MainPage />,
   },
   {
+    path : '/home',
+    element : <HomePage/>
+  },
+  {
     path: "/add",
     element: <BlogForm />,
   },
   {
-    path : '/myposts',
-    element : <Myposts/>
-  },{
-    path : '/signin',
-    element : <LoginPage/>
-  },{
-    path : '/signup',
-    element : <RegistrationPage/>
-  }
+    path: "/myposts",
+    element: <Myposts />,
+  },
+  {
+    path: "/signin",
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <RegistrationPage />,
+  },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
