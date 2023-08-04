@@ -3,41 +3,11 @@ import { Formik, Form, Field, ErrorMessage, useFormikContext, useFormik, FormikC
 import * as Yup from "yup";
 import Navbar from "../HomePage/Navbar";
 import { useLocation } from "react-router-dom";
-import { v4 as uuid } from 'uuid';
 
-const BlogForm = () => {
-  const formik = useFormik({
-   initialValues : {
-    title: "",
-    subtitle: "",
-    content: "",
-    featuredImage: "",
-    authorName: "",
-    categories: "",
-  },
-//   onSubmit: values => {
-//     console.log("hi");
-//     console.log(JSON.stringify(values,null, 2));
-//      let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
-//     values['status'] = "Yes"
-//     array1.push(values);
-    
-//     localStorage.setItem("blogs", JSON.stringify(array1));
-//     console.log("done");
-// //    setSubmitting(false);
-//   },
-});
-
+const EditForm = () => {
 const location = useLocation();
-const [initialValues, setinitialvalues] = useState({
-  title: "",
-  subtitle: "",
-  content: "",
-  featuredImage: "",
-  authorName: "",
-  categories: "",
-}) ;
-
+const [initialValues, setinitialvalues] = useState(location.state.values);
+const [initialstatus, setinitialstatus] = useState(location.state.values['status'])
 
   const validationSchema = Yup.object({
    // date: Yup.string().required("Date is required"),
@@ -50,15 +20,16 @@ const [initialValues, setinitialvalues] = useState({
   });
 
   const onSubmit = (values, { setSubmitting }) => {
-  const unique_id = uuid();
-  const small_id = unique_id.slice(0,8)
+
     let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
-    values['status'] = "Yes";
-    values['id'] = small_id;
-    array1.push(values);
-    localStorage.setItem("blogs", JSON.stringify(array1));
-    console.log(values);
-    setSubmitting(false);
+    if(initialstatus === "No"){
+        values['status'] = "Yes"
+        array1.push(values);
+        localStorage.setItem("blogs", JSON.stringify(array1));
+        console.log(values);
+        setSubmitting(false);
+    }
+    
     // Handle form submission here, e.g., send data to server, etc.
   };
   const handleSaveDraft = (values) => {
@@ -206,17 +177,22 @@ const [initialValues, setinitialvalues] = useState({
 
            
             <div className="flex space-x-4">
-            <FormikConsumer>
-                {({ values }) => (
-                  <button
-                    type="button"
-                    className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2"
-                    onClick={() => handleSaveDraft(values)}
-                  >
-                    Save Draft
-                  </button>
-                )}
-              </FormikConsumer>
+                {
+                    initialstatus === 'yes' ?
+                    <></> :
+                    <FormikConsumer>
+                    {({ values }) => (
+                      <button
+                        type="button"
+                        className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2"
+                        onClick={() => handleSaveDraft(values)}
+                      >
+                        Save Draft
+                      </button>
+                    )}
+                  </FormikConsumer>
+                }
+           
               <button
                 type="submit"
                 className="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2"
@@ -233,4 +209,4 @@ const [initialValues, setinitialvalues] = useState({
   );
 };
 
-export default BlogForm;
+export default EditForm;

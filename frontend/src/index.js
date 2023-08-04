@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainPage from "./components/HomePage/MainPage";
 import BlogForm from "./components/Posts/Addpost";
 import Myposts from "./components/Posts/Mypost";
+import LoginPage from "./components/User/Signin";
+import RegistrationPage from "./components/User/Signup";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,12 @@ const router = createBrowserRouter([
   {
     path : '/myposts',
     element : <Myposts/>
+  },{
+    path : '/signin',
+    element : <LoginPage/>
+  },{
+    path : '/signup',
+    element : <RegistrationPage/>
   }
 ]);
 
