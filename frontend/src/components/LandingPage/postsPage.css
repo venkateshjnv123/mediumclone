@@ -1,9 +1,89 @@
 .postsPage {
-  max-width: 680px;
+  margin: auto;
+  max-width: 700px;
 }
 
 @media (max-width: 768px) {
   .postsPage {
     max-width: 100% !important;
   }
+}
+
+.imgPostsAuthor {
+  width: 60px;
+}
+
+.imgPostsAuthorDetails {
+  width: 80px;
+}
+
+.imgMorePostsAuthor {
+  width: 20px;
+}
+
+.btnsMainDiv {
+  display: flex;
+  justify-content: space-between;
+  fill: #6b6b6b;
+  color: #6b6b6b;
+}
+
+.btnsDiv {
+  display: flex;
+}
+
+.btnsLeftDiv,
+.btnsRightDiv {
+  display: flex;
+}
+
+.postText {
+  line-height: 30px;
+  margin-top: 30px;
+  font-size: 17px;
+}
+
+.postEnd {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+}
+
+.postsTagsDiv {
+  display: flex;
+}
+
+.tagsPostsBtn {
+  padding: 5px 15px;
+  border-radius: 20px;
+  background-color: #f2f2f2;
+}
+
+.postAuthorDetails {
+  display: flex;
+  justify-content: space-between;
+}
+
+.postAuthorDetailsBtn {
+  font-size: 15px;
+  padding: 8px 15px;
+  border-radius: 25px;
+  color: white;
+  background-color: #1a8917;
+}
+
+.moreFromPosts {
+  display: flex;
+  justify-content: space-between;
+}
+
+.imgMorePosts {
+  width: 320px;
+  height: 160px;
+}
+
+.seeAllPostsByAuth {
+  padding: 5px 15px;
+  border-radius: 25px;
+  border: 1px solid black;
 }
