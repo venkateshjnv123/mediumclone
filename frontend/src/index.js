@@ -1,26 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
-import MainPage from './components/MainPage/MainPage';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MainPage from "./components/HomePage/MainPage";
+import BlogForm from "./components/Posts/Addpost";
+import Myposts from "./components/Posts/Mypost";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage/>,
+    element: <MainPage />,
   },
+  {
+    path: "/add",
+    element: <BlogForm />,
+  },
+  {
+    path : '/myposts',
+    element : <Myposts/>
+  }
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
