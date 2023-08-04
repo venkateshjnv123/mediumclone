@@ -13,6 +13,9 @@ import HomePage from "./components/HomePage/MainPage";
 import PostsPage from "./components/LandingPage/postsPage";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EditForm from "./components/Posts/Editpost";
+import MyPostsPage from "./components/LandingPage/Mypostshow";
+import MembershipPricingPage from "./components/Membership/Membership";
 
 const router = createBrowserRouter([
   {
@@ -28,8 +31,15 @@ const router = createBrowserRouter([
     element: <BlogForm />,
   },
   {
+path : '/edit',
+element : <EditForm/>
+  },
+  {
     path: "/myposts",
     element: <Myposts />,
+  },{
+path : '/mypostsshow',
+element : <MyPostsPage/>
   },
   {
     path: "/signin",
@@ -42,7 +52,11 @@ const router = createBrowserRouter([
   {
     path : '/postpage',
     element : <PostsPage/>
-  }
+  },
+ {
+  path : '/membership',
+  element : <MembershipPricingPage/>
+ }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

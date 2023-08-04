@@ -3,11 +3,18 @@ import { Formik, Form, Field, ErrorMessage, useFormikContext, useFormik, FormikC
 import * as Yup from "yup";
 import Navbar from "../HomePage/Navbar";
 import { useLocation } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 const EditForm = () => {
 const location = useLocation();
 const [initialValues, setinitialvalues] = useState(location.state.values);
 const [initialstatus, setinitialstatus] = useState(location.state.values['status'])
+const [catego, setcatego] = useState(location.state.values['categories']);
+const handleAddCategory = (category) => {
+    if (!catego.includes(category)) {
+      setcatego([...catego, category]);
+    }
+  };
 
   const validationSchema = Yup.object({
    // date: Yup.string().required("Date is required"),
@@ -16,28 +23,59 @@ const [initialstatus, setinitialstatus] = useState(location.state.values['status
     content: Yup.string().required("Content is required"),
     featuredImage: Yup.string().required("Featured Image is required"),
     authorName: Yup.string().required("Author Name is required"),
-    categories: Yup.string().required("Title is required"),
+    categories: Yup.array().required("Title is required"),
   });
 
-  const onSubmit = (values, { setSubmitting }) => {
+  function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
+  
+  function formatDate(date) {
+    return [
+      padTo2Digits(date.getDate()),
+      padTo2Digits(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join('/');
+  }
+
+  const onSubmit = (values, { setSubmitting, resetForm }) => {
 
     let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
-    if(initialstatus === "No"){
+    const id = initialValues['id'];
+    if(initialstatus === "No"){    
         values['status'] = "Yes"
-        array1.push(values);
-        localStorage.setItem("blogs", JSON.stringify(array1));
+        values['likes']= Math.ceil(Math.random()*1000);
+        values['views']= Math.ceil(Math.random()*1000);
+        values['comments']=Math.ceil(Math.random()*1000);
+        values['date']=formatDate(new Date());
         console.log(values);
         setSubmitting(false);
     }
+    else{
+        console.log(id);
+        values['likes']= initialValues['likes']
+        values['views']=initialValues['views']
+        values['comments']=initialValues['comments']
+        values['date']=initialValues['date']
+       
+        console.log(values);
+        setSubmitting(false);
+    }
+    let array2 = array1.filter((item) => item.id !== id);
+    array2.push(values);
+    localStorage.setItem("blogs", JSON.stringify(array2));
+    toast.success("form successfully submitted");
+    resetForm()
     
     // Handle form submission here, e.g., send data to server, etc.
   };
   const handleSaveDraft = (values) => {
+    const id = initialValues['id'];
     let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
-    values['status'] = "No"
-    array1.push(values);
-    console.log('Saving draft:', values);
-    localStorage.setItem("blogs", JSON.stringify(array1));
+    let array2 = array1.filter((item) => item.id !== id);
+    array2.push(values);
+    localStorage.setItem("blogs", JSON.stringify(array2));
+    toast.warning("data stored as draft");
   };
 
 
@@ -155,30 +193,46 @@ const [initialstatus, setinitialstatus] = useState(location.state.values['status
               />
             </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="categories" className="text-sm font-medium mb-1">
-                Categories (up to 3)
+            <div className="mb-4">
+              <label className="text-gray-700 font-bold">
+                Categories:
               </label>
-              <Field
-                type="text"
-                id="categories"
-                name="categories"
-                className="border rounded-md px-3 py-2"
-                placeholder="Enter categories separated by commas"
-                // onChange={formik.handleChange}
-                // value={formik.values.categories}
-              />
-              <ErrorMessage
-                name="categories"
-                component="div"
-                className="text-red-500"
-              />
+              <div className="grid grid-cols-2 gap-2 mt-1">
+                {catego.map((category) => (
+                  <label key={category} className="flex items-center space-x-2">
+                    <Field
+                      type="checkbox"
+                      name="categories"
+                      value={category}
+                      className="form-checkbox h-4 w-4 text-blue-500"
+                    />
+                    <span className="text-gray-700">{category}</span>
+                  </label>
+                ))}
+              </div>
+            <ErrorMessage name="categories" component="div" className="text-red-500" />
             </div>
+            <FormikConsumer>
+                {({ values }) => (
+            <div>
+          <label>
+            Additional Category:
+            <Field name="newCategory" type="text" />
+          </label>
+          <button
+            type="button"
+            onClick={() => handleAddCategory(values.newCategory)}
+          >
+            Add
+          </button>
+        </div>
+    )}
+    </FormikConsumer>
 
            
             <div className="flex space-x-4">
                 {
-                    initialstatus === 'yes' ?
+                    initialstatus === 'Yes' ?
                     <></> :
                     <FormikConsumer>
                     {({ values }) => (
