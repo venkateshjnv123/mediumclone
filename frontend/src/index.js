@@ -8,7 +8,7 @@ import BlogForm from "./components/Posts/Addpost";
 import Myposts from "./components/Posts/Mypost";
 import LoginPage from "./components/User/Signin";
 import RegistrationPage from "./components/User/Signup";
-import MainPage from "./components/LandingPage/MainPage";
+import LandingPage from "./components/LandingPage/LandingPage";
 import HomePage from "./components/HomePage/MainPage";
 import PostsPage from "./components/LandingPage/postsPage";
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,15 +16,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditForm from "./components/Posts/Editpost";
 import MyPostsPage from "./components/LandingPage/Mypostshow";
 import MembershipPricingPage from "./components/Membership/Membership";
-
+import Profile from "./components/User/profile";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage />,
+    element: <LandingPage />,
   },
   {
-    path : '/home',
-    element : <HomePage/>
+    path: "/home",
+    element: <HomePage />,
   },
   {
     path: "/add",
@@ -49,17 +49,21 @@ element : <MyPostsPage/>
     path: "/signup",
     element: <RegistrationPage />,
   },
-  {
-    path : '/postpage',
-    element : <PostsPage/>
-  },
+
  {
   path : '/membership',
   element : <MembershipPricingPage/>
- }
+ },{
+    path: "/postpage",
+    element: <PostsPage />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ToastContainer />

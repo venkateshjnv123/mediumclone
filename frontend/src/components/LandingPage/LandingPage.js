@@ -2,17 +2,15 @@ import React from "react";
 import Navbar from "./Navbar";
 import MainPoster from "./mainPoster";
 import HomePosts from "./homePosts";
-import PostsPage from "./postsPage";
 
-function MainPage() {
+function LandingPage() {
   return (
     <>
       <Navbar />
       <MainPoster />
       <HomePosts />
-     {/* <PostsPage />  */}
     </>
   );
 }
 
-export default MainPage;
+export default LandingPage;
