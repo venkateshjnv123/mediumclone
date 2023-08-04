@@ -43,9 +43,7 @@ function homePosts() {
             >
               <h6 className="max-w-[500px]">
                 Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-                Ourselves Oppenheimer Isn't a Story About the Atomic Bomb, It's
-                About Ourselves Oppenheimer Isn't a Story About the Atomic Bomb,
-                It's About Ourselves
+                Ourselves
               </h6>
             </div>
             <div

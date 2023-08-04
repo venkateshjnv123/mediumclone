@@ -7,10 +7,10 @@ import PostsPage from "./postsPage";
 function MainPage() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar />
       <MainPoster />
-      <HomePosts />
-      {/* <PostsPage /> */}
+      <HomePosts /> */}
+      <PostsPage />
     </>
   );
 }
