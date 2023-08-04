@@ -11,19 +11,11 @@ function Navbar () {
       setIsMenuOpen((prev) => !prev);
     };
     return(
-<nav className="bg-white p-2 flex items-center justify-between mx-4" style={{borderBottom : '1px solid F2F2F2;'}}>
+<nav className="bg-white p-2 flex items-center justify-between mx-4 h-16" style={{borderBottom : '1px solid F2F2F2;'}}>
       {/* Left Section */}
       <div className="flex items-center">
         {/* Search Bar (Replace the input field with your actual search implementation) */}
         <span className="black-white text-lg font-bold">Medium</span>
-        <div className="rounded-lg px-4 py-2 mr-4">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-slate-200 w-40 sm:w-48 focus:outline-none px-4 py-2 rounded-lg"
-          />
-        </div>
-
         {/* Logo or Navbar title */}
      
       </div>
