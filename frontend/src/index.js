@@ -8,7 +8,7 @@ import BlogForm from "./components/Posts/Addpost";
 import Myposts from "./components/Posts/Mypost";
 import LoginPage from "./components/User/Signin";
 import RegistrationPage from "./components/User/Signup";
-import MainPage from "./components/LandingPage/MainPage";
+import LandingPage from "./components/LandingPage/LandingPage";
 import HomePage from "./components/HomePage/MainPage";
 import PostsPage from "./components/LandingPage/postsPage";
 import Profile from "./components/User/profile";
@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage />,
+    element: <LandingPage />,
   },
   {
     path: "/home",
