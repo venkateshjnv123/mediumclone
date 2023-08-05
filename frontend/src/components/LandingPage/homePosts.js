@@ -3,8 +3,8 @@ import "./homePosts.css";
 
 function homePosts() {
   return (
-    <div className="my-[30px]">
-      <div className="filterDiv ">
+    <div className="my-[30px] px-[10px] w-full md:min-w-[1200px]">
+      <div className="filterHomeDiv">
         <span className="filterHomeBtn filterHomeBtnL bg-slate-200 hover:bg-slate-700 hover:text-white w-full">
           Trending
         </span>
@@ -16,163 +16,166 @@ function homePosts() {
         </span>
       </div>
 
-      <div className="homePostsDiv my-[50px]">
-        <div className="homePosts flex justify-start">
-          <div className="postNumbering">
-            <span>01</span>
-          </div>
-          <div>
-            <div className="homeAuthorTitle">
-              <div className="w-fit">
-                <img
-                  className="imgHomeAuthor rounded-full"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
-                  alt=""
-                />
+      <div className="my-[25px] md:my-[0px]">
+        <div className="homePostsDiv md:my-[50px]">
+          <div className="homePosts flex justify-start mx-auto md:mx-[0px] my-[15px] md:my-[0px]">
+            <div className="postNumbering">
+              <span>01</span>
+            </div>
+            <div>
+              <div className="homeAuthorTitle">
+                <div className="w-fit">
+                  <img
+                    className="imgHomeAuthor rounded-full"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
+                    alt=""
+                  />
+                </div>
+                <div
+                  className="pl-[15px]"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <h6>John Abraham</h6>
+                </div>
               </div>
               <div
-                className="pl-[15px]"
+                className="font-bold my-[10px]"
+                style={{ width: "fit-content" }}
+              >
+                <h6 className="max-w-[500px]">
+                  Oppenheimer Isn't a Story About the Atomic Bomb, It's About
+                  Ourselves
+                </h6>
+              </div>
+              <div
+                className="my-[10px]"
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <h6>John Abraham</h6>
+                <span>Aug 8</span>
+                <span className="dot"></span>
+                <span>10 min read</span>
+                <span className="dot"></span>
+                <span className="homePostTag">Science</span>
               </div>
             </div>
-            <div
-              className="font-bold my-[10px]"
-              style={{ width: "fit-content" }}
-            >
-              <h6 className="max-w-[500px]">
-                Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-                Ourselves
-              </h6>
+          </div>
+
+          <div className="homePosts flex justify-start mx-auto md:mx-[0px] my-[15px] md:my-[0px]">
+            <div className="postNumbering">
+              <span>02</span>
             </div>
-            <div
-              className="my-[10px]"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <span>Aug 8</span>
-              <span className="dot"></span>
-              <span>10 min read</span>
-              <span className="dot"></span>
-              <span className="homePostTag">Science</span>
+            <div>
+              <div className="homeAuthorTitle">
+                <div className="w-fit">
+                  <img
+                    className="imgHomeAuthor rounded-full"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
+                    alt=""
+                  />
+                </div>
+                <div
+                  className="pl-[15px]"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <h6>John Abraham</h6>
+                </div>
+              </div>
+              <div className="font-bold my-[10px]">
+                <h6 className="max-w-[500px]">
+                  Oppenheimer Isn't a Story About the Atomic Bomb, It's About
+                  Ourselves
+                </h6>
+              </div>
+              <div
+                className="my-[10px]"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <span>Aug 8</span>
+                <span className="dot"></span>
+                <span>10 min read</span>
+                <span className="dot"></span>
+                <span className="homePostTag">Science</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="homePosts flex justify-start">
-          <div className="postNumbering">
-            <span>02</span>
-          </div>
-          <div>
-            <div className="homeAuthorTitle">
-              <div className="w-fit">
-                <img
-                  className="imgHomeAuthor rounded-full"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
-                  alt=""
-                />
+        <div className="homePostsDiv md:my-[50px]">
+          <div className="homePosts flex justify-start mx-auto md:mx-[0px] my-[15px] md:my-[0px]">
+            <div className="postNumbering">
+              <span>03</span>
+            </div>
+            <div>
+              <div className="homeAuthorTitle">
+                <div className="w-fit">
+                  <img
+                    className="imgHomeAuthor rounded-full"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
+                    alt=""
+                  />
+                </div>
+                <div
+                  className="pl-[15px]"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <h6>John Abraham</h6>
+                </div>
+              </div>
+              <div className="font-bold my-[10px]">
+                <h6 className="max-w-[500px]">
+                  Oppenheimer Isn't a Story About the Atomic Bomb, It's About
+                  Ourselves
+                </h6>
               </div>
               <div
-                className="pl-[15px]"
+                className="my-[10px]"
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <h6>John Abraham</h6>
+                <span>Aug 8</span>
+                <span className="dot"></span>
+                <span>10 min read</span>
+                <span className="dot"></span>
+                <span className="homePostTag">Science</span>
               </div>
             </div>
-            <div className="font-bold my-[10px]">
-              <h6 className="max-w-[500px]">
-                Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-                Ourselves
-              </h6>
-            </div>
-            <div
-              className="my-[10px]"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <span>Aug 8</span>
-              <span className="dot"></span>
-              <span>10 min read</span>
-              <span className="dot"></span>
-              <span className="homePostTag">Science</span>
-            </div>
           </div>
-        </div>
-      </div>
-      <div className="homePostsDiv my-[50px]">
-        <div className="homePosts flex justify-start">
-          <div className="postNumbering">
-            <span>03</span>
-          </div>
-          <div>
-            <div className="homeAuthorTitle">
-              <div className="w-fit">
-                <img
-                  className="imgHomeAuthor rounded-full"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
-                  alt=""
-                />
-              </div>
-              <div
-                className="pl-[15px]"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <h6>John Abraham</h6>
-              </div>
-            </div>
-            <div className="font-bold my-[10px]">
-              <h6 className="max-w-[500px]">
-                Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-                Ourselves
-              </h6>
-            </div>
-            <div
-              className="my-[10px]"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <span>Aug 8</span>
-              <span className="dot"></span>
-              <span>10 min read</span>
-              <span className="dot"></span>
-              <span className="homePostTag">Science</span>
-            </div>
-          </div>
-        </div>
 
-        <div className="homePosts flex justify-start">
-          <div className="postNumbering">
-            <span>04</span>
-          </div>
-          <div>
-            <div className="homeAuthorTitle">
-              <div className="w-fit">
-                <img
-                  className="imgHomeAuthor rounded-full"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
-                  alt=""
-                />
+          <div className="homePosts flex justify-start mx-auto md:mx-[0px] my-[15px] md:my-[0px]">
+            <div className="postNumbering">
+              <span>04</span>
+            </div>
+            <div>
+              <div className="homeAuthorTitle">
+                <div className="w-fit">
+                  <img
+                    className="imgHomeAuthor rounded-full"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
+                    alt=""
+                  />
+                </div>
+                <div
+                  className="pl-[15px]"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <h6>John Abraham</h6>
+                </div>
+              </div>
+              <div className="font-bold my-[10px]">
+                <h6 className="max-w-[500px]">
+                  Oppenheimer Isn't a Story About the Atomic Bomb, It's About
+                  Ourselves
+                </h6>
               </div>
               <div
-                className="pl-[15px]"
+                className="my-[10px]"
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <h6>John Abraham</h6>
+                <span>Aug 8</span>
+                <span className="dot"></span>
+                <span>10 min read</span>
+                <span className="dot"></span>
+                <span className="homePostTag">Science</span>
               </div>
-            </div>
-            <div className="font-bold my-[10px]">
-              <h6 className="max-w-[500px]">
-                Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-                Ourselves
-              </h6>
-            </div>
-            <div
-              className="my-[10px]"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <span>Aug 8</span>
-              <span className="dot"></span>
-              <span>10 min read</span>
-              <span className="dot"></span>
-              <span className="homePostTag">Science</span>
             </div>
           </div>
         </div>

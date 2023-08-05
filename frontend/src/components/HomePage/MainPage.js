@@ -238,7 +238,6 @@ function HomePage() {
 
   return (
     <div className="mainpage">
-       <Navbar />
        <MembershipModal isOpen={membershipmodal} onClose={handlemembershipclose}/>
       <div className="flex items-star overflow-x-hidden">
         <div className="w-full md:w-2/3 md:mr-2 md:mx-4 ">

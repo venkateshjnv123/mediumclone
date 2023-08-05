@@ -8,6 +8,7 @@ import MembershipModal from "../Membership/TakeMembership";
 import Navbar from "../HomePage/Navbar";
 import ShareModal from "../Other/Sharemodel";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Link } from "react-router-dom";
 
 const CommentModal = ({isOpen, onClose }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -284,7 +285,8 @@ function PostsPage() {
                   className="text-[20px]"
                   style={{ display: "flex", alignItems: "center" }}
                 >
-                  <h6 className="font-[500]">John Abraham</h6>
+                  <Link to='/oprofile'><h6 className="font-[500] cursor-pointer">John Abraham</h6></Link>
+                  
                   <span className="dot"></span>
                   <span className="text-[#1A8917]">Follow</span>
                 </div>

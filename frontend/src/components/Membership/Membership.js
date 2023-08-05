@@ -19,7 +19,7 @@ const PricingCard = ({ postsPerDay, price, perks }) => {
       console.log("yeaj")
       const options = {
         key: 'rzp_test_hjnHnpkynNqw7v', // Replace with your Razorpay API key
-        amount: price* 1000, // Replace with the desired amount in paise
+        amount: 1000, // Replace with the desired amount in paise
         currency: 'INR', // Replace with your preferred currency
         name: 'Your Company Name',
         description: 'Test Payment',

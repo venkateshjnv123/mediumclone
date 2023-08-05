@@ -20,6 +20,8 @@ import Profile from "./components/User/profile";
 import ExploreTopics from "./components/HomePage/Alltopics";
 import { Provider } from 'react-redux'
 import store from "./components/redux/store";
+import OthersProfile from "./components/User/othersProfile";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,7 +54,6 @@ element : <MyPostsPage/>
     path: "/signup",
     element: <RegistrationPage />,
   },
-
  {
   path : '/membership',
   element : <MembershipPricingPage/>
@@ -67,6 +68,9 @@ element : <MyPostsPage/>
   {
     path : '/alltopics',
     element : <ExploreTopics/>
+  },
+   { path: "/oprofile",
+    element: <OthersProfile />,
   }
 ]);
 
