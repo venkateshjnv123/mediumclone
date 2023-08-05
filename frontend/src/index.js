@@ -23,7 +23,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Protected from "./Protected";
 import Othersposts from "./components/User/Othersposts";
-
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -78,6 +79,27 @@ element : <Protected><MyPostsPage/></Protected>
     element : <Othersposts/>
   }
 ]);
+
+// Import the functions you need from the SDKs you nee
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAevoliKX3OiXq4fPNovZhkNmgMDrkF-iU",
+  authDomain: "patnala1-8482d.firebaseapp.com",
+  databaseURL: "https://patnala1-8482d-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "patnala1-8482d",
+  storageBucket: "patnala1-8482d.appspot.com",
+  messagingSenderId: "870911648161",
+  appId: "1:870911648161:web:396e5cff1d72c18eadebe0",
+  measurementId: "G-380DS3VH0F"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
