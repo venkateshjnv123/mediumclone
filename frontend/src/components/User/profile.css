@@ -22,6 +22,10 @@
   .profilehr {
     display: none !important;
   }
+
+  .profileMyListItem {
+    padding: 10px !important;
+  }
 }
 
 .imgProfileUser {
@@ -48,7 +52,7 @@
   letter-spacing: 0.03rem;
 }
 
-.profileListItem {
+.profileMyListItem {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;

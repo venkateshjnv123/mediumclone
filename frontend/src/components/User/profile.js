@@ -20,52 +20,79 @@ function profile() {
             <div>
               <ol className="profileList">
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li className="text-[20px]">
                       <div>
                         <span className="text-[#121212]">List 1</span>
                       </div>
                     </li>
-                    <div>
-                      <img
-                        className="profileOpenLink"
-                        src="https://static.thenounproject.com/png/196595-200.png"
-                        alt="->"
-                      />
+                    <div className="flex gap-3 relative top-[8px]">
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://static.thenounproject.com/png/196595-200.png"
+                          alt="->"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li className="text-[20px]">
                       <div>
                         <span className="text-[#121212]">List 1</span>
                       </div>
                     </li>
-                    <div>
-                      <img
-                        className="profileOpenLink"
-                        src="https://static.thenounproject.com/png/196595-200.png"
-                        alt="->"
-                      />
+                    <div className="flex gap-3 relative top-[8px]">
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://static.thenounproject.com/png/196595-200.png"
+                          alt="->"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li className="text-[20px]">
                       <div>
                         <span className="text-[#121212]">List 1</span>
                       </div>
                     </li>
-                    <div>
-                      <img
-                        className="profileOpenLink"
-                        src="https://static.thenounproject.com/png/196595-200.png"
-                        alt="->"
-                      />
+                    <div className="flex gap-3 relative top-[8px]">
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://static.thenounproject.com/png/196595-200.png"
+                          alt="->"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -85,7 +112,7 @@ function profile() {
             <div>
               <ol className="profileList">
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -98,18 +125,27 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
-                      <img
-                        className="profileOpenLink"
-                        src="https://static.thenounproject.com/png/196595-200.png"
-                        alt="->"
-                      />
+                    <div className="flex gap-3">
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://static.thenounproject.com/png/196595-200.png"
+                          alt="->"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -122,18 +158,27 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
-                      <img
-                        className="profileOpenLink"
-                        src="https://static.thenounproject.com/png/196595-200.png"
-                        alt="->"
-                      />
+                    <div className="flex gap-3">
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://static.thenounproject.com/png/196595-200.png"
+                          alt="->"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -146,12 +191,21 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
-                      <img
-                        className="profileOpenLink"
-                        src="https://static.thenounproject.com/png/196595-200.png"
-                        alt="->"
-                      />
+                    <div className="flex gap-3">
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://static.thenounproject.com/png/196595-200.png"
+                          alt="->"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          className="profileOpenLink"
+                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </a>

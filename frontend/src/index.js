@@ -12,6 +12,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import HomePage from "./components/HomePage/MainPage";
 import PostsPage from "./components/LandingPage/postsPage";
 import Profile from "./components/User/profile";
+import OthersProfile from "./components/User/othersProfile";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/oprofile",
+    element: <OthersProfile />,
   },
 ]);
 
