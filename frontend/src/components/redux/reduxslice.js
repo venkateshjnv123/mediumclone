@@ -23,13 +23,53 @@ export const membershipSlice = createSlice({
       },
     },
   })
+
+  export const usernameSlice = createSlice({
+    name: 'username',
+    initialState: {
+      value: '',
+    },
+    reducers: {
+      setusernameValue: (state, action) => {
+        state.value = action.payload
+      },
+    },
+  })
+
+  export const nameSlice = createSlice({
+    name: 'name',
+    initialState: {
+      value: '',
+    },
+    reducers: {
+      setnameValue: (state, action) => {
+        state.value = action.payload
+      },
+    },
+  })
+
+  export const loggedinSlice = createSlice({
+    name: 'loggedin',
+    initialState: {
+      value: false,
+    },
+    reducers: {
+      setloggedinValue: (state, action) => {
+        state.value = action.payload
+      },
+    },
+  })
   
 // Action creators are generated for each case reducer function
 export const {setviewValue} = ViewSlice.actions
 export const {setmembershipValue} = membershipSlice.actions
-
+export const {setusernameValue} = usernameSlice.actions
+export const {setnameValue} = nameSlice.actions
+export const {setloggedinValue} = loggedinSlice.actions
 
 const viewReducer = ViewSlice.reducer
 const membershipreducer = membershipSlice.reducer
-
-export {viewReducer, membershipreducer};
+const usernamereducer = usernameSlice.reducer
+const namereducer = nameSlice.reducer
+const loggedinreducer = loggedinSlice.reducer
+export {viewReducer, membershipreducer, usernamereducer, namereducer, loggedinreducer};

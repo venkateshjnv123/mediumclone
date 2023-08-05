@@ -109,7 +109,7 @@ const BlogForm = () => {
     values["date"] = formatDate(new Date());
     array1.push(values);
     console.log("Saving draft:", values);
-    toast.warning("form stored submitted");
+    toast.warning("data stored as draft");
     localStorage.setItem("blogs", JSON.stringify(array1));
   };
 

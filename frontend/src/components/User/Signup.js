@@ -1,7 +1,10 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaGoogle, FaFacebook, FaInstagram } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setnameValue, setusernameValue , setloggedinValue} from "../redux/reduxslice";
+import { toast } from "react-toastify";
 // const categories = [
 //   'Software Development',
 //   'Programming',
@@ -18,8 +21,15 @@ import { Link } from "react-router-dom";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const RegistrationPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSubmit = (values) => {
-    console.log("hello");
+    localStorage.setItem("signinvalues", JSON.stringify(values));
+    dispatch(setnameValue(values['name']));
+    dispatch(setusernameValue(values['email']));
+    dispatch(setloggedinValue(true));
+    localStorage.setItem("loggedin" , "yes");
+    navigate('/home');
     console.log(values);
   };
 
@@ -36,7 +46,6 @@ const RegistrationPage = () => {
               password: "",
               confirmPassword: "",
               name: "",
-              categories: [],
             }}
             validate={(values) => {
               const errors = {};
@@ -60,13 +69,17 @@ const RegistrationPage = () => {
               if (!values.name) {
                 errors.name = "Name is required";
               }
-              if (!values.categories) {
-                errors.categories = "Category is required";
-              }
+              // if (!values.categories) {
+              //   errors.categories = "Category is required";
+              // }
               return errors;
             }}
             onSubmit={async (values) => {
-              await sleep(500);
+              localStorage.setItem("signinvalues", JSON.stringify(values));
+              dispatch(setnameValue(values['name']));
+              dispatch(setusernameValue(values['email']));
+              toast.success("Registration successfull");
+              navigate('/home');
               console.log(values);
             }}
           >

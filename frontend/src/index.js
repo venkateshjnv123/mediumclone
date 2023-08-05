@@ -3,24 +3,26 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import BlogForm from "./components/Posts/Addpost";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";import BlogForm from "./components/Posts/Addpost";
 import Myposts from "./components/Posts/Mypost";
 import LoginPage from "./components/User/Signin";
 import RegistrationPage from "./components/User/Signup";
 import LandingPage from "./components/LandingPage/LandingPage";
 import HomePage from "./components/HomePage/MainPage";
 import PostsPage from "./components/LandingPage/postsPage";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import EditForm from "./components/Posts/Editpost";
 import MyPostsPage from "./components/LandingPage/Mypostshow";
 import MembershipPricingPage from "./components/Membership/Membership";
 import Profile from "./components/User/profile";
 import ExploreTopics from "./components/HomePage/Alltopics";
-import { Provider } from 'react-redux'
 import store from "./components/redux/store";
 import OthersProfile from "./components/User/othersProfile";
+
+import { Provider } from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Protected from "./Protected";
+import Othersposts from "./components/User/Othersposts";
 
 const router = createBrowserRouter([
   {
@@ -29,26 +31,26 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <HomePage />,
+    element: <Protected><HomePage/></Protected> ,
   },
   {
     path: "/add",
-    element: <BlogForm />,
+    element: <Protected> <BlogForm /></Protected>,
   },
   {
 path : '/edit',
-element : <EditForm/>
+element :<Protected><EditForm/></Protected> 
   },
   {
     path: "/myposts",
-    element: <Myposts />,
+    element:<Protected><Myposts /></Protected> ,
   },{
 path : '/mypostsshow',
-element : <MyPostsPage/>
+element : <Protected><MyPostsPage/></Protected>
   },
   {
     path: "/signin",
-    element: <LoginPage />,
+    element:<LoginPage /> ,
   },
   {
     path: "/signup",
@@ -56,21 +58,24 @@ element : <MyPostsPage/>
   },
  {
   path : '/membership',
-  element : <MembershipPricingPage/>
+  element :<Protected><MembershipPricingPage/></Protected> 
  },{
     path: "/postpage",
-    element: <PostsPage />,
+    element:<Protected><PostsPage /></Protected> ,
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element:<Protected><Profile /></Protected> ,
   },
   {
     path : '/alltopics',
-    element : <ExploreTopics/>
+    element :<Protected><ExploreTopics/></Protected> 
   },
    { path: "/oprofile",
-    element: <OthersProfile />,
+    element:<Protected><OthersProfile /></Protected> ,
+  },{
+    path : '/otherposts',
+    element : <Othersposts/>
   }
 ]);
 

@@ -2,11 +2,27 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaGoogle, FaFacebook, FaInstagram } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setloggedinValue, setnameValue, setusernameValue } from "../redux/reduxslice";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSubmit = (values) => {
-    navigate('/home');
+    const val = JSON.parse(localStorage.getItem('signinvalues'));
+    if(val['email'] === values['email'] && val['password'] === values['password']){
+      dispatch(setusernameValue(val['username']));
+      dispatch(setnameValue(val['name']));
+      dispatch(setloggedinValue(true));
+      localStorage.setItem("loggedin" , "yes");
+      navigate('/home');
+      toast.success("logged in successfully");
+
+    }
+    else{
+      toast.error("entered incorrect details");
+    }
     console.log(values);
   };
 

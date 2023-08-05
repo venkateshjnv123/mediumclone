@@ -93,6 +93,8 @@ function HomePage() {
   const [endDate, setEndDate] = useState("");
   const [likesCommentsOrder, setLikesCommentsOrder] = useState("high");
   const [membershipmodal, setmembershipmodal] = useState(false);
+  const username = useSelector((state) => state.username.value);
+  console.log(username);
   const blogsdata = [
     {
       title: "Stop Using React Native Async Storage",

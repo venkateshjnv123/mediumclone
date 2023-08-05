@@ -1,7 +1,16 @@
 import React from "react";
 import "./profile.css";
+import { useNavigate } from "react-router-dom";
 
-function profile() {
+function Profile() {
+const navigate = useNavigate();
+  const handleShowposts = (name) => {
+    navigate('/otherposts' , {state : {name : name}})
+  }
+
+  const gotopost = (name) => {
+    navigate('/postpage',{state : {name : name}});
+  }
   return (
     <div>
       <div className="profileDiv px-[50px]">
@@ -33,7 +42,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -57,7 +66,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -81,7 +90,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -105,7 +114,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -129,7 +138,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -142,7 +151,7 @@ function profile() {
             </div>
 
             <div className="profileShowAllDiv my-[30px]">
-              <button className="profileShowAll">See All Posts</button>
+              <button className="profileShowAll" onClick={()=>handleShowposts("venkatesh")}>See All Posts</button>
             </div>
           </div>
         </div>
@@ -243,4 +252,4 @@ function profile() {
   );
 }
 
-export default profile;
+export default Profile;

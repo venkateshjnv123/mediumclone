@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage, useFormikContext, useFormik, FormikConsumer } from "formik";
 import * as Yup from "yup";
 import Navbar from "../HomePage/Navbar";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
 const EditForm = () => {
@@ -19,7 +19,7 @@ const handleAddCategory = (category) => {
   const validationSchema = Yup.object({
    // date: Yup.string().required("Date is required"),
     title: Yup.string().required("Title is required"),
-    subtitle: Yup.string().required("Subtitle is required"),
+   // subtitle: Yup.string().required("Subtitle is required"),
     content: Yup.string().required("Content is required"),
     featuredImage: Yup.string().required("Featured Image is required"),
     authorName: Yup.string().required("Author Name is required"),
@@ -37,6 +37,8 @@ const handleAddCategory = (category) => {
       date.getFullYear(),
     ].join('/');
   }
+
+  const navigate = useNavigate();
 
   const onSubmit = (values, { setSubmitting, resetForm }) => {
 
@@ -65,8 +67,9 @@ const handleAddCategory = (category) => {
     array2.push(values);
     localStorage.setItem("blogs", JSON.stringify(array2));
     toast.success("form successfully submitted");
-    resetForm()
+    resetForm();
     
+    navigate('/myposts');
     // Handle form submission here, e.g., send data to server, etc.
   };
   const handleSaveDraft = (values) => {
@@ -81,9 +84,8 @@ const handleAddCategory = (category) => {
 
   return (
     <div>
-      <Navbar />
       <div className="w-full max-w-lg mx-auto">
-        <h2 className="text-2xl font-bold mb-4">Create a Blog</h2>
+        <h2 className="text-2xl font-bold mb-4">Edit your Blog</h2>
         <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -95,14 +97,14 @@ const handleAddCategory = (category) => {
           <Form className="space-y-4">
 
             <div className="flex flex-col">
-              <label htmlFor="title" className="text-sm font-medium mb-1">
+              <label htmlFor="title" className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
                 Title
               </label>
               <Field
                 type="text"
                 id="title"
                 name="title"
-                className="border rounded-md px-3 py-2"
+                className="border rounded-[25px] px-3 py-2"
                 //onChange={formik.handleChange}
                 //value={formik.values.title}
               />
@@ -113,7 +115,7 @@ const handleAddCategory = (category) => {
               />
             </div>
 
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <label htmlFor="subtitle" className="text-sm font-medium mb-1">
                 Subtitle
               </label>
@@ -130,17 +132,17 @@ const handleAddCategory = (category) => {
                 component="div"
                 className="text-red-500"
               />
-            </div>
+            </div> */}
 
             <div className="flex flex-col">
-              <label htmlFor="content" className="text-sm font-medium mb-1">
+              <label htmlFor="content" className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
                 Content
               </label>
               <Field
                 as="textarea"
                 id="content"
                 name="content"
-                className="border rounded-md px-3 py-2"
+                className="border rounded-[25px] px-3 py-2"
                 rows="5"
                 // onChange={formik.handleChange}
                 // value={formik.values.content}
@@ -155,7 +157,7 @@ const handleAddCategory = (category) => {
             <div className="flex flex-col">
               <label
                 htmlFor="featuredImage"
-                className="text-sm font-medium mb-1"
+                className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]"
               >
                 Featured Image URL
               </label>
@@ -163,7 +165,7 @@ const handleAddCategory = (category) => {
                 type="text"
                 id="featuredImage"
                 name="featuredImage"
-                className="border rounded-md px-3 py-2"
+                className="border rounded-[25px] px-3 py-2"
                 // onChange={formik.handleChange}
                 // value={formik.values.featuredImage}
               />
@@ -175,14 +177,14 @@ const handleAddCategory = (category) => {
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="authorName" className="text-sm font-medium mb-1">
+              <label htmlFor="authorName" className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
                 Author Name
               </label>
               <Field
                 type="text"
                 id="authorName"
                 name="authorName"
-                className="border rounded-md px-3 py-2"
+                className="border rounded-[25px] px-3 py-2"
                 // onChange={formik.handleChange}
                 // value={formik.values.authorName}
               />
@@ -194,7 +196,7 @@ const handleAddCategory = (category) => {
             </div>
 
             <div className="mb-4">
-              <label className="text-gray-700 font-bold">
+              <label className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
                 Categories:
               </label>
               <div className="grid grid-cols-2 gap-2 mt-1">
@@ -217,7 +219,7 @@ const handleAddCategory = (category) => {
             <div>
           <label>
             Additional Category:
-            <Field name="newCategory" type="text" />
+            <Field name="newCategory" type="text"  className="border rounded-[25px] px-3 py-2" />
           </label>
           <button
             type="button"

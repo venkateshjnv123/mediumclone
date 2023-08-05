@@ -1,13 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "./profile.css";
+import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function profile() {
+function Profile() {
+  const listnames = ['Private', 'finance', 'Technology', 'Business'];
+ const values = JSON.parse(localStorage.getItem('signinvalues'));
+  const saved = [
+     {data : " John Doe" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
+     {data : " Venkatesh" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
+     {data : "Vivek paidi" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
+     {data : "Vivek paidi" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
+  ]
+
+  const [savedtoshow, setsavedtoshow] = useState(saved);
+  const [liststoshow, setliststoshow] = useState(listnames);
+  console.log(useSelector((state)=> state.username.value));
+  const navigate = useNavigate();
+  const handleshowlist = (name) => {
+    navigate('/otherposts')
+  }
+
+  const handledelete = (index) => {
+    listnames.splice(index, 1);
+    setliststoshow(listnames);
+  }
+
+  const handledeletesaved = (index) => {
+    saved.splice(index, 1);
+    setsavedtoshow(listnames);
+  }
+
   return (
     <div>
       <div className="profileDiv px-[50px]">
         <div className="profileDivLeft mr-[100px]">
           <div className="hidden md:block text-[50px] font-[700] mt-[20px] my-[40px] pl-[30px]">
-            <span>John Abraham</span>
+            <span>{values['name']}</span>
           </div>
 
           <hr />
@@ -19,88 +48,39 @@ function profile() {
 
             <div>
               <ol className="profileList">
-                <a>
-                  <div className="profileMyListItem">
-                    <li className="text-[20px]">
-                      <div>
-                        <span className="text-[#121212]">List 1</span>
-                      </div>
-                    </li>
-                    <div className="flex gap-3 relative top-[8px]">
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://static.thenounproject.com/png/196595-200.png"
-                          alt="->"
-                        />
-                      </div>
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </a>
-
-                <a>
-                  <div className="profileMyListItem">
-                    <li className="text-[20px]">
-                      <div>
-                        <span className="text-[#121212]">List 1</span>
-                      </div>
-                    </li>
-                    <div className="flex gap-3 relative top-[8px]">
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://static.thenounproject.com/png/196595-200.png"
-                          alt="->"
-                        />
-                      </div>
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
-                          alt=""
-                        />
+                {
+                  liststoshow.map((name,index)=>(
+                    <a>
+                    <div className="profileMyListItem">
+                      <li className="text-[20px]">
+                        <div>
+                          <span className="text-[#121212]">{name}</span>
+                        </div>
+                      </li>
+                      <div className="flex gap-3 relative top-[8px]">
+                        <Link to='/otherposts' state = {{name : name}}>
+                        <div className="cursor-pointer">
+                          <img
+                            className="profileOpenLink"
+                            src="https://static.thenounproject.com/png/196595-200.png"
+                            alt="->"
+                          />
+                        </div>
+                        </Link>
+                        
+                        <div className="cursor-pointer" onClick={(index)=> handledelete(index)}>
+                          <img
+                            className="profileOpenLink"
+                            src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                            alt=""
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </a>
-
-                <a>
-                  <div className="profileMyListItem">
-                    <li className="text-[20px]">
-                      <div>
-                        <span className="text-[#121212]">List 1</span>
-                      </div>
-                    </li>
-                    <div className="flex gap-3 relative top-[8px]">
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://static.thenounproject.com/png/196595-200.png"
-                          alt="->"
-                        />
-                      </div>
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </a>
+                  </a>
+                  ))
+                }
               </ol>
-            </div>
-
-            <div className="profileShowAllDiv my-[30px] w-full">
-              <button className="profileShowAll">Show All</button>
             </div>
           </div>
 
@@ -111,29 +91,32 @@ function profile() {
 
             <div>
               <ol className="profileList">
-                <a>
+                {
+                  savedtoshow.map((content, index) => (
+<a>
                   <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
-                          Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnv
-                          sdk sdfkinsdkn
+                          {content.content}
                         </span>
                         <br />
                         <span className="text-[13px] pl-[10px] font-[400]">
-                          Author: John Doe{" "}
+                          Author: {content.data}
                         </span>
                       </div>
                     </li>
                     <div className="flex gap-3">
-                      <div>
+                    <Link to='/postpage'>
+                      <div className="cursor-pointer">
                         <img
                           className="profileOpenLink"
                           src="https://static.thenounproject.com/png/196595-200.png"
                           alt="->"
                         />
                       </div>
-                      <div>
+                      </Link>
+                      <div className="cursor-pointer" onClick={(index)=> handledeletesaved(index)} >
                         <img
                           className="profileOpenLink"
                           src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
@@ -143,77 +126,16 @@ function profile() {
                     </div>
                   </div>
                 </a>
-
-                <a>
-                  <div className="profileMyListItem">
-                    <li>
-                      <div className="max-w-[80%] text-[15px] font-[500]">
-                        <span>
-                          Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnv
-                          sdk sdfkinsdkn
-                        </span>
-                        <br />
-                        <span className="text-[13px] pl-[10px] font-[400]">
-                          Author: John Doe{" "}
-                        </span>
-                      </div>
-                    </li>
-                    <div className="flex gap-3">
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://static.thenounproject.com/png/196595-200.png"
-                          alt="->"
-                        />
-                      </div>
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </a>
-
-                <a>
-                  <div className="profileMyListItem">
-                    <li>
-                      <div className="max-w-[80%] text-[15px] font-[500]">
-                        <span>
-                          Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnv
-                          sdk sdfkinsdkn
-                        </span>
-                        <br />
-                        <span className="text-[13px] pl-[10px] font-[400]">
-                          Author: John Doe{" "}
-                        </span>
-                      </div>
-                    </li>
-                    <div className="flex gap-3">
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://static.thenounproject.com/png/196595-200.png"
-                          alt="->"
-                        />
-                      </div>
-                      <div>
-                        <img
-                          className="profileOpenLink"
-                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </a>
+                  ))
+                }
+                
               </ol>
             </div>
 
             <div className="profileShowAllDiv my-[30px]">
+            <Link to='/otherposts' state = {{name : "Save for later"}}>
               <button className="profileShowAll">Show All</button>
+            </Link>
             </div>
           </div>
         </div>
@@ -229,9 +151,9 @@ function profile() {
             </div>
             <div className="profileName font-[700] my-[20px]">
               <div>
-                <h6 className="text-[30px]">John Abraham</h6>
+                <h6 className="text-[30px]">{values['name']}</h6>
               </div>
-              <div>
+              {/* <div>
                 <a>
                   <img
                     className="profileEditLink"
@@ -239,36 +161,22 @@ function profile() {
                     alt="->"
                   />
                 </a>
-              </div>
+              </div> */}
             </div>
             <div className="profileName font-[400] my-[20px]">
               <div>
-                <h6 className="text-[20px]">johnabraham@gmail.com</h6>
-              </div>
-              <div>
-                <a>
-                  <img
-                    className="profileEditLink1"
-                    src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png"
-                    alt="->"
-                  />
-                </a>
+                <h6 className="text-[20px]">{values['email']}</h6>
               </div>
             </div>
             <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
               <div>
                 <h6 className="text-[20px]">+91 9291909491</h6>
               </div>
-              <div>
-                <a>
-                  <img
-                    className="profileEditLink1"
-                    src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png"
-                    alt="->"
-                  />
-                </a>
-              </div>
             </div>
+            <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
+             <button className="rounded-[25px] px-[15px] py-[5px] bg-green-500 text-white">edit profile</button>
+            </div>
+
           </div>
 
           <hr className="profilehr" />
@@ -329,4 +237,4 @@ function profile() {
   );
 }
 
-export default profile;
+export default Profile;

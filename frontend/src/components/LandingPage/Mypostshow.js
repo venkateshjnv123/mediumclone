@@ -5,11 +5,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function MyPostsPage() {
   const location = useLocation();
-  //const blogdetails = location.state.blogdetails;
+  const blogdetails = location.state.blogdetails;
   const navigate  = useNavigate()
   const handleedit = (values) => {
     console.log(values);
-    navigate('/edit', {state :{values : values}});
+    navigate('/edit', {state :{values : blogdetails}});
   }
 
   const handledelete = (id) => {
