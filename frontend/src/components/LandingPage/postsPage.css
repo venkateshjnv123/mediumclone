@@ -49,6 +49,7 @@
 
 .btnsDiv {
   display: flex;
+  cursor: pointer;
 }
 
 .btnsLeftDiv,

@@ -1,7 +1,9 @@
 import React from "react";
 // import { FormControl, InputGroup } from "react-bootstrap";
 import "./mainPoster.css";
+import { Link, useNavigate } from "react-router-dom";
 export default function Homepage() {
+  const navigate = useNavigate();
   return (
     <div
       className="mainPoster"
@@ -26,7 +28,7 @@ export default function Homepage() {
             Discover stories, thinking, and expertise from writers on any topic.
           </p>
           <button className="px-[30px] py-[5px] my-[20px] font-bold rounded-[20px] bg-black text-white text-[20px]">
-            Start reading
+           <Link to='/signin'>Start reading</Link> 
           </button>
         </div>
         <div className="mainPosterright">

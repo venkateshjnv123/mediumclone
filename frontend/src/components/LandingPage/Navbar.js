@@ -8,15 +8,16 @@ import rightarrow from "../Logos/rightarrow.svg";
 import downCopyArrow from "../Logos/downCopyArrow.svg";
 import navToggleCross from "../Logos/navToggleCross.svg";
 import whatsappIcon from "../Logos/whatsappIcon.svg";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  window.onscroll = () => {
-    if (window.scrollY > 0) {
-      document.querySelector(".nav").classList.add("navBarScroll");
-    } else {
-      document.querySelector(".nav").classList.remove("navBarScroll");
-    }
-  };
+  // window.onscroll = () => {
+  //   if (window.scrollY > 0) {
+  //     document.querySelector(".nav").classList.add("navBarScroll");
+  //   } else {
+  //     document.querySelector(".nav").classList.remove("navBarScroll");
+  //   }
+  // };
 
   // window.onscroll = () => {
   //   if (window.scrollY > 0) {
@@ -66,17 +67,21 @@ export default function Navbar() {
           </span>
         </button>
         <div role="button" className="logoimage">
-          <img src={logo} alt="cogoport logo" />
+       <h2>Medium Blog App</h2>
         </div>
         <div className="loginbtnsdiv">
           <ul className="loginbuttons">
+            <Link to='/signin'>
             <li className="nav-btn">
               {/* <img src={happyface} alt="happyface" /> */}
               login
             </li>
+            </Link>
+            <Link to='/signup'>
             <li className="signinbtn">
               <button className="signupbtn"> Sign Up</button>
             </li>
+            </Link>
           </ul>
         </div>
       </div>

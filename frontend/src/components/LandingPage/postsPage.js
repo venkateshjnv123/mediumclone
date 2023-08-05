@@ -5,13 +5,18 @@ import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
 import CloseIcon from '@mui/icons-material/Close';
 import MembershipModal from "../Membership/TakeMembership";
+import Navbar from "../HomePage/Navbar";
+import ShareModal from "../Other/Sharemodel";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 const CommentModal = ({isOpen, onClose }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([
-    "User comment 1",
-    "User comment 2",
-    "User comment 3",
+    {"author" : "Johnabraham" , "comment" : "Your post advises to Always use functional components. While functional components are indeed a popular choice in React development due to the introduction of hooks."},
+    {"author" : "Johnabraham" , "comment" : "Your post advises to Always use functional components. While functional components are indeed a popular choice in React development due to the introduction of hooks."},
+    {"author" : "Johnabraham" , "comment" : "Your post advises to Always use functional components. While functional components are indeed a popular choice in React development due to the introduction of hooks."},
+
   ]);
 
   const handleOpenModal = () => {
@@ -24,13 +29,17 @@ const CommentModal = ({isOpen, onClose }) => {
 
   const handleAddComment = () => {
     if (newComment.trim() !== "") {
-      setComments((prevComments) => [...prevComments, newComment]);
+      let cooom = { author : "venkatesh patnala" , comment : newComment} ;
+      setComments((prevComments) => [...prevComments,cooom]);
       setNewComment("");
     }
   };
 
+
+
   return (
     <div>
+   
         <div
         className={`${
           isOpen ? "fixed inset-0 z-10 flex justify-end bg-white bg-opacity-50 " : "hidden"
@@ -41,8 +50,10 @@ const CommentModal = ({isOpen, onClose }) => {
           <div
             className="bg-white w-80 p-4 shadow-xl overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
-          > <CloseIcon  onClick={onClose}/>
-            <div className="mb-4">
+          > 
+            <div className="mb-4 justify-end">
+            <CloseIcon  onClick={onClose} className="cursor-pointer" style={{position:'absolute', right : '30px', top :'10px', color :'red'}}/>
+            <h2>@venkatesh Patnala</h2>
               <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
@@ -53,7 +64,7 @@ const CommentModal = ({isOpen, onClose }) => {
                 onClick={handleAddComment}
                 className="px-4 py-2 mt-2 bg-blue-500 text-white rounded-md"
               >
-                Respond
+                Comment
               </button>
             </div>
 
@@ -73,13 +84,13 @@ const CommentModal = ({isOpen, onClose }) => {
                   className="text-[20px]"
                   style={{ display: "flex", alignItems: "center" }}
                 >
-                  <h6 className="font-[500]">John Abraham</h6>
+                  <h6 className="font-[500]">{comment.author}</h6>
                 </div>
               </div>
             </div>
 
             <div>
-         <p>  Your post advises to "Always use functional components." While functional components are indeed a popular choice in React development due to the introduction of hooks.</p>  
+         <p>  {comment.comment}</p>  
               </div>
 
               <div className="flex justify-between">
@@ -152,35 +163,40 @@ setNewListName('');
       <div className="bg-white w-96 p-6 rounded-lg">
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {({ values, handleChange }) => (
-        <Form className="flex flex-col">
+        <Form className="flex flex-col justify-center">
           <h2>Select Categories:</h2>
           {selectedList.map((category) => (
-            <label key={category}>
+            <div className="flex items-center">
               <Field
-                type="checkbox"
-                name="list"
-                value={category}
-                checked={values.list.includes(category)}
-                onChange={handleChange}
-                className="form-checkbox h-4 w-4 text-blue-500"
-              />
+              type="checkbox"
+              name="list"
+              value={category}
+              checked={values.list.includes(category)}
+              onChange={handleChange}
+              className="form-checkbox h-4 w-4 text-blue-500 my-2"
+            />
+            <label key={category} className="ml-2">
+            
               {category}
             </label>
+            </div>
           ))}
 <hr/>
+<div className="flex m-2">
 <label>
             New list:
-            <input name="newCategory" type="text" value={newListName} onChange={(e)=>handlechange1(e)} />
+          <input name="newCategory" className="m-2 rounded-md border-2 border-gray-500 p-1" type="text" value={newListName} onChange={(e)=>handlechange1(e)} />
           </label>
           <button
             type="button"
+            className="px-1 bg-gray-300 rounded-md"
             onClick={() => handleAddCategory()}
           >
             Add
           </button>
-
+          </div>
         <hr/>
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-2">
           <button
             onClick={onClose}
             className="px-4 py-2 mr-2 bg-gray-300 rounded-md"
@@ -211,6 +227,8 @@ function PostsPage() {
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [commentsopen, setiscomentsopen] = useState(false);
+  const [shareopen, setisshareopen] = useState(false);
+  const [like, setlike] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -224,8 +242,18 @@ function PostsPage() {
     setIsModalOpen(false);
   };
 
+  const handleclosesharemodal = () => {
+    console.log("working")
+    setisshareopen(false);
+    console.log(shareopen)
+  }
+
   const handleclosecommentsmodal = () => {
     setiscomentsopen(false);
+  }
+
+  const handleopensharemodal = () => {
+    setisshareopen(true);
   }
 
   const handleSaveList = (data) => {
@@ -236,7 +264,7 @@ function PostsPage() {
 
   return (
     <div>
-       <MembershipModal/>
+         
       <div className="postsPage py-[40px]">
         <h2 className="text-[30px] sm:text-[42px] font-bold">
           Oppenheimer Isn't a Story About the Atomic Bomb, It's About Ourselves
@@ -278,11 +306,10 @@ function PostsPage() {
         <div className="btnsMainDiv py-[15px] px-[10px]">
           <div className="btnsLeftDiv gap-5">
             <div className="btnsDiv">
-              <div>
+              <div onClick={() => setlike(!like)}>
                 <span>
-                  <svg width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M11.37.83L12 3.28l.63-2.45h-1.26zM13.92 3.95l1.52-2.1-1.18-.4-.34 2.5zM8.59 1.84l1.52 2.11-.34-2.5-1.18.4zM18.52 18.92a4.23 4.23 0 0 1-2.62 1.33l.41-.37c2.39-2.4 2.86-4.95 1.4-7.63l-.91-1.6-.8-1.67c-.25-.56-.19-.98.21-1.29a.7.7 0 0 1 .55-.13c.28.05.54.23.72.5l2.37 4.16c.97 1.62 1.14 4.23-1.33 6.7zm-11-.44l-4.15-4.15a.83.83 0 0 1 1.17-1.17l2.16 2.16a.37.37 0 0 0 .51-.52l-2.15-2.16L3.6 11.2a.83.83 0 0 1 1.17-1.17l3.43 3.44a.36.36 0 0 0 .52 0 .36.36 0 0 0 0-.52L5.29 9.51l-.97-.97a.83.83 0 0 1 0-1.16.84.84 0 0 1 1.17 0l.97.97 3.44 3.43a.36.36 0 0 0 .51 0 .37.37 0 0 0 0-.52L6.98 7.83a.82.82 0 0 1-.18-.9.82.82 0 0 1 .76-.51c.22 0 .43.09.58.24l5.8 5.79a.37.37 0 0 0 .58-.42L13.4 9.67c-.26-.56-.2-.98.2-1.29a.7.7 0 0 1 .55-.13c.28.05.55.23.73.5l2.2 3.86c1.3 2.38.87 4.59-1.29 6.75a4.65 4.65 0 0 1-4.19 1.37 7.73 7.73 0 0 1-4.07-2.25zm3.23-12.5l2.12 2.11c-.41.5-.47 1.17-.13 1.9l.22.46-3.52-3.53a.81.81 0 0 1-.1-.36c0-.23.09-.43.24-.59a.85.85 0 0 1 1.17 0zm7.36 1.7a1.86 1.86 0 0 0-1.23-.84 1.44 1.44 0 0 0-1.12.27c-.3.24-.5.55-.58.89-.25-.25-.57-.4-.91-.47-.28-.04-.56 0-.82.1l-2.18-2.18a1.56 1.56 0 0 0-2.2 0c-.2.2-.33.44-.4.7a1.56 1.56 0 0 0-2.63.75 1.6 1.6 0 0 0-2.23-.04 1.56 1.56 0 0 0 0 2.2c-.24.1-.5.24-.72.45a1.56 1.56 0 0 0 0 2.2l.52.52a1.56 1.56 0 0 0-.75 2.61L7 19a8.46 8.46 0 0 0 4.48 2.45 5.18 5.18 0 0 0 3.36-.5 4.89 4.89 0 0 0 4.2-1.51c2.75-2.77 2.54-5.74 1.43-7.59L18.1 7.68z"></path>
-                  </svg>
+                 {like ? <FavoriteBorderIcon sx={{color : 'red'}} /> : 
+                  <FavoriteBorderIcon/>}
                 </span>
               </div>
               <div className="pl-[5px]">
@@ -332,7 +359,10 @@ function PostsPage() {
                 </span>
               </div>
             </div>
-            <div className="btnsDiv">
+            <ShareModal isOpen1={shareopen}
+        onClose1={handleclosesharemodal} />
+            <div className="btnsDiv" onClick={handleopensharemodal}>
+     
               <div>
                 <span>
                   <svg width="24" height="24" viewBox="0 0 24 24">

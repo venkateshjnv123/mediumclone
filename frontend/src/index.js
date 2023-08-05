@@ -17,6 +17,9 @@ import EditForm from "./components/Posts/Editpost";
 import MyPostsPage from "./components/LandingPage/Mypostshow";
 import MembershipPricingPage from "./components/Membership/Membership";
 import Profile from "./components/User/profile";
+import ExploreTopics from "./components/HomePage/Alltopics";
+import { Provider } from 'react-redux'
+import store from "./components/redux/store";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,13 +64,20 @@ element : <MyPostsPage/>
     path: "/profile",
     element: <Profile />,
   },
+  {
+    path : '/alltopics',
+    element : <ExploreTopics/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <ToastContainer />
     <RouterProvider router={router} />
+    </Provider>
+  
   </React.StrictMode>
 );
 

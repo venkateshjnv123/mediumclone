@@ -2,18 +2,45 @@ import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+//import Razorpay from 'razorpay';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setmembershipValue } from '../redux/reduxslice';
+import useRazorpay from "react-razorpay";
+
 
 const PricingCard = ({ postsPerDay, price, perks }) => {
-    const stripe = useStripe();
+  const [Razorpay] = useRazorpay();
+    //const stripe = useStripe();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
   
-    const handleSubscribe = async () => {
-      if (!stripe) {
-        return;
-      }
-  
-      // Implement the Stripe payment logic here
-      // For simplicity, let's assume the subscription creation is successful
-      console.log(`Subscribed to ${postsPerDay} posts per day for $${price}`);
+    const handlePayment = (price) => {
+      console.log("yeaj")
+      const options = {
+        key: 'rzp_test_hjnHnpkynNqw7v', // Replace with your Razorpay API key
+        amount: price* 1000, // Replace with the desired amount in paise
+        currency: 'INR', // Replace with your preferred currency
+        name: 'Your Company Name',
+        description: 'Test Payment',
+        handler: function (response) {
+          // Payment success callback
+          console.log('Payment success:', response);
+          //setPaymentSuccess(true);
+          dispatch(setmembershipValue(true));
+          navigate('/home')
+        },
+        prefill: {
+          name: 'John Doe',
+          email: 'john@example.com',
+          contact: '9876543210',
+        },
+        notes: {
+          address: 'Razorpay Corporate Office',
+        },
+      };
+      const rzp = new Razorpay(options);
+      rzp.open();
     };
   
     return (
@@ -29,7 +56,7 @@ const PricingCard = ({ postsPerDay, price, perks }) => {
           ))}
         </ul>
         <button
-          onClick={handleSubscribe}
+          onClick={(price)=>handlePayment(price)}
           className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg w-full"
         >
           Subscribe
@@ -85,18 +112,13 @@ const MembershipPricingPage = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Membership Pricing</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      <Elements stripe={stripePromise}>
           <PricingCard {...pricingPlans[0]} />
-        </Elements>
-        <Elements stripe={stripePromise}>
+  
           <PricingCard {...pricingPlans[1]} />
-        </Elements>
-        <Elements stripe={stripePromise}>
+   
           <PricingCard {...pricingPlans[2]} />
-        </Elements>
-        <Elements stripe={stripePromise}>
+      
           <PricingCard {...pricingPlans[3]} />
-        </Elements>
       </div>
     </div>
   );

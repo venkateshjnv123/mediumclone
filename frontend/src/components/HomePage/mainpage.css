@@ -22,35 +22,35 @@
   }
 }
 
-.filterDiv {
+.filterDiv11 {
   display: flex;
   flex-direction: column;
 }
 
-.filterDivSub {
+.filterDivSub11 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.filterDivMain {
+.filterDivMain11 {
   display: flex;
   flex-direction: row;
 }
 
 @media (max-width: 767px) {
-  .filterDiv {
+  .filterDiv11 {
     display: flex;
     flex-direction: column;
   }
 
-  .filterDivSub {
+  .filterDivSub11 {
     display: flex;
     flex-direction: column;
     /* justify-content: space-around; */
   }
 
-  .filterDivMain {
+  .filterDivMain11 {
     display: flex;
     flex-direction: column;
   }

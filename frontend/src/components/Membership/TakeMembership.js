@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const MembershipModal = () => {
+const MembershipModal = ({isOpen, onClose}) => {
   const [isModalOpen, setModalOpen] = useState(true);
   const navigate = useNavigate();
 
@@ -18,9 +18,12 @@ const MembershipModal = () => {
 
   return (
     <>
-      {isModalOpen && (
-        <div className="fixed bottom-0 left-0 right-0 bg-slate-200 flex justify-center items-end pb-8">
-          <div className="bg-slate-200 p-4 rounded-t-lg shadow-lg w-64">
+        <div 
+         className={`${
+          isOpen ? "fixed flex justify-center bottom-0 left-0 right-0 bg-slate-200 items-end pb-8" : "hidden"
+        } bg-black`}
+       >
+          <div className="bg-slate-200 p-4 rounded-t-lg w-64">
             <p className="text-lg font-bold mb-4">You don't have membership.</p>
             <button
               onClick={handleTakeMembership}
@@ -36,7 +39,7 @@ const MembershipModal = () => {
             </button>
           </div>
         </div>
-      )}
+      
     </>
   );
 };
