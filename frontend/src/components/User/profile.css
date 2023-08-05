@@ -1,0 +1,96 @@
+.profileDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 991px) {
+  .profileDiv {
+    display: flex;
+    flex-direction: column-reverse !important;
+    padding: 0 !important;
+  }
+
+  .profileDivRight {
+    width: 100% !important;
+    border-left: 0 !important;
+  }
+
+  .profileDivLeft {
+    width: 100% !important;
+  }
+
+  .profilehr {
+    display: none !important;
+  }
+
+  .profileMyListItem {
+    padding: 10px !important;
+  }
+}
+
+.imgProfileUser {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}
+
+.profileDivLeft {
+  width: 70%;
+}
+
+.profileDivRight {
+  width: 30%;
+  border-left: 1px solid #e5e7eb;
+}
+
+.profileList {
+  margin-left: 25px;
+  list-style: auto;
+}
+
+.div {
+  letter-spacing: 0.03rem;
+}
+
+.profileMyListItem {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.profileOpenLink {
+  width: 20px;
+}
+
+.profileEditLink {
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  position: relative;
+  bottom: -15px;
+}
+
+.profileEditLink1 {
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  position: relative;
+  bottom: -7px;
+}
+
+.profileShowAll {
+  padding: 5px 20px;
+  border-radius: 25px;
+  border: 1px solid black;
+}
+
+.profileShowAllDiv {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.profileName {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

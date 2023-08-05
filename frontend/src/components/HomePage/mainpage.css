@@ -1,0 +1,88 @@
+/* .mainpage::-webkit-scrollbar {
+  display: none;
+}
+
+.mainpage {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+} */
+
+/* .titlesScroll {
+  overflow-x: scroll !important;
+} */
+
+.mainpage {
+  min-width: 1200px;
+}
+
+@media (max-width: 767px) {
+  .mainpage {
+    padding: 20px 10px !important;
+    min-width: 100% !important;
+  }
+}
+
+.filterDiv11 {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterDivSub11 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.filterDivMain11 {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 767px) {
+  .filterDiv11 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filterDivSub11 {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+  }
+
+  .filterDivMain11 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .textImgMobDiv {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+.titlesScroll::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+  background: white;
+}
+
+/* Track */
+.titlesScroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.titlesScroll::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.titlesScroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.titlesScroll::-webkit-scrollbar-thumb:horizontal {
+  background: gray;
+  border-radius: 10px;
+}
