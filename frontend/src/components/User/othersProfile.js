@@ -20,9 +20,9 @@ function profile() {
             <div>
               <ol className="profileList">
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
-                      <div className="max-w-[80%] text-[15px] font-[500]">
+                      <div className="max-w-[70%] text-[15px] font-[500]">
                         <span>
                           Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnv
                           sdk sdfkinsdkn
@@ -33,7 +33,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="min-w-[30px]">
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -44,7 +44,7 @@ function profile() {
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -57,7 +57,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="min-w-[30px]">
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -68,7 +68,7 @@ function profile() {
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -81,7 +81,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="min-w-[30px]">
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -92,7 +92,7 @@ function profile() {
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -105,7 +105,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="min-w-[30px]">
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -116,7 +116,7 @@ function profile() {
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -129,7 +129,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div>
+                    <div className="min-w-[30px]">
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -188,13 +188,13 @@ function profile() {
                   <div>
                     <span className="font-[500]">Total Posts: </span>23
                   </div>
-                  <div>
+                  {/* <div>
                     <img
                       className="profileOpenLink"
                       src="https://static.thenounproject.com/png/196595-200.png"
                       alt="->"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </a>
             </div>

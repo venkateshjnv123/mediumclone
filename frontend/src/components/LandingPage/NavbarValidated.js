@@ -10,31 +10,7 @@ import navToggleCross from "../Logos/navToggleCross.svg";
 import whatsappIcon from "../Logos/whatsappIcon.svg";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
-  // window.onscroll = () => {
-  //   if (window.scrollY > 0) {
-  //     document.querySelector(".nav").classList.add("navBarScroll");
-  //   } else {
-  //     document.querySelector(".nav").classList.remove("navBarScroll");
-  //   }
-  // };
-
-  // window.onscroll = () => {
-  //   if (window.scrollY > 0) {
-  //     document.getElementById("navbarmain").style.backgroundColor = "#ffffff";
-  //   } else {
-  //     document.getElementById("navbarmain").style.backgroundColor = "#fddc00";
-  //   }
-  // };
-
-  // window.onscroll = () => {
-  //   if (window.scrollY > 300) {
-  //     document.getElementById("whatsappIcon").style.display = "block";
-  //   } else {
-  //     document.getElementById("whatsappIcon").style.display = "none";
-  //   }
-  // };
-
+export default function NavbarValidated() {
   const [bar, setbar] = useState(true);
   const [cross, setcross] = useState(false);
 
@@ -59,10 +35,10 @@ export default function Navbar() {
         >
           <span className="navbar-toggler-icon">
             {bar && (
-              <img src={navToggleIcon} alt="=" style={{ width: "20px" }} />
+              <img src={navToggleIcon} alt="=" style={{ width: "15px" }} />
             )}
             {cross && (
-              <img src={navToggleCross} alt="X" style={{ width: "20px" }} />
+              <img src={navToggleCross} alt="X" style={{ width: "15px" }} />
             )}
           </span>
         </button>
@@ -78,8 +54,8 @@ export default function Navbar() {
               </li>
             </Link>
             <Link to="/signin">
-              <li className="signinbtn">
-                <button className="signupbtn">Sign in</button>
+              <li className="nav-btn">
+                <button className="signupbtn">Profile</button>
               </li>
             </Link>
           </ul>
@@ -90,19 +66,18 @@ export default function Navbar() {
       {sideBar && (
         <div className="footMob navMob">
           <div className="footDrop">
-            <button className="footButton">
-              <h4 className="footleftText">Write</h4>
-            </button>
-          </div>
-          <div className="footDrop">
-            <button className="footButton">
-              <h4 className="footleftText">Signin</h4>
-            </button>
+            <Link to="/signin">
+              <button className="footButton">
+                <h4 className="footleftText">Write</h4>
+              </button>
+            </Link>
           </div>
           <div className="footDrop" style={{ paddingBottom: "20px" }}>
-            <button className="footButton">
-              <h4 className="signupbtn">Sign Up</h4>
-            </button>
+            <Link to="/profile">
+              <button className="footButton">
+                <h4 className="signupbtn">Profile</h4>
+              </button>
+            </Link>
           </div>
 
           <div className="loginbtnsdiv loginbtnsdiv2">

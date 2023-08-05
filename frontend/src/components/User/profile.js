@@ -125,7 +125,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 min-w-[60px]">
                       <div>
                         <img
                           className="profileOpenLink"
@@ -158,7 +158,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 min-w-[60px]">
                       <div>
                         <img
                           className="profileOpenLink"
@@ -191,7 +191,7 @@ function profile() {
                         </span>
                       </div>
                     </li>
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 min-w-[60px]">
                       <div>
                         <img
                           className="profileOpenLink"
@@ -243,7 +243,7 @@ function profile() {
             </div>
             <div className="profileName font-[400] my-[20px]">
               <div>
-                <h6 className="text-[20px]">johnabraham@gmail.com</h6>
+                <h6 className="text-[18px]">johnabraham@gmail.com</h6>
               </div>
               <div>
                 <a>
@@ -257,7 +257,7 @@ function profile() {
             </div>
             <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
               <div>
-                <h6 className="text-[20px]">+91 9291909491</h6>
+                <h6 className="text-[18px]">+91 9291909491</h6>
               </div>
               <div>
                 <a>
