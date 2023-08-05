@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage, useFormikContext, useFormik, FormikConsumer } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  useFormikContext,
+  useFormik,
+  FormikConsumer,
+} from "formik";
 import * as Yup from "yup";
-import Navbar from "../HomePage/Navbar";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import NavbarValidated from "../LandingPage/NavbarValidated";
+
 
 const EditForm = () => {
-const location = useLocation();
-const [initialValues, setinitialvalues] = useState(location.state.values);
-const [initialstatus, setinitialstatus] = useState(location.state.values['status'])
-const [catego, setcatego] = useState(location.state.values['categories']);
-const handleAddCategory = (category) => {
+  const location = useLocation();
+  const [initialValues, setinitialvalues] = useState(location.state.values);
+  const [initialstatus, setinitialstatus] = useState(
+    location.state.values["status"]
+  );
+  const [catego, setcatego] = useState(location.state.values["categories"]);
+  const handleAddCategory = (category) => {
     if (!catego.includes(category)) {
       setcatego([...catego, category]);
     }
   };
 
   const validationSchema = Yup.object({
-   // date: Yup.string().required("Date is required"),
+    // date: Yup.string().required("Date is required"),
     title: Yup.string().required("Title is required"),
    // subtitle: Yup.string().required("Subtitle is required"),
     content: Yup.string().required("Content is required"),
@@ -27,41 +38,39 @@ const handleAddCategory = (category) => {
   });
 
   function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
+    return num.toString().padStart(2, "0");
   }
-  
+
   function formatDate(date) {
     return [
       padTo2Digits(date.getDate()),
       padTo2Digits(date.getMonth() + 1),
       date.getFullYear(),
-    ].join('/');
+    ].join("/");
   }
 
   const navigate = useNavigate();
 
   const onSubmit = (values, { setSubmitting, resetForm }) => {
-
     let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
-    const id = initialValues['id'];
-    if(initialstatus === "No"){    
-        values['status'] = "Yes"
-        values['likes']= Math.ceil(Math.random()*1000);
-        values['views']= Math.ceil(Math.random()*1000);
-        values['comments']=Math.ceil(Math.random()*1000);
-        values['date']=formatDate(new Date());
-        console.log(values);
-        setSubmitting(false);
-    }
-    else{
-        console.log(id);
-        values['likes']= initialValues['likes']
-        values['views']=initialValues['views']
-        values['comments']=initialValues['comments']
-        values['date']=initialValues['date']
-       
-        console.log(values);
-        setSubmitting(false);
+    const id = initialValues["id"];
+    if (initialstatus === "No") {
+      values["status"] = "Yes";
+      values["likes"] = Math.ceil(Math.random() * 1000);
+      values["views"] = Math.ceil(Math.random() * 1000);
+      values["comments"] = Math.ceil(Math.random() * 1000);
+      values["date"] = formatDate(new Date());
+      console.log(values);
+      setSubmitting(false);
+    } else {
+      console.log(id);
+      values["likes"] = initialValues["likes"];
+      values["views"] = initialValues["views"];
+      values["comments"] = initialValues["comments"];
+      values["date"] = initialValues["date"];
+
+      console.log(values);
+      setSubmitting(false);
     }
     let array2 = array1.filter((item) => item.id !== id);
     array2.push(values);
@@ -73,7 +82,7 @@ const handleAddCategory = (category) => {
     // Handle form submission here, e.g., send data to server, etc.
   };
   const handleSaveDraft = (values) => {
-    const id = initialValues['id'];
+    const id = initialValues["id"];
     let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
     let array2 = array1.filter((item) => item.id !== id);
     array2.push(values);
@@ -81,17 +90,16 @@ const handleAddCategory = (category) => {
     toast.warning("data stored as draft");
   };
 
-
   return (
     <div>
-      <div className="w-full max-w-lg mx-auto">
+      <NavbarValidated />
+      <div className="w-full max-w-lg mx-auto mt-[70px]">
         <h2 className="text-2xl font-bold mb-4">Edit your Blog</h2>
         <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-        enableReinitialize={true}
-         
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+          enableReinitialize={true}
         >
              {({ isSubmitting }) => (
           <Form className="space-y-4">
@@ -212,9 +220,8 @@ const handleAddCategory = (category) => {
                   </label>
                 ))}
               </div>
-            <ErrorMessage name="categories" component="div" className="text-red-500" />
             </div>
-            <FormikConsumer>
+              <FormikConsumer>
                 {({ values }) => (
             <div>
           <label>
@@ -231,12 +238,11 @@ const handleAddCategory = (category) => {
     )}
     </FormikConsumer>
 
-           
-            <div className="flex space-x-4">
-                {
-                    initialstatus === 'Yes' ?
-                    <></> :
-                    <FormikConsumer>
+              <div className="flex space-x-4">
+                {initialstatus === "Yes" ? (
+                  <></>
+                ) : (
+                  <FormikConsumer>
                     {({ values }) => (
                       <button
                         type="button"
@@ -247,18 +253,18 @@ const handleAddCategory = (category) => {
                       </button>
                     )}
                   </FormikConsumer>
-                }
-           
-              <button
-                type="submit"
-                className="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2"
-                disabled={isSubmitting}
-              >
-                Submit
-              </button>
-            </div>
-          </Form>
-             )}
+                )}
+
+                <button
+                  type="submit"
+                  className="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2"
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </button>
+              </div>
+            </Form>
+          )}
         </Formik>
       </div>
     </div>

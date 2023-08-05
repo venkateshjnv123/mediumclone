@@ -1,6 +1,7 @@
 import React from "react";
 import "./profile.css";
 import { useNavigate } from "react-router-dom";
+import NavbarValidated from "../LandingPage/NavbarValidated";
 
 function Profile() {
 const navigate = useNavigate();
@@ -13,7 +14,8 @@ const navigate = useNavigate();
   }
   return (
     <div>
-      <div className="profileDiv px-[50px]">
+      <NavbarValidated/>
+      <div className="profileDiv px-[50px] mt-[70px]">
         <div className="profileDivLeft mr-[100px]">
           <div className="hidden md:block text-[50px] font-[700] mt-[20px] my-[40px] pl-[30px]">
             <span>John Abraham</span>
@@ -29,9 +31,9 @@ const navigate = useNavigate();
             <div>
               <ol className="profileList">
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
-                      <div className="max-w-[80%] text-[15px] font-[500]">
+                      <div className="max-w-[70%] text-[15px] font-[500]">
                         <span>
                           Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnv
                           sdk sdfkinsdkn
@@ -42,7 +44,7 @@ const navigate = useNavigate();
                         </span>
                       </div>
                     </li>
-                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
+                    <div className="cursor-pointer min-w-[30px]" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -53,7 +55,7 @@ const navigate = useNavigate();
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -66,7 +68,7 @@ const navigate = useNavigate();
                         </span>
                       </div>
                     </li>
-                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
+                    <div className="cursor-pointer min-w-[30px]" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -77,7 +79,7 @@ const navigate = useNavigate();
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -90,7 +92,7 @@ const navigate = useNavigate();
                         </span>
                       </div>
                     </li>
-                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
+                    <div className="cursor-pointer min-w-[30px]" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -101,7 +103,7 @@ const navigate = useNavigate();
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -114,7 +116,7 @@ const navigate = useNavigate();
                         </span>
                       </div>
                     </li>
-                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
+                    <div className="cursor-pointer min-w-[30px]" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -125,7 +127,7 @@ const navigate = useNavigate();
                 </a>
 
                 <a>
-                  <div className="profileListItem">
+                  <div className="profileMyListItem">
                     <li>
                       <div className="max-w-[80%] text-[15px] font-[500]">
                         <span>
@@ -138,7 +140,7 @@ const navigate = useNavigate();
                         </span>
                       </div>
                     </li>
-                    <div className="cursor-pointer" onClick={() => gotopost("venky")}>
+                    <div className="cursor-pointer min-w-[30px]" onClick={() => gotopost("venky")}>
                       <img
                         className="profileOpenLink"
                         src="https://static.thenounproject.com/png/196595-200.png"
@@ -197,13 +199,13 @@ const navigate = useNavigate();
                   <div>
                     <span className="font-[500]">Total Posts: </span>23
                   </div>
-                  <div>
+                  {/* <div>
                     <img
                       className="profileOpenLink"
                       src="https://static.thenounproject.com/png/196595-200.png"
                       alt="->"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </a>
             </div>

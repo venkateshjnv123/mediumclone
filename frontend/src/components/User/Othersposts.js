@@ -1,6 +1,7 @@
 import React, { Component, useLayoutEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GrView } from "react-icons/gr";
+import NavbarValidated from "../LandingPage/NavbarValidated";
 const blogsdata = [
     {
       title: "Stop Using React Native Async Storage",
@@ -50,8 +51,10 @@ function Othersposts() {
 
 
   return (
-    <div className="my-[20px]">
-      <h6 className="text-center text-[35px] font-[700] mb-[10px]">{name}'s Posts</h6>
+    <div>
+         <NavbarValidated/>
+    <div className=" mt-[70px]">
+      <h6 className="text-center text-[35px] font-[700] mb-[10px]">{name} Posts</h6>
 {/* 
       <div className="w-fit mx-[auto]">
         <label className="font-[500]">Filter by Status:</label>
@@ -62,12 +65,12 @@ function Othersposts() {
         </select>
       </div> */}
 
-      <div className="min-w-[0px] md:min-w-[1200px] flex flex-col md:flex-row">
+      <div className="min-w-[0px] md:min-w-[1200px] flex flex-col md:flex-row md:flex-wrap md:justify-around">
         {posts ? (
           posts.map((blog) => (
             <div
               onClick={() => handleshowpost(blog)}
-              className=" md:w-1/2 border-b md:px-[30px] p-[20px] m-[10px] md:m-[20px] bg-slate-200 rounded-lg shadow-lg cursor-pointer"
+              className=" md:w-[48%] border-b md:px-[30px] p-[20px] mx-[10px] my-[15px] bg-slate-200 rounded-lg shadow-lg cursor-pointer "
             >
               {/* Author Name */}
 
@@ -167,6 +170,7 @@ function Othersposts() {
           <div>No posts to show here</div>
         )}
       </div>
+    </div>
     </div>
   );
 }

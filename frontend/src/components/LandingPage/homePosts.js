@@ -72,7 +72,7 @@ function HomePosts() {
     <div className="my-[30px] px-[10px] w-full md:min-w-[1200px]">
       <div className="filterHomeDiv">
         <span onClick={() => handlechangeposts(trending)} className="cursor-pointer filterHomeBtn filterHomeBtnL bg-slate-200 hover:bg-slate-700 hover:text-white w-full">
-          Trending
+          Top posts
         </span>
         <span onClick={() => handlechangeposts(recommended)} className="cursor-pointer filterHomeBtn bg-slate-200 hover:bg-slate-700 hover:text-white">
           Recommended
@@ -98,7 +98,7 @@ function HomePosts() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDNgrRAP3f4gqdGUk8QnwYmCCiCdfXetaCw&usqp=CAU"
                     alt=""
                   />
-                  
+
                 </div>
                 <div
                   className="pl-[15px]"

@@ -1,4 +1,5 @@
 import React from 'react';
+import NavbarValidated from '../LandingPage/NavbarValidated';
 const TopicCard = ({ category }) => {
     return (
       <div className="border rounded-lg p-4 shadow-md">
@@ -125,16 +126,19 @@ const ExploreTopics = () => {
   
 
   return (
-    <div className="container mx-auto p-4">
+    <div>
+      <NavbarValidated/>
+    <div className="container mx-auto p-4 mt-[70px] flex-col justify-center items-center">
+      <center>
     <h1 className="text-3xl font-bold mb-4">Explore Topics</h1>
     <div className="w-1/2 mx-auto mb-4">
       <input
         type="text"
-        className="w-full border border-gray-400 p-2 rounded-lg"
+        className="w-full border border-gray-400 p-2 rounded-[25px]"
         placeholder="Search Topics..."
       />
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 text-start mx-auto">
       {data.map((category, index) => (
         <div key={index} className="mb-4">
           <h2 className="text-xl font-bold mb-2">{category.category}</h2>
@@ -148,6 +152,8 @@ const ExploreTopics = () => {
         </div>
       ))}
     </div>
+    </center>
+  </div>
   </div>
   );
 };

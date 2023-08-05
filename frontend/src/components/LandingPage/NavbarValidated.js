@@ -10,31 +10,7 @@ import navToggleCross from "../Logos/navToggleCross.svg";
 import whatsappIcon from "../Logos/whatsappIcon.svg";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
-  // window.onscroll = () => {
-  //   if (window.scrollY > 0) {
-  //     document.querySelector(".nav").classList.add("navBarScroll");
-  //   } else {
-  //     document.querySelector(".nav").classList.remove("navBarScroll");
-  //   }
-  // };
-
-  // window.onscroll = () => {
-  //   if (window.scrollY > 0) {
-  //     document.getElementById("navbarmain").style.backgroundColor = "#ffffff";
-  //   } else {
-  //     document.getElementById("navbarmain").style.backgroundColor = "#fddc00";
-  //   }
-  // };
-
-  // window.onscroll = () => {
-  //   if (window.scrollY > 300) {
-  //     document.getElementById("whatsappIcon").style.display = "block";
-  //   } else {
-  //     document.getElementById("whatsappIcon").style.display = "none";
-  //   }
-  // };
-
+export default function NavbarValidated() {
   const [bar, setbar] = useState(true);
   const [cross, setcross] = useState(false);
 
@@ -59,10 +35,10 @@ export default function Navbar() {
         >
           <span className="navbar-toggler-icon">
             {bar && (
-              <img src={navToggleIcon} alt="=" style={{ width: "20px" }} />
+              <img src={navToggleIcon} alt="=" style={{ width: "15px" }} />
             )}
             {cross && (
-              <img src={navToggleCross} alt="X" style={{ width: "20px" }} />
+              <img src={navToggleCross} alt="X" style={{ width: "15px" }} />
             )}
           </span>
         </button>
@@ -71,17 +47,30 @@ export default function Navbar() {
         </div>
         <div className="loginbtnsdiv">
           <ul className="loginbuttons">
-            <Link to="/signin">
+            <Link to="/add">
               <li className="nav-btn">
                 {/* <img src={happyface} alt="happyface" /> */}
                 Write
               </li>
             </Link>
-            <Link to="/signin">
-              <li className="signinbtn">
-                <button className="signupbtn">Sign in</button>
+            <Link to="/myposts">
+            <li className="nav-btn">
+                {/* <img src={happyface} alt="happyface" /> */}
+                My Posts
+              </li>
+              </Link>
+              <Link to="/home">
+            <li className="nav-btn">
+                {/* <img src={happyface} alt="happyface" /> */}
+                Home
+              </li>
+              </Link>
+            <Link to="/profile">
+              <li className="nav-btn">
+                <button className="signupbtn">Profile</button>
               </li>
             </Link>
+           
           </ul>
         </div>
       </div>
@@ -90,19 +79,28 @@ export default function Navbar() {
       {sideBar && (
         <div className="footMob navMob">
           <div className="footDrop">
+            <Link to="/add">
+              <button className="footButton">
+                <h4 className="footleftText">Write</h4>
+              </button>
+            </Link>
+            <Link to="/myposts">
             <button className="footButton">
-              <h4 className="footleftText">Write</h4>
-            </button>
-          </div>
-          <div className="footDrop">
+                <h4 className="footleftText">My Posts</h4>
+              </button>
+              </Link>
+              <Link to="/home">
             <button className="footButton">
-              <h4 className="footleftText">Signin</h4>
-            </button>
+                <h4 className="footleftText">Home</h4>
+              </button>
+              </Link>
           </div>
           <div className="footDrop" style={{ paddingBottom: "20px" }}>
-            <button className="footButton">
-              <h4 className="signupbtn">Sign Up</h4>
-            </button>
+            <Link to="/profile">
+              <button className="footButton">
+                <h4 className="signupbtn">Profile</h4>
+              </button>
+            </Link>
           </div>
 
           <div className="loginbtnsdiv loginbtnsdiv2">

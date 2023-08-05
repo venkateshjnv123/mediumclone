@@ -1,39 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./profile.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import NavbarValidated from "../LandingPage/NavbarValidated";
+const saved = [
+  {data : " John Doe" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
+  {data : " Venkatesh" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
+  {data : "Vivek paidi" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
+  {data : "Vivek paidi" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
+]
+const listnames = ['Private', 'finance', 'Technology', 'Business'];
 function Profile() {
-  const listnames = ['Private', 'finance', 'Technology', 'Business'];
  const values = JSON.parse(localStorage.getItem('signinvalues'));
-  const saved = [
-     {data : " John Doe" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
-     {data : " Venkatesh" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
-     {data : "Vivek paidi" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
-     {data : "Vivek paidi" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
-  ]
-
-  const [savedtoshow, setsavedtoshow] = useState(saved);
-  const [liststoshow, setliststoshow] = useState(listnames);
-  console.log(useSelector((state)=> state.username.value));
+  const [savedtoshow, setsavedtoshow] = useState([]);
+  const [liststoshow, setliststoshow] = useState([]);
+  //console.log(useSelector((state)=> state.username.value));
   const navigate = useNavigate();
   const handleshowlist = (name) => {
     navigate('/otherposts')
   }
-
+useEffect(()=>{
+setliststoshow(listnames);
+setsavedtoshow(saved);
+}, [])
   const handledelete = (index) => {
     listnames.splice(index, 1);
+    console.log("yes");
     setliststoshow(listnames);
   }
 
-  const handledeletesaved = (index) => {
-    saved.splice(index, 1);
+  const handlesaved = (index1) => {
+    saved.splice(index1, 1);
     setsavedtoshow(listnames);
   }
 
   return (
     <div>
-      <div className="profileDiv px-[50px]">
+      <NavbarValidated/>
+      <div className="profileDiv px-[50px] mt-[50px]">
         <div className="profileDivLeft mr-[100px]">
           <div className="hidden md:block text-[50px] font-[700] mt-[20px] my-[40px] pl-[30px]">
             <span>{values['name']}</span>
@@ -68,7 +72,7 @@ function Profile() {
                         </div>
                         </Link>
                         
-                        <div className="cursor-pointer" onClick={(index)=> handledelete(index)}>
+                   <div className="cursor-pointer" onClick={(index)=> handledelete(index)}>
                           <img
                             className="profileOpenLink"
                             src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
@@ -116,7 +120,7 @@ function Profile() {
                         />
                       </div>
                       </Link>
-                      <div className="cursor-pointer" onClick={(index)=> handledeletesaved(index)} >
+                      <div className="cursor-pointer" onClick={(index)=> handlesaved(index)} >
                         <img
                           className="profileOpenLink"
                           src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
@@ -170,12 +174,12 @@ function Profile() {
             </div>
             <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
               <div>
-                <h6 className="text-[20px]">+91 9291909491</h6>
+                <h6 className="text-[18px]">+91 9291909491</h6>
               </div>
             </div>
-            <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
+            {/* <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
              <button className="rounded-[25px] px-[15px] py-[5px] bg-green-500 text-white">edit profile</button>
-            </div>
+            </div> */}
 
           </div>
 
@@ -188,6 +192,7 @@ function Profile() {
                   <div>
                     <span className="font-[500]">Total Posts: </span>23
                   </div>
+                  <Link to='/myposts'>
                   <div>
                     <img
                       className="profileOpenLink"
@@ -195,6 +200,7 @@ function Profile() {
                       alt="->"
                     />
                   </div>
+                  </Link>
                 </div>
               </a>
             </div>
