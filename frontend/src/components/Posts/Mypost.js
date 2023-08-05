@@ -27,6 +27,7 @@ function Myposts() {
       <div className="w-fit mx-[auto]">
         <label className="font-[500]">Filter by Status:</label>
         <select className="border rounded-[25px] px-[15px] py-[5px] ml-[15px]">
+          <option value="Any">Any</option>
           <option value="Uploaded">Uploaded</option>
           <option value="Draft">Draft</option>
         </select>
