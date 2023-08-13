@@ -25,8 +25,9 @@ setsavedtoshow(saved);
 }, [])
   const handledelete = (index) => {
     listnames.splice(index, 1);
-    console.log("yes");
+    console.log(listnames);
     setliststoshow(listnames);
+    console.log(liststoshow);
   }
 
   const handlesaved = (index1) => {
@@ -40,7 +41,9 @@ setsavedtoshow(saved);
       <div className="profileDiv px-[50px] mt-[50px]">
         <div className="profileDivLeft mr-[100px]">
           <div className="hidden md:block text-[50px] font-[700] mt-[20px] my-[40px] pl-[30px]">
-            <span>{values['name']}</span>
+          {values ? <span>{values['name']}</span> 
+          : <span>User Name </span>
+          }
           </div>
 
           <hr />
@@ -155,7 +158,9 @@ setsavedtoshow(saved);
             </div>
             <div className="profileName font-[700] my-[20px]">
               <div>
-                <h6 className="text-[30px]">{values['name']}</h6>
+                <h6 className="text-[30px]">{values ? <span>{values['name']}</span> 
+          : <span>User Name </span>
+          }</h6>
               </div>
               {/* <div>
                 <a>
@@ -169,7 +174,10 @@ setsavedtoshow(saved);
             </div>
             <div className="profileName font-[400] my-[20px]">
               <div>
-                <h6 className="text-[20px]">{values['email']}</h6>
+              {values ? <h6 className="text-[20px]">{values['email']}</h6> 
+          : <h6 className="text-[20px]">User Email </h6>
+          }
+                
               </div>
             </div>
             <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">

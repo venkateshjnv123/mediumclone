@@ -6,7 +6,7 @@ import ShareModal from "../Other/Sharemodel";
 import { toast } from "react-toastify";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CloseIcon from "@mui/icons-material/Close";
-
+import axios from "axios";
 const CommentModal = ({ isOpen, onClose }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newComment, setNewComment] = useState("");
@@ -159,9 +159,30 @@ function MyPostsPage() {
   }
 
   const handledelete = (id) => {
-  toast.warning("Deleted the post");
   alert("You are deleting this post");
-  navigate('/myposts');
+  // const array1 = JSON.parse(localStorage.getItem('blogs'));
+  // localStorage.setItem('blogs', JSON.stringify(array1.filter((item)=> item.id !== blogdetails['id'])));
+  // toast.warning("Deleted the post");
+  const auth_token = localStorage.getItem("jwtToken");
+  const headers =  {
+    "authToken": auth_token,
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json, text/plain, */*'
+  }
+  axios.delete(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/delete/posts/${blogdetails['id']}`,{headers})
+    .then((response) => {
+      console.log('Post saved!', response.data);
+      toast.warning("Deleted the post");
+      //navigate('/myposts'); 
+      navigate('/myposts');
+    })
+    .catch((error) => {
+      toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+
+      // Implement error handling logic here
+    });
+
   };
   const handleclosecommentsmodal = () => {
     console.log("working");
@@ -181,7 +202,7 @@ function MyPostsPage() {
       <NavbarValidated/>
       <div className="postsPage py-[40px] mx-auto mt-[30px]">
         <h2 className="text-[42px] font-bold">
-          Oppenheimer Isn't a Story About the Atomic Bomb, It's About Ourselves
+          {blogdetails.title}
         </h2>
 
         <hr />
@@ -197,7 +218,7 @@ function MyPostsPage() {
                 </span>
               </div>
               <div className="pl-[5px]">
-                <span>234</span>
+                <span>{blogdetails.likes_count}</span>
               </div>
             </div>
             <CommentModal
@@ -213,7 +234,7 @@ function MyPostsPage() {
                 </span>
               </div>
               <div className="pl-[5px]">
-                <span>103</span>
+                <span>{blogdetails.comments_count}</span>
               </div>
             </div>
           </div>
@@ -244,28 +265,16 @@ function MyPostsPage() {
          <div className="w-full my-1 mx-1">
           <img 
           className="w-full"
-          src="https://assets-in.bmscdn.com/discovery-catalog/events/et00347867-pawjgqabkd-landscape.jpg"
+          src={blogdetails.image}
           alt="Respected image"/>
          </div>
         <div>
           <div>
             <p className="postText">
-              Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-              Ourselves Oppenheimer Isn't a Story About the Atomic Bomb, It's
-              About Ourselves Oppenheimer Isn't a Story About the Atomic Bomb,
-              It's About Ourselves Oppenheimer Isn't a Story About the Atomic
-              Bomb, It's About Ourselves Oppenheimer Isn't a Story About the
-              Atomic Bomb, It's About Ourselves Oppenheimer Isn't a Story About
-              the Atomic Bomb, It's About Ourselves
+             {blogdetails.text}
             </p>
             <p className="postText">
-              Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-              Ourselves Oppenheimer Isn't a Story About the Atomic Bomb, It's
-              About Ourselves Oppenheimer Isn't a Story About the Atomic Bomb,
-              It's About Ourselves Oppenheimer Isn't a Story About the Atomic
-              Bomb, It's About Ourselves Oppenheimer Isn't a Story About the
-              Atomic Bomb, It's About Ourselves Oppenheimer Isn't a Story About
-              the Atomic Bomb, It's About Ourselves
+            {blogdetails.text}
             </p>
           </div>
         </div>
@@ -275,18 +284,9 @@ function MyPostsPage() {
           <span className="dot"></span>
           <span className="dot"></span>
         </div>
-
-        <div className="postsTagsDiv gap-5 my-[10px]">
-          <span>
-            <button className="tagsPostsBtn">Tag1</button>
+        <span key={blogdetails.topic}>
+            <button className="tagsPostsBtn">{blogdetails.topic}</button>
           </span>
-          <span>
-            <button className="tagsPostsBtn">Tag2</button>
-          </span>
-          <span>
-            <button className="tagsPostsBtn">Tag3</button>
-          </span>
-        </div>
         <div className="btnsMainDiv py-[15px] px-[10px]">
           <div className="btnsLeftDiv gap-5">
             <div className="btnsDiv">
@@ -298,7 +298,7 @@ function MyPostsPage() {
                 </span>
               </div>
               <div className="pl-[5px]">
-                <span>234</span>
+                <span>{blogdetails.likes_count}</span>
               </div>
             </div>
             <CommentModal
@@ -314,7 +314,7 @@ function MyPostsPage() {
                 </span>
               </div>
               <div className="pl-[5px]">
-                <span>103</span>
+                <span>{blogdetails.comments_count}</span>
               </div>
             </div>
           </div>

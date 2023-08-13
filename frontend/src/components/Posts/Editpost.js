@@ -12,7 +12,7 @@ import * as Yup from "yup";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import NavbarValidated from "../LandingPage/NavbarValidated";
-
+import axios from "axios";
 
 const EditForm = () => {
   const location = useLocation();
@@ -31,10 +31,10 @@ const EditForm = () => {
     // date: Yup.string().required("Date is required"),
     title: Yup.string().required("Title is required"),
    // subtitle: Yup.string().required("Subtitle is required"),
-    content: Yup.string().required("Content is required"),
-    featuredImage: Yup.string().required("Featured Image is required"),
-    authorName: Yup.string().required("Author Name is required"),
-    categories: Yup.array().required("Title is required"),
+    text: Yup.string().required("Content is required"),
+    image: Yup.string().required("Featured Image is required"),
+    author_name: Yup.string().required("Author Name is required"),
+    topic: Yup.string().required("topic is required"),
   });
 
   function padTo2Digits(num) {
@@ -52,33 +52,61 @@ const EditForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = (values, { setSubmitting, resetForm }) => {
-    let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
-    const id = initialValues["id"];
-    if (initialstatus === "No") {
-      values["status"] = "Yes";
-      values["likes"] = Math.ceil(Math.random() * 1000);
-      values["views"] = Math.ceil(Math.random() * 1000);
-      values["comments"] = Math.ceil(Math.random() * 1000);
-      values["date"] = formatDate(new Date());
-      console.log(values);
-      setSubmitting(false);
-    } else {
-      console.log(id);
-      values["likes"] = initialValues["likes"];
-      values["views"] = initialValues["views"];
-      values["comments"] = initialValues["comments"];
-      values["date"] = initialValues["date"];
+    // let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
+    // const id = initialValues["id"];
+    // if (initialstatus === "No") {
+    //   values["status"] = "Yes";
+    //   values["likes"] = Math.ceil(Math.random() * 1000);
+    //   values["views"] = Math.ceil(Math.random() * 1000);
+    //   values["comments"] = Math.ceil(Math.random() * 1000);
+    //   values["date"] = formatDate(new Date());
+    //   console.log(values);
+    //   setSubmitting(false);
+    // } else {
+    //   console.log(id);
+    //   values["likes"] = initialValues["likes"];
+    //   values["views"] = initialValues["views"];
+    //   values["comments"] = initialValues["comments"];
+    //   values["date"] = initialValues["date"];
 
-      console.log(values);
-      setSubmitting(false);
+    //   console.log(values);
+    //   setSubmitting(false);
+    // }
+    // let array2 = array1.filter((item) => item.id !== id);
+    // array2.push(values);
+    // localStorage.setItem("blogs", JSON.stringify(array2));
+    values["date"] = formatDate(new Date());
+    const data = {
+      "published_at" : values["date"],
+      "featured_image" : values["image"],
+      "text" : values["text"],
+      "topic_id" : 3,
+      "title" : values["title"]
+    } ;
+   
+    const auth_token = localStorage.getItem("jwtToken");
+    const headers =  {
+      "authToken": auth_token,
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json, text/plain, */*'
     }
-    let array2 = array1.filter((item) => item.id !== id);
-    array2.push(values);
-    localStorage.setItem("blogs", JSON.stringify(array2));
-    toast.success("form successfully submitted");
-    resetForm();
+    axios.put(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/edit/post/${initialValues['id']}`, data,{headers})
+      .then((response) => {
+        console.log('Post saved!', response.data);
+        toast.success("Saved the post");
+        resetForm(); 
+        navigate('/myposts'); 
+      })
+      .catch((error) => {
+        toast.error("Error saving the post");
+        console.error('Error saving topic:', error);
+
+        // Implement error handling logic here
+      });
+    // toast.success("form successfully submitted");
+    // resetForm();
     
-    navigate('/myposts');
+  
     // Handle form submission here, e.g., send data to server, etc.
   };
   const handleSaveDraft = (values) => {
@@ -123,6 +151,25 @@ const EditForm = () => {
               />
             </div>
 
+            <div className="flex flex-col">
+              <label htmlFor="topic" className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
+                Topic
+              </label>
+              <Field
+                type="text"
+                id="topic"
+                name="topic"
+                className="border rounded-[25px] px-3 py-2"
+                //onChange={formik.handleChange}
+                //value={formik.values.title}
+              />
+              <ErrorMessage
+                name="topic"
+                component="div"
+                className="text-red-500"
+              />
+            </div>
+
             {/* <div className="flex flex-col">
               <label htmlFor="subtitle" className="text-sm font-medium mb-1">
                 Subtitle
@@ -143,20 +190,20 @@ const EditForm = () => {
             </div> */}
 
             <div className="flex flex-col">
-              <label htmlFor="content" className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
+              <label htmlFor="text" className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
                 Content
               </label>
               <Field
                 as="textarea"
-                id="content"
-                name="content"
+                id="text"
+                name="text"
                 className="border rounded-[25px] px-3 py-2"
                 rows="5"
                 // onChange={formik.handleChange}
                 // value={formik.values.content}
               />
               <ErrorMessage
-                name="content"
+                name="text"
                 component="div"
                 className="text-red-500"
               />
@@ -164,21 +211,21 @@ const EditForm = () => {
 
             <div className="flex flex-col">
               <label
-                htmlFor="featuredImage"
+                htmlFor="image"
                 className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]"
               >
                 Featured Image URL
               </label>
               <Field
                 type="text"
-                id="featuredImage"
-                name="featuredImage"
+                id="image"
+                name="image"
                 className="border rounded-[25px] px-3 py-2"
                 // onChange={formik.handleChange}
                 // value={formik.values.featuredImage}
               />
               <ErrorMessage
-                name="featuredImage"
+                name="image"
                 component="div"
                 className="text-red-500"
               />
@@ -190,20 +237,20 @@ const EditForm = () => {
               </label>
               <Field
                 type="text"
-                id="authorName"
-                name="authorName"
+                id="author_name"
+                name="author_name"
                 className="border rounded-[25px] px-3 py-2"
                 // onChange={formik.handleChange}
                 // value={formik.values.authorName}
               />
               <ErrorMessage
-                name="authorName"
+                name="author_name"
                 component="div"
                 className="text-red-500"
               />
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
                 Categories:
               </label>
@@ -236,7 +283,7 @@ const EditForm = () => {
           </button>
         </div>
     )}
-    </FormikConsumer>
+    </FormikConsumer> */}
 
               <div className="flex space-x-4">
                 {initialstatus === "Yes" ? (

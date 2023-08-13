@@ -14,6 +14,7 @@ import { useLocation } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
 import NavbarValidated from "../LandingPage/NavbarValidated";
+import axios from "axios";
 const categories = [
   "Software Development",
   "Programming",
@@ -90,17 +91,44 @@ const BlogForm = () => {
   });
 
   const onSubmit = (values, { setSubmitting, resetForm }) => {
-    let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
+    //let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
     values["status"] = "Yes";
     values["likes"] = Math.ceil(Math.random() * 1000);
     values["views"] = Math.ceil(Math.random() * 1000);
     values["comments"] = Math.ceil(Math.random() * 1000);
     values["date"] = formatDate(new Date());
-    array1.push(values);
-    localStorage.setItem("blogs", JSON.stringify(array1));
+   // array1.push(values);
+    const data = {
+      "published_at" : values["date"],
+      "featured_image" : values["featuredImage"],
+      "text" : values["content"],
+      "topic_id" : 3,
+      "title" : values["title"]
+    } ;
+   
+    const auth_token = localStorage.getItem("jwtToken");
+    const headers =  {
+      "authToken": auth_token,
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json, text/plain, */*'
+    }
+    axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/create/post', data,{headers})
+      .then((response) => {
+        console.log('Post saved!', response.data);
+        toast.success("Saved the post");
+        resetForm();
+        
+      })
+      .catch((error) => {
+        toast.error("Error saving the post");
+        console.error('Error saving topic:', error);
+      
+        // Implement error handling logic here
+      });
+  
+    //localStorage.setItem("blogs", JSON.stringify(array1));
     console.log(values);
-    toast.success("form successfully submitted");
-    resetForm();
+ 
     setSubmitting(false);
     // Handle form submission here, e.g., send data to server, etc.
   };
