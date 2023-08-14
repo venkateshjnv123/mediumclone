@@ -199,11 +199,11 @@ fetchdetails();
                 <h6 className="text-[18px]">Email : {details['email']}</h6>
               </div>
             </div>
-            <div className="profileName font-[400] mt-[20px] mb-[20px] ">
+            {/* <div className="profileName font-[400] mt-[20px] mb-[20px] ">
               <div>
                 <h6 className="text-[18px]">About : {details['about']}</h6>
               </div>
-            </div>
+            </div> */}
 
             {/* <div className="hidden md:block md:mb-[40px] mb-[20px]">
               <button className="rounded-[25px] px-[15px] py-[5px] bg-green-500 text-white">

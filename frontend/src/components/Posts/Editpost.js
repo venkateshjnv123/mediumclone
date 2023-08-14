@@ -105,12 +105,9 @@ const EditForm = () => {
       });
   };
   const handleSaveDraft = (values) => {
-    const id = initialValues["id"];
-    let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
-    let array2 = array1.filter((item) => item.id !== id);
-    array2.push(values);
-    localStorage.setItem("blogs", JSON.stringify(array2));
-    toast.warning("data stored as draft");
+  console.log("error");
+
+
   };
 
   return (

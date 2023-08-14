@@ -249,11 +249,11 @@ useEffect(()=>{
                 
               </div>
             </div>
-            <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
+            {/* <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
               <div>
                 <h6 className="text-[18px]">About : {userdetails.about}</h6>
               </div>
-            </div>
+            </div> */}
             {/* <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
              <button className="rounded-[25px] px-[15px] py-[5px] bg-green-500 text-white">edit profile</button>
             </div> */}

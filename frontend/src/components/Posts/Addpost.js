@@ -143,10 +143,7 @@ const BlogForm = () => {
       "topic_id" : 3,
       "title" : values["title"]
     } ;
-    // array1.push(values);
-    // console.log("Saving draft:", values);
-    // toast.warning("data stored as draft");
-    // localStorage.setItem("blogs", JSON.stringify(array1));
+
     axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/draft/create', data,{headers})
     .then((response) => {
       console.log('Post saved!', response.data);
