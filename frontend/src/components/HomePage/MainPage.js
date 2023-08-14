@@ -90,7 +90,6 @@ const Datacards = ({ blogsdata }) => {
 
 function HomePage() {
   const [selectedTab, setSelectedTab] = useState("All");
-  const [authorName, setAuthorName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [topic, settopic] = useState("");
@@ -174,40 +173,45 @@ function HomePage() {
   ];
   const [poststoshow, setpoststoshow] = useState(blogsdata);
   const [searchterm, setsearchterm] = useState("");
+  const [authorName, setAuthorName] = useState("");
   const [followerstoshow, setfollowerstoshow] = useState([]);
   const handlemembershipclose = () => {
     setmembershipmodal(false);
   };
 
-  const handleaddtopic = async() => {
-    const headers =  {
-        "authToken": localStorage.getItem("jwtToken"),
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json, text/plain, */*'
-      };
-    
-     axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/topic/create', {"name":topic},{headers})
+  const handleaddtopic = async () => {
+    const headers = {
+      authToken: localStorage.getItem("jwtToken"),
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json, text/plain, */*",
+    };
+
+    axios
+      .post(
+        "https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/topic/create",
+        { name: topic },
+        { headers }
+      )
       .then((response) => {
-        console.log('Post saved!', response.data);
+        console.log("Post saved!", response.data);
         toast.success("Saved the topic");
         settopic("");
       })
       .catch((error) => {
         toast.error("Error saving the topic");
-        console.error('Error saving topic:', error);
+        console.error("Error saving topic:", error);
         // Implement error handling logic here
       });
-
-  }
+  };
   const getFilteredPosts = () => {
     console.log("yes");
     let filteredPosts = blogsdata;
 
-    if (authorName) {
-      filteredPosts = filteredPosts.filter((post) =>
-        post.author.toLowerCase().includes(authorName.toLowerCase())
-      );
-    }
+    // if (authorName) {
+    //   filteredPosts = filteredPosts.filter((post) =>
+    //     post.author.toLowerCase().includes(authorName.toLowerCase())
+    //   );
+    // }
 
     // Sort by date
     if (startDate && endDate) {
@@ -235,44 +239,45 @@ function HomePage() {
   };
 
   const fetchapi = async () => {
-    axios.get('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/posts/all')
-    .then((response) => {
-      console.log('Fetched the posts', response.data);
-      toast.success("Saved the post");
-      setpoststoshow(response.data);
-      
-    })
-    .catch((error) => {
-      toast.error("Error saving the post");
-      console.error('Error saving topic:', error);
-      // Implement error handling logic here
-    });
+    axios
+      .get(
+        "https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/posts/all"
+      )
+      .then((response) => {
+        console.log("Fetched the posts", response.data);
+        toast.success("Saved the post");
+        setpoststoshow(response.data);
+      })
+      .catch((error) => {
+        toast.error("Error saving the post");
+        console.error("Error saving topic:", error);
+        // Implement error handling logic here
+      });
   };
 
   const fetchfollowers = () => {
-    axios.get('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/showAll')
-    .then((response) => {
-      console.log('Fetched the posts', response.data);
-      //toast.success("Saved the post");
-      setfollowerstoshow(response.data);
-      
-    })
-    .catch((error) => {
-      ///toast.error("Error saving the post");
-      console.error('Error saving topic:', error);
-      // Implement error handling logic here
-    });
-  }
+    axios
+      .get(
+        "https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/showAll"
+      )
+      .then((response) => {
+        console.log("Fetched the posts", response.data);
+        //toast.success("Saved the post");
+        setfollowerstoshow(response.data);
+      })
+      .catch((error) => {
+        ///toast.error("Error saving the post");
+        console.error("Error saving topic:", error);
+        // Implement error handling logic here
+      });
+  };
 
   useEffect(() => {
-   fetchapi();
-fetchfollowers();
+    fetchapi();
+    fetchfollowers();
     // axios.get("https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/current_user").then((response) => {
     //  console.log(response.data);
     // });
-
-  
-
   }, []);
 
   const views = useSelector((state) => state.views.value);
@@ -282,17 +287,64 @@ fetchfollowers();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handlesearchposts = () => {
-    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/posts/search?search=${searchterm}`)
-    .then((response) => {
-      console.log('Fetched the posts', response.data);
-      setpoststoshow(response.data);
-    })
-    .catch((error) => {
-      toast.error("Error searching the post");
-      //console.error('Error saving topic:', error);
-      // Implement error handling logic here
-    });
-  }
+    axios
+      .get(
+        `https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/posts/search?search=${searchterm}`
+      )
+      .then((response) => {
+        console.log("Fetched the posts", response.data);
+        setpoststoshow(response.data);
+      })
+      .catch((error) => {
+        toast.error("Error searching the post");
+        //console.error('Error saving topic:', error);
+        // Implement error handling logic here
+      });
+  };
+
+  const handlesearchauthors = () => {
+    axios
+      .get(
+        `https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/posts/search?search=${authorName}`
+      )
+      .then((response) => {
+        console.log("Fetched the posts", response.data);
+        setpoststoshow(response.data);
+      })
+      .catch((error) => {
+        toast.error("Error searching the author");
+        //console.error('Error saving topic:', error);
+        // Implement error handling logic here
+      });
+  };
+
+  const [filterDate, setFilterDate] = useState("");
+
+  const handleApplyFilter = () => {
+    axios
+      .get(
+        `https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/${filterDate}`
+      )
+      .then((response) => {
+        console.log("Fetched the posts", response.data);
+        setpoststoshow(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  // const handleApplyFilter = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/${filterDate}`
+  //     );
+  //     setpoststoshow(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
   const handlepostclick = () => {
     dispatch(setviewValue(currentviews + 1));
     setcurrentviews(currentviews + 1);
@@ -352,10 +404,14 @@ fetchfollowers();
                 placeholder="Search for a post"
                 className="bg-slate-200 w-[400px] focus:outline-none px-4 py-2 rounded-[25px]"
                 value={searchterm}
-                onChange={(e)=>setsearchterm(e.target.value)}
+                onChange={(e) => setsearchterm(e.target.value)}
               />
-              <button className="rounded-full bg-slate-300 py-1 px-2 ml-2" onClick={handlesearchposts}>search</button>
-
+              <button
+                className="rounded-full bg-slate-300 py-1 px-2 ml-2"
+                onClick={handlesearchposts}
+              >
+                search
+              </button>
             </div>
             <div className="titlesScroll rounded overflow-x-scroll whitespace-nowrap relative ">
               {tabOptions.map((tab) => (
@@ -373,7 +429,7 @@ fetchfollowers();
               ))}
             </div>
             <div className="filterDivMain11 my-[20px] items-center p-4 border rounded shadow-md bg-gray-200">
-              <div className="filterDiv11 w-fit md:w-4/5">
+              <div className="filterDiv11 w-fit md:w-[100%]">
                 <div className="w-fit md:w-full filterDivSub11 my-[10px]">
                   <div className="w-fit mr-4 mb-4">
                     <input
@@ -381,39 +437,66 @@ fetchfollowers();
                       value={authorName}
                       placeholder="Author name"
                       onChange={(e) => setAuthorName(e.target.value)}
-                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-[10px] py-[5px]"
+                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-[10px] py-[5px] mr-[15px]"
                     />
+                    <button
+                      // onClick={() => {
+                      //   getFilteredPosts();
+                      // }}
+                      onClick={handlesearchauthors}
+                      className="bg-[#121212] text-white font-[500] px-[15px] py-[5px] rounded-[25px] hover:bg-blue-700"
+                    >
+                      Apply
+                    </button>
                   </div>
 
                   <div className="w-fit mr-4">
                     <select
                       value={likesCommentsOrder}
                       onChange={(e) => setLikesCommentsOrder(e.target.value)}
-                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1"
+                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1 mr-[15px]"
                     >
                       <option value="high">Most likes</option>
                       <option value="low">Least likes</option>
                       <option value="comments_high">Most comments</option>
                       <option value="comments_low">Least comments</option>
                     </select>
+                    <button
+                      // onClick={() => {
+                      //   getFilteredPosts();
+                      // }}
+                      onClick={handlesearchauthors}
+                      className="bg-[#121212] text-white font-[500] px-[15px] py-[5px] rounded-[25px] hover:bg-blue-700"
+                    >
+                      Apply
+                    </button>
                   </div>
                 </div>
 
                 <div className="w-fit md:w-full filterDivSub11 my-[10px]">
                   <div className="w-fit mb-0">
                     <label className="text-gray-700 font-bold mr-2">
-                      Start Date:
+                      Filter by Date:
                     </label>
                     <br />
                     <input
                       type="date"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1"
+                      value={filterDate}
+                      onChange={(e) => setFilterDate(e.target.value)}
+                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1 mr-[15px]"
                     />
+                    <button
+                      // onClick={() => {
+                      //   getFilteredPosts();
+                      // }}
+                      onClick={handleApplyFilter}
+                      className="bg-[#121212] text-white font-[500] px-[15px] py-[5px] rounded-[25px] hover:bg-blue-700"
+                    >
+                      Apply
+                    </button>
                   </div>
 
-                  <div className="w-fit mb-0">
+                  {/* <div className="w-fit mb-0">
                     <label className="text-gray-700 font-bold mr-2">
                       End Date:
                     </label>
@@ -424,20 +507,21 @@ fetchfollowers();
                       onChange={(e) => setEndDate(e.target.value)}
                       className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
-              <div className="w-fit md:w-1/5">
+              {/* <div className="w-fit md:w-1/5">
                 <button
-                  onClick={() => {
-                    getFilteredPosts();
-                  }}
+                  // onClick={() => {
+                  //   getFilteredPosts();
+                  // }}
+                  onClick={handlesearchauthors}
                   className="bg-[#121212] text-white font-[500] px-[15px] py-[5px] rounded-[25px] hover:bg-blue-700"
                 >
                   Apply Filters
                 </button>
-              </div>
+              </div> */}
             </div>
             <div className="w-full mt-4">
               {poststoshow.map((blog) => (
@@ -461,13 +545,11 @@ fetchfollowers();
 
                   {/* Content */}
 
-                      <div className="tagsPostsBtn cursor-pointer w-[60px]">
-                        {blog.topic}
-                      </div>
-          
+                  <div className="tagsPostsBtn cursor-pointer w-[60px]">
+                    {blog.topic}
+                  </div>
 
-                    {/* Add more categories as needed */}
-              
+                  {/* Add more categories as needed */}
 
                   {/* Image */}
                   <div className="textImgMobDiv flex justify-between items-center mb-4 ">
@@ -530,10 +612,15 @@ fetchfollowers();
                   onChange={(e) => settopic(e.target.value)}
                   className="bg-slate-200 w-[50%] focus:outline-none px-4 py-2 my-[5px] rounded-[25px]"
                 />
-                <button className="rounded-full bg-slate-300" onClick={handleaddtopic}>Add topic</button>
+                <button
+                  className="rounded-full bg-slate-300"
+                  onClick={handleaddtopic}
+                >
+                  Add topic
+                </button>
                 <button className="rounded-full bg-slate-300 py-1 px-2 ml-2">
-                <Link to="/alltopics">Explore topics</Link>
-              </button>
+                  <Link to="/alltopics">Explore topics</Link>
+                </button>
               </div>
               {recommendedCategories.map((category) => (
                 <div
@@ -560,17 +647,13 @@ fetchfollowers();
                 />
               </div>
               {/* Sample other usernames */}
-              {
-                followerstoshow.map((follower) => (
-                  <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-700">
-                    {follower['name']}
-                  </span>
+              {followerstoshow.map((follower) => (
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-gray-700">{follower["name"]}</span>
                   <button className="text-blue-500 font-bold">Follow</button>
                 </div>
-                ))
-              }
-            
+              ))}
+
               {/* Add more usernames as needed */}
             </div>
           </div>

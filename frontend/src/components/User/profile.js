@@ -3,47 +3,118 @@ import "./profile.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import NavbarValidated from "../LandingPage/NavbarValidated";
+import axios from "axios";
+
 const saved = [
-  {data : " John Doe" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
-  {data : " Venkatesh" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
-  {data : "Vivek paidi" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
-  {data : "Vivek paidi" , content : " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn" },
-]
-const listnames = ['Private', 'finance', 'Technology', 'Business'];
+  {
+    data: " John Doe",
+    content:
+      " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn",
+  },
+  {
+    data: " Venkatesh",
+    content:
+      " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn",
+  },
+  {
+    data: "Vivek paidi",
+    content:
+      " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn",
+  },
+  {
+    data: "Vivek paidi",
+    content:
+      " Oppenheimer is smdn asfna msfciansdfJ zdjbndzx vkdnvsdk sdfkinsdkn",
+  },
+];
+const listnames = ["Private", "finance", "Technology", "Business"];
 function Profile() {
- const values = JSON.parse(localStorage.getItem('signinvalues'));
+  const values = JSON.parse(localStorage.getItem("signinvalues"));
   const [savedtoshow, setsavedtoshow] = useState([]);
   const [liststoshow, setliststoshow] = useState([]);
   //console.log(useSelector((state)=> state.username.value));
   const navigate = useNavigate();
   const handleshowlist = (name) => {
-    navigate('/otherposts')
-  }
-useEffect(()=>{
-setliststoshow(listnames);
-setsavedtoshow(saved);
-}, [])
+    navigate("/otherposts");
+  };
+  useEffect(() => {
+    setliststoshow(listnames);
+    setsavedtoshow(saved);
+    handlesearchauthors();
+  }, []);
+
+  const [userdetails, setuserdetails] = useState([]);
+
+  const auth_token = localStorage.getItem("jwtToken");
+  const headers = {
+    authToken: auth_token,
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "application/json, text/plain, */*",
+  };
+
+  const handlesearchauthors = () => {
+    axios
+      .get(
+        `https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/my/details`,
+        { headers }
+      )
+      .then((response) => {
+        console.log("User details", response.data);
+        setuserdetails(response.data);
+      })
+      .catch((error) => {
+        // toast.error("Error searching the author");
+        console.error("Error fetching details:", error);
+        // Implement error handling logic here
+      });
+  };
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const auth_token = localStorage.getItem("jwtToken");
+    const headers = {
+      authToken: auth_token,
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json, text/plain, */*",
+    };
+    axios
+      .get(
+        "https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/get/myPost",
+        { headers }
+      )
+      .then((response) => {
+        console.log("Fetched the posts", response.data);
+        // toast.success("Fetched the posts");
+        setPosts(response.data);
+      })
+      .catch((error) => {
+        // toast.error("Error saving the post");
+        console.error("Error saving topic:", error);
+        // Implement error handling logic here
+      });
+  }, []);
+
   const handledelete = (index) => {
     listnames.splice(index, 1);
     console.log(listnames);
     setliststoshow(listnames);
     console.log(liststoshow);
-  }
+  };
 
   const handlesaved = (index1) => {
     saved.splice(index1, 1);
     setsavedtoshow(listnames);
-  }
+  };
 
   return (
     <div>
-      <NavbarValidated/>
+      <NavbarValidated />
       <div className="profileDiv px-[50px] mt-[50px]">
         <div className="profileDivLeft mr-[100px]">
-          <div className="hidden md:block text-[50px] font-[700] mt-[20px] my-[40px] pl-[30px]">
-          {values ? <span>{values['name']}</span> 
-          : <span>User Name </span>
-          }
+          <div className="hidden lg:block text-[50px] font-[700] mt-[20px] my-[40px] pl-[30px]">
+            {/* {values ? <span>{values["name"]}</span> : <span>User Name </span>} */}
+            {userdetails.name}
           </div>
 
           <hr />
@@ -55,9 +126,8 @@ setsavedtoshow(saved);
 
             <div>
               <ol className="profileList">
-                {
-                  liststoshow.map((name,index)=>(
-                    <a>
+                {liststoshow.map((name, index) => (
+                  <a>
                     <div className="profileMyListItem">
                       <li className="text-[20px]">
                         <div>
@@ -65,17 +135,20 @@ setsavedtoshow(saved);
                         </div>
                       </li>
                       <div className="flex gap-3 relative top-[8px]">
-                        <Link to='/otherposts' state = {{name : name}}>
-                        <div className="cursor-pointer">
-                          <img
-                            className="profileOpenLink"
-                            src="https://static.thenounproject.com/png/196595-200.png"
-                            alt="->"
-                          />
-                        </div>
+                        <Link to="/otherposts" state={{ name: name }}>
+                          <div className="cursor-pointer">
+                            <img
+                              className="profileOpenLink"
+                              src="https://static.thenounproject.com/png/196595-200.png"
+                              alt="->"
+                            />
+                          </div>
                         </Link>
-                        
-                   <div className="cursor-pointer" onClick={(index)=> handledelete(index)}>
+
+                        <div
+                          className="cursor-pointer"
+                          onClick={(index) => handledelete(index)}
+                        >
                           <img
                             className="profileOpenLink"
                             src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
@@ -85,8 +158,7 @@ setsavedtoshow(saved);
                       </div>
                     </div>
                   </a>
-                  ))
-                }
+                ))}
               </ol>
             </div>
           </div>
@@ -98,51 +170,49 @@ setsavedtoshow(saved);
 
             <div>
               <ol className="profileList">
-                {
-                  savedtoshow.map((content, index) => (
-<a>
-                  <div className="profileMyListItem">
-                    <li>
-                      <div className="max-w-[80%] text-[15px] font-[500]">
-                        <span>
-                          {content.content}
-                        </span>
-                        <br />
-                        <span className="text-[13px] pl-[10px] font-[400]">
-                          Author: {content.data}
-                        </span>
-                      </div>
-                    </li>
-                    <div className="flex gap-3">
-                    <Link to='/postpage'>
-                      <div className="cursor-pointer">
-                        <img
-                          className="profileOpenLink"
-                          src="https://static.thenounproject.com/png/196595-200.png"
-                          alt="->"
-                        />
-                      </div>
-                      </Link>
-                      <div className="cursor-pointer" onClick={(index)=> handlesaved(index)} >
-                        <img
-                          className="profileOpenLink"
-                          src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
-                          alt=""
-                        />
+                {savedtoshow.map((content, index) => (
+                  <a>
+                    <div className="profileMyListItem">
+                      <li>
+                        <div className="max-w-[80%] text-[15px] font-[500]">
+                          <span>{content.content}</span>
+                          <br />
+                          <span className="text-[13px] pl-[10px] font-[400]">
+                            Author: {content.data}
+                          </span>
+                        </div>
+                      </li>
+                      <div className="flex gap-3">
+                        <Link to="/postpage">
+                          <div className="cursor-pointer">
+                            <img
+                              className="profileOpenLink"
+                              src="https://static.thenounproject.com/png/196595-200.png"
+                              alt="->"
+                            />
+                          </div>
+                        </Link>
+                        <div
+                          className="cursor-pointer"
+                          onClick={(index) => handlesaved(index)}
+                        >
+                          <img
+                            className="profileOpenLink"
+                            src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                            alt=""
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </a>
-                  ))
-                }
-                
+                  </a>
+                ))}
               </ol>
             </div>
 
             <div className="profileShowAllDiv my-[30px]">
-            <Link to='/otherposts' state = {{name : "Save for later"}}>
-              <button className="profileShowAll">Show All</button>
-            </Link>
+              <Link to="/otherposts" state={{ name: "Save for later" }}>
+                <button className="profileShowAll">Show All</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -158,9 +228,14 @@ setsavedtoshow(saved);
             </div>
             <div className="profileName font-[700] my-[20px]">
               <div>
-                <h6 className="text-[30px]">{values ? <span>{values['name']}</span> 
-          : <span>User Name </span>
-          }</h6>
+                <h6 className="text-[30px]">
+                  {/* {values ? (
+                    <span>{values["name"]}</span>
+                  ) : (
+                    <span>User Name </span>
+                  )} */}
+                  {userdetails.name}
+                </h6>
               </div>
               {/* <div>
                 <a>
@@ -174,75 +249,69 @@ setsavedtoshow(saved);
             </div>
             <div className="profileName font-[400] my-[20px]">
               <div>
-              {values ? <h6 className="text-[20px]">{values['email']}</h6> 
-          : <h6 className="text-[20px]">User Email </h6>
-          }
-                
+                {/* {values ? (
+                  <h6 className="text-[20px]">{values["email"]}</h6>
+                ) : (
+                  <h6 className="text-[20px]">User Email </h6>
+                )} */}
+                {userdetails.email}
               </div>
             </div>
             <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
               <div>
-                <h6 className="text-[18px]">+91 9291909491</h6>
+                <h6 className="text-[18px]">
+                  Followers: {userdetails.followers_count}
+                </h6>
               </div>
             </div>
             {/* <div className="profileName font-[400] mt-[20px] mb-[20px] md:mb-[40px]">
              <button className="rounded-[25px] px-[15px] py-[5px] bg-green-500 text-white">edit profile</button>
             </div> */}
-
           </div>
 
           <hr className="profilehr" />
 
-          <div className="pl-[30px] md:pl-[50px]">
-            <div className="pt-[10px] md:pt-[40px] pb-[10px] text-[20px]">
-              <a>
-                <div className="profileName">
-                  <div>
-                    <span className="font-[500]">Total Posts: </span>23
-                  </div>
-                  <Link to='/myposts'>
-                  <div>
-                    <img
-                      className="profileOpenLink"
-                      src="https://static.thenounproject.com/png/196595-200.png"
-                      alt="->"
-                    />
-                  </div>
-                  </Link>
-                </div>
-              </a>
+          <div className="w-[100%] mx-auto my-[40px] pl-[30px] md:pl-[50px]">
+            <div className="text-[30px] font-[700] my-[10px]">
+              <span>My Posts</span>
             </div>
-            <div className="py-[10px] text-[20px]">
-              <a>
-                <div className="profileName">
-                  <div>
-                    <span className="font-[500]">Followers: </span>23
-                  </div>
-                  <div>
-                    <img
-                      className="profileOpenLink"
-                      src="https://static.thenounproject.com/png/196595-200.png"
-                      alt="->"
-                    />
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div className="py-[10px] text-[20px]">
-              <a>
-                <div className="profileName">
-                  <div>
-                    <span className="font-[500]">Following: </span>23
-                  </div>
-                  <div>
-                    <img
-                      className="profileOpenLink"
-                      src="https://static.thenounproject.com/png/196595-200.png"
-                      alt="->"
-                    />
-                  </div>
-                </div>
-              </a>
+
+            <div>
+              <ol className="profileList">
+                {posts.map((blog) => (
+                  <a>
+                    <div className="profileMyListItem">
+                      <li className="text-[20px]">
+                        <div>
+                          <span className="text-[#121212]">{blog.title}</span>
+                        </div>
+                      </li>
+                      {/* <div className="flex gap-3 relative top-[8px]">
+                        <Link to="/otherposts">
+                          <div className="cursor-pointer">
+                            <img
+                              className="profileOpenLink"
+                              src="https://static.thenounproject.com/png/196595-200.png"
+                              alt="->"
+                            />
+                          </div>
+                        </Link>
+
+                        <div
+                          className="cursor-pointer"
+                          onClick={(index) => handledelete(index)}
+                        >
+                          <img
+                            className="profileOpenLink"
+                            src="https://thenounproject.com/api/private/icons/2994180/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                            alt=""
+                          />
+                        </div>
+                      </div> */}
+                    </div>
+                  </a>
+                ))}
+              </ol>
             </div>
           </div>
         </div>
