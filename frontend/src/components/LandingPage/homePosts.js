@@ -128,9 +128,9 @@ function HomePosts() {
         <span onClick={() => handlerecpost()} className="cursor-pointer filterHomeBtn bg-slate-200 hover:bg-slate-700 hover:text-white">
           Recommended
         </span>
-        {/* <span  onClick={() => handlechangeposts(mostliked)} className="cursor-pointer filterHomeBtn filterHomeBtnR bg-slate-200 hover:bg-slate-700 hover:text-white">
+        <span  onClick={() => handlechangeposts(mostliked)} className="cursor-pointer filterHomeBtn filterHomeBtnR bg-slate-200 hover:bg-slate-700 hover:text-white">
           Most Liked
-        </span> */}
+        </span>
       </div>
 
       <div className="my-[25px] md:my-[0px]">

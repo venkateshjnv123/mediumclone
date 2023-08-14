@@ -285,7 +285,7 @@ const BlogForm = () => {
                   />
                 </div>
 
-                <div className="mb-4">
+               {/*  <div className="mb-4">
                   <label className="text-sm font-[700] ml-[10px] mb-1 tracking-[0.03rem]">
                     Categories:
                   </label>
@@ -333,7 +333,7 @@ const BlogForm = () => {
                       </button>
                     </div>
                   )}
-                </FormikConsumer>
+                </FormikConsumer> */}
 
                 <div className="flex justify-center gap-5 py-[30px]">
                   <FormikConsumer>

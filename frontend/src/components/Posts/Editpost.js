@@ -90,7 +90,7 @@ const EditForm = () => {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json, text/plain, */*'
     }
-    axios.put(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/edit/post/${initialValues['id']}`, data,{headers})
+    axios.post(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/create/post`, data,{headers})
       .then((response) => {
         console.log('Post saved!', response.data);
         toast.success("Saved the post");
@@ -103,11 +103,6 @@ const EditForm = () => {
 
         // Implement error handling logic here
       });
-    // toast.success("form successfully submitted");
-    // resetForm();
-    
-  
-    // Handle form submission here, e.g., send data to server, etc.
   };
   const handleSaveDraft = (values) => {
     const id = initialValues["id"];
@@ -286,7 +281,7 @@ const EditForm = () => {
     </FormikConsumer> */}
 
               <div className="flex space-x-4">
-                {initialstatus === "Yes" ? (
+                {/* {initialstatus === "Yes" ? (
                   <></>
                 ) : (
                   <FormikConsumer>
@@ -300,7 +295,7 @@ const EditForm = () => {
                       </button>
                     )}
                   </FormikConsumer>
-                )}
+                )} */}
 
                 <button
                   type="submit"

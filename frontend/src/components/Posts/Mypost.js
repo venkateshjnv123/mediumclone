@@ -66,14 +66,14 @@ function Myposts() {
           My Posts
         </h6>
 
-        <div className="w-fit mx-[auto]">
+        {/* <div className="w-fit mx-[auto]">
           <label className="font-[500]">Filter by Status:</label>
           <select className="border rounded-[25px] px-[15px] py-[5px] ml-[15px]">
             <option value="All">All</option>
             <option value="Uploaded">Uploaded</option>
             <option value="Draft">Draft</option>
           </select>
-        </div>
+        </div> */}
 
         <div className="min-w-[0px] md:min-w-[1200px] flex flex-col md:flex-row md:flex-wrap md:justify-around">
           {posts ? (

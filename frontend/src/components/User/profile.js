@@ -279,6 +279,15 @@ useEffect(()=>{
                 </div>
               </a>
             </div>
+            <Link to="/mydrafts">
+            <button className="rounded-full bg-slate-200 py-1 px-2 mx-1">  My Drafts</button>
+                {/* <img src={happyface} alt="happyface" /> */}
+               
+            
+              </Link>
+            <Link to="/myposts">
+            <button className="rounded-full bg-slate-200 py-1 px-2  mx-1"> My Posts</button>
+              </Link>
 
             <div>
               <h6>My posts</h6>

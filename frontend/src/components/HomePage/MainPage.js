@@ -176,6 +176,7 @@ function HomePage() {
   const [poststoshow, setpoststoshow] = useState(blogsdata);
   const [searchterm, setsearchterm] = useState("");
   const [followerstoshow, setfollowerstoshow] = useState([]);
+  const [alltopics, setalltopics] = useState([]);
   const [authorsearch, setauthorsearch] = useState("");
   const handlemembershipclose = () => {
     setmembershipmodal(false);
@@ -266,9 +267,24 @@ function HomePage() {
     });
   }
 
+  const fetchtopic = () => {
+    axios.get('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/topic/showAll')
+    .then((response) => {
+      console.log('Fetched the topics', response.data);
+      //toast.success("Saved the post");
+      setalltopics(response.data);   
+    })
+    .catch((error) => {
+      ///toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    });
+  }
+
   useEffect(() => {
    fetchapi();
 fetchfollowers();
+fetchtopic();
     // axios.get("https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/current_user").then((response) => {
     //  console.log(response.data);
     // });
@@ -313,11 +329,11 @@ fetchfollowers();
     dispatch(setviewValue(currentviews + 1));
     setcurrentviews(currentviews + 1);
     console.log(blog);
-    // if (members === false && currentviews > 1) {
-    //   setmembershipmodal(true);
-    // } else {
+    //if (members === false && currentviews > 1) {
+    //  setmembershipmodal(true);
+   // } else {
       navigate("/postpage", {state : {id : blog['id'], authorid : blog['author_id']}});
- //   }
+   // }
   };
 
   const handleTabClick = (tab) => {
@@ -606,19 +622,21 @@ fetchfollowers();
                   onChange={(e) => settopic(e.target.value)}
                   className="bg-slate-200 w-[50%] focus:outline-none px-4 py-2 my-[5px] rounded-[25px]"
                 />
-                <button className="rounded-full bg-slate-300" onClick={handleaddtopic}>Add topic</button>
+                <button className="rounded-full bg-slate-300 py-1 px-2 ml-2" onClick={handleaddtopic}>Add topic</button>
                 <button className="rounded-full bg-slate-300 py-1 px-2 ml-2">
                 <Link to="/alltopics">Explore topics</Link>
               </button>
               </div>
-              {recommendedCategories.map((category) => (
+              <div className="flex flex-col justify-center">
+              {alltopics.map((category) => (
                 <div
-                  key={category}
-                  className="bg-[#d4d4d4] px-3 py-1 rounded-full cursor-pointer"
+                  key={category.id}
+                  className="bg-[#d4d4d4] px-3 py-1 rounded-full cursor-pointer my-1"
                 >
-                  {category}
+               {category.id}:{category.name}
                 </div>
               ))}
+              </div>
             </div>
 
             <hr />
