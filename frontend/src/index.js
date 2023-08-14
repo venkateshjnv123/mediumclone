@@ -25,6 +25,8 @@ import Protected from "./Protected";
 import Othersposts from "./components/User/Othersposts";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import MyDrafts from "./components/Posts/Mydrafts";
+import ListPosts from "./components/User/Listshow";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
   {
 path : '/edit',
 element :<Protected><EditForm/></Protected> 
+  },
+  {
+    path: "/mydrafts",
+    element:<Protected><MyDrafts /></Protected> ,
   },
   {
     path: "/myposts",
@@ -71,6 +77,10 @@ element : <Protected><MyPostsPage/></Protected>
   {
     path : '/alltopics',
     element :<Protected><ExploreTopics/></Protected> 
+  },
+  {
+    path: "/listshow",
+    element:<Protected><ListPosts /></Protected> ,
   },
    { path: "/oprofile",
     element:<Protected><OthersProfile /></Protected> ,

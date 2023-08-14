@@ -1,7 +1,8 @@
-import React, { Component, useLayoutEffect, useState } from "react";
+import React, { Component, useEffect, useLayoutEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GrView } from "react-icons/gr";
 import NavbarValidated from "../LandingPage/NavbarValidated";
+import axios from "axios";
 const blogsdata = [
     {
       title: "Stop Using React Native Async Storage",
@@ -40,20 +41,36 @@ const blogsdata = [
       views: 99,
     },
   ];
-function Othersposts() {
-  const [posts, setPosts] = useState(blogsdata);
+function ListPosts() {
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const name = location.state.name;
+  console.log(name);
+
+  const fetchList = () => {
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/playlists/show/playlist/post/${name}`)
+    .then((response) => {
+      console.log('Added the playlists', response.data);  
+      setPosts(response.data);
+    })
+    .catch((error) => {
+      console.error('Error saving topic:', error);
+    });
+  }
+  useEffect(()=>{
+    fetchList();
+  },[]);
+
   const handleshowpost = (blog) => {
-    navigate("/postpage", { state: { blogdetails: blog } });
+    navigate("/postpage",  {state : {id : blog['id'], authorid : blog['author_id']}});
   };
 
   return (
     <div>
          <NavbarValidated/>
     <div className=" mt-[70px]">
-      <h6 className="text-center text-[35px] font-[700] mb-[10px]">{name} Posts</h6>
+      <h6 className="text-center text-[35px] font-[700] mb-[10px]">Posts</h6>
 {/* 
       <div className="w-fit mx-[auto]">
         <label className="font-[500]">Filter by Status:</label>
@@ -77,22 +94,16 @@ function Othersposts() {
               <div className="flex content-space-between">
                 <h3 className="text-xl font-[500] mb-4">{blog.title}</h3>
               </div>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {blog.categories.map((category) => (
-                  <div className="bg-[#f2f2f2] px-4 py-2 rounded-[25px] cursor-pointer">
-                    {category}
+              <div className="bg-[#f2f2f2] px-4 py-2 rounded-[25px] cursor-pointer w-[60px]">
+                    {blog.topic}
                   </div>
-                ))}
-
-                {/* Add more categories as needed */}
-              </div>
 
               {/* Image */}
               <div className="flex flex-col-reverse md:flex-row md:justify-between items-center mb-4">
                 <div className="md:max-w-[70%]">
                   {" "}
                   <p className="text-gray-700 mb-4 overflow-hidden line-clamp-3">
-                    {blog.data}
+                    {blog.text}
                   </p>
                   
                   {/* <p className="my-[10px]">
@@ -117,20 +128,7 @@ function Othersposts() {
                         </span>
                       </div>
                       <div className="pl-[5px]">
-                        <span>{blog.likes}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex">
-                      <div>
-                        <span>
-                          <svg width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M18 16.8a7.14 7.14 0 0 0 2.24-5.32c0-4.12-3.53-7.48-8.05-7.48C7.67 4 4 7.36 4 11.48c0 4.13 3.67 7.48 8.2 7.48a8.9 8.9 0 0 0 2.38-.32c.23.2.48.39.75.56 1.06.69 2.2 1.04 3.4 1.04.22 0 .4-.11.48-.29a.5.5 0 0 0-.04-.52 6.4 6.4 0 0 1-1.16-2.65v.02zm-3.12 1.06l-.06-.22-.32.1a8 8 0 0 1-2.3.33c-4.03 0-7.3-2.96-7.3-6.59S8.17 4.9 12.2 4.9c4 0 7.1 2.96 7.1 6.6 0 1.8-.6 3.47-2.02 4.72l-.2.16v.26l.02.3a6.74 6.74 0 0 0 .88 2.4 5.27 5.27 0 0 1-2.17-.86c-.28-.17-.72-.38-.94-.59l.01-.02z"></path>
-                          </svg>
-                        </span>
-                      </div>
-                      <div className="pl-[5px]">
-                        <span>{blog.views}</span>
+                        <span>{blog.likes_count}</span>
                       </div>
                     </div>
 
@@ -147,7 +145,7 @@ function Othersposts() {
                         </span>
                       </div>
                       <div className="pl-[5px]">
-                        <span>{blog.views}</span>
+                        <span>{blog.comments_count}</span>
                       </div>
                     </div>
                   </div>
@@ -174,4 +172,4 @@ function Othersposts() {
   );
 }
 
-export default Othersposts;
+export default ListPosts;

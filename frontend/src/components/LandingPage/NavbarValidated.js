@@ -53,6 +53,12 @@ export default function NavbarValidated() {
                 Write
               </li>
             </Link>
+            <Link to="/mydrafts">
+            <li className="nav-btn">
+                {/* <img src={happyface} alt="happyface" /> */}
+                My Drafts
+              </li>
+              </Link>
             <Link to="/myposts">
             <li className="nav-btn">
                 {/* <img src={happyface} alt="happyface" /> */}
@@ -84,6 +90,11 @@ export default function NavbarValidated() {
                 <h4 className="footleftText">Write</h4>
               </button>
             </Link>
+            <Link to="/mydrafts">
+            <button className="footButton">
+                <h4 className="footleftText">Drafts</h4>
+              </button>
+              </Link>
             <Link to="/myposts">
             <button className="footButton">
                 <h4 className="footleftText">My Posts</h4>

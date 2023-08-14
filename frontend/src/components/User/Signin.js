@@ -10,8 +10,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSubmit = async(values) => {
-    const val = JSON.parse(localStorage.getItem('signinvalues'));
-    if(val['email'] === values['email'] && val['password'] === values['password']){
+    //const val = JSON.parse(localStorage.getItem('signinvalues'));
+   // if(val['email'] === values['email'] && val['password'] === values['password']){
       // dispatch(setusernameValue(val['username']));
       // dispatch(setnameValue(val['name']));
       // dispatch(setloggedinValue(true));
@@ -22,11 +22,16 @@ const LoginPage = () => {
             "email" : values['email'],
             "password" : values['password'],
         }
-      const response = await axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/login', data);
+     axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/login', data)
+     .then((response)=> {
       console.log('Sign-up successful:', response.data);
       const jwtToken = response.data.token;
       localStorage.setItem('jwtToken', jwtToken);
       navigate("/home");
+     }).catch((error) => {
+      toast.error("Incorrect details entered");
+     })
+      
     //   fetch("https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/login", {
     //   method: 'POST',
     //   headers: {
@@ -49,10 +54,10 @@ const LoginPage = () => {
     //       localStorage.setItem("loggedin" , "yes");
     //       navigate("/home");});
 
-    }
-    else{
-      toast.error("entered incorrect details");
-    }
+    // }
+    // else{
+    //  
+    // }
     console.log(values);
   };
 

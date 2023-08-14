@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./postsPage.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { toast } from "react-toastify";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,27 +10,36 @@ import ShareModal from "../Other/Sharemodel";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link } from "react-router-dom";
 import NavbarValidated from "./NavbarValidated";
+import axios from "axios";
 
-const CommentModal = ({ isOpen, onClose }) => {
+const CommentModal = ({ isOpen, onClose,postid }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState([
-    {
-      author: "Johnabraham",
-      comment:
-        "Your post advises to Always use functional components. While functional components are indeed a popular choice in React development due to the introduction of hooks.",
-    },
-    {
-      author: "Johnabraham",
-      comment:
-        "Your post advises to Always use functional components. While functional components are indeed a popular choice in React development due to the introduction of hooks.",
-    },
-    {
-      author: "Johnabraham",
-      comment:
-        "Your post advises to Always use functional components. While functional components are indeed a popular choice in React development due to the introduction of hooks.",
-    },
-  ]);
+  const [comments,setcomments] = useState([]);
+  const auth_token = localStorage.getItem("jwtToken");
+  const headers =  {
+    "authToken": auth_token,
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json, text/plain, */*'
+  }
+
+  const fetchComments = () => {
+    console.log('a i really calling or not');
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/comment/all/${postid}`)
+    .then((response) => {
+      console.log('Fetched the Comments', response.data);  
+      setcomments(response.data);  
+    })
+    .catch((error) => {
+      //toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    }); 
+  }
+
+  useEffect(()=> {
+    fetchComments();
+  }, [])
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -40,11 +49,32 @@ const CommentModal = ({ isOpen, onClose }) => {
     setIsModalOpen(false);
   };
 
+  const handledeletecomment = (comment) => {
+    axios.delete(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/comment/delete/${comment['id']}`, {headers})
+    .then((response) => {
+      console.log('Comment Deleted', response.data);
+      fetchComments();
+    })
+    .catch((error) => {
+      console.error('Error deleting the comment', error);
+    }); 
+  
+    };
+  
+
   const handleAddComment = () => {
     if (newComment.trim() !== "") {
-      let cooom = { author: "venkatesh patnala", comment: newComment };
-      setComments((prevComments) => [...prevComments, cooom]);
+    axios.post(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/comment/create`, {post_id : postid , text : newComment}, {headers})
+    .then((response) => {
+      console.log('Comment posted', response.data);
       setNewComment("");
+      fetchComments();
+    })
+    .catch((error) => {
+      console.error('Error saving the comment', error);
+    }); 
+    
+    
     }
   };
 
@@ -119,28 +149,24 @@ const CommentModal = ({ isOpen, onClose }) => {
                       className="text-[20px]"
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      <h6 className="font-[500]">{comment.author}</h6>
+                      <h6 className="font-[500]">{comment.author_name}</h6>
                     </div>
+
+                    <div
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <p>{comment.comment_date}</p>
+                    </div>
+
                   </div>
                 </div>
 
                 <div>
-                  <p> {comment.comment}</p>
+                  <p> {comment.text}</p>
                 </div>
 
                 <div className="flex justify-between my-[10px]">
-                  <div className="btnsDiv">
-                    <div>
-                      <span>
-                        <FavoriteBorderIcon />
-                      </span>
-                    </div>
-                    <div className="pl-[5px]">
-                      <span>234</span>
-                    </div>
-                  </div>
-
-                  <button>Reply</button>
+                  <button className="rounded-full bg-red-400 p-2" onClick={() => handledeletecomment(comment)}>delete</button>
                 </div>
               </div>
             ))}
@@ -151,7 +177,7 @@ const CommentModal = ({ isOpen, onClose }) => {
   );
 };
 
-const Modal = ({ isOpen, onClose, onSave }) => {
+const Modal = ({ isOpen, onClose, onSave,playlist,postid }) => {
   const [selectedList, setSelectedList] = useState([
     "save for later",
     "private",
@@ -160,8 +186,16 @@ const Modal = ({ isOpen, onClose, onSave }) => {
   const [newListName, setNewListName] = useState("");
   const [checkedPosts, setCheckedPosts] = useState({});
   const initialValues = {
-    list: [],
+    selectedOption : '',
   };
+  const [options, setOptions] = useState([
+  ]);
+  const auth_token = localStorage.getItem("jwtToken");
+  const headers =  {
+    "authToken": auth_token,
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json, text/plain, */*'
+  }
 
   const handleCheckboxChange = (postId) => {
     setCheckedPosts((prevState) => ({
@@ -169,6 +203,21 @@ const Modal = ({ isOpen, onClose, onSave }) => {
       [postId]: !prevState[postId],
     }));
   };
+
+  const fetchplaylist = () => {
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/playlists/show/all`,{headers})
+    .then((response) => {
+      console.log('Fetched the playlist', response.data);
+      setOptions(response.data);
+    })
+    .catch((error) => {
+      console.error('Error saving topic:', error);
+    });
+  }
+  useEffect(()=> {
+    console.log("yes");
+    fetchplaylist();
+  }, [])
 
   const handleNewListNameChange = (event) => {
     setNewListName(event.target.value);
@@ -179,13 +228,33 @@ const Modal = ({ isOpen, onClose, onSave }) => {
   };
 
   const handleAddCategory = () => {
-    setSelectedList([...selectedList, newListName]);
-    setNewListName("");
+    // const new2 = {value : newListName, label : newListName}
+    // setOptions([...options, new2]);
+    // setNewListName("");
+
+    axios.post(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/playlists/create`, {name : newListName}, {headers})
+    .then((response) => {
+      console.log('Added the playlists', response.data);  
+      fetchplaylist();
+    })
+    .catch((error) => {
+      console.error('Error saving topic:', error);
+    });
+
   };
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, resetForm) => {
     // Do something with the selected categories in values.list
-    console.log("Selected Categories:", values.list);
-    toast.success("added to the lists");
+    console.log("Selected Categories:", values.selectedOption);
+    axios.post(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/playlists/add/post?playlist_id=${values.selectedOption}&post_id=${postid}`,{}, {headers})
+    .then((response) => {
+      console.log('Added the playlists', response.data);  
+    
+      onClose();
+    })
+    .catch((error) => {
+      console.error('Error saving topic:', error);
+    });
+    //toast.success("added to the lists");
     onClose();
   };
 
@@ -197,24 +266,23 @@ const Modal = ({ isOpen, onClose, onSave }) => {
     >
       <div className="bg-white w-96 p-6 rounded-lg">
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-          {({ values, handleChange }) => (
+          {({ values, handleChange, setFieldValue }) => (
             <Form className="flex flex-col justify-center">
-              <h2>Select Categories:</h2>
-              {selectedList.map((category) => (
-                <div className="flex items-center">
-                  <Field
-                    type="checkbox"
-                    name="list"
-                    value={category}
-                    checked={values.list.includes(category)}
-                    onChange={handleChange}
-                    className="form-checkbox h-4 w-4 text-blue-500 my-2"
-                  />
-                  <label key={category} className="ml-2">
-                    {category}
-                  </label>
-                </div>
-              ))}
+              <div className="form-group">
+              <label htmlFor="selectedOption">Select an option:</label>
+              <Field
+                as="select"
+                id="selectedOption"
+                name="selectedOption"
+                className="form-control"
+              >
+                {options.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.name}
+                  </option>
+                ))}
+              </Field>
+            </div>
               <hr />
               <div className="flex m-2">
                 <label>
@@ -238,12 +306,6 @@ const Modal = ({ isOpen, onClose, onSave }) => {
               <hr />
               <div className="flex justify-end mt-2">
                 <button
-                  onClick={onClose}
-                  className="px-4 py-2 mr-2 bg-gray-300 rounded-md"
-                >
-                  Cancel
-                </button>
-                <button
                   type="submit"
                   className="px-4 py-2 bg-blue-500 text-white rounded-md"
                 >
@@ -264,6 +326,96 @@ function PostsPage() {
   const [commentsopen, setiscomentsopen] = useState(false);
   const [shareopen, setisshareopen] = useState(false);
   const [like, setlike] = useState(false);
+  const [blog, setblog] = useState({});
+  const [id, setid] = useState(location.state.id);
+  const authorid = useState(location.state.authorid);
+  const [comments, setcomments] = useState([]);
+  const [isfollowing, setisfollowing] = useState(false);
+  const auth_token = localStorage.getItem("jwtToken");
+  const [playlist, setplaylist] = useState([]);
+  const navigate = useNavigate();
+  const headers =  {
+    "authToken": auth_token,
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json, text/plain, */*'
+  }
+  const fetchliked = () => {
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/like/already/liked?post_id=${id}`,{headers})
+      .then((response) => {
+        console.log('Post saved!', response.data);
+        setlike(response.data['success']);
+        //toast.success("Saved the post");
+      })
+      .catch((error) => {
+        //toast.error("Error saving the post");
+        console.error('Error saving topic:', error);
+
+        // Implement error handling logic here
+      });
+  }
+
+  const fetchplaylist = () => {
+    
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/playlists/show/all`, {headers})
+    .then((response) => {
+      console.log('Fetched the playlist', response.data);   
+      setplaylist(response.data);
+    })
+    .catch((error) => {
+      console.error('Error saving topic:', error);
+    });
+  }
+  const fetchBlog = () => {
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/get/post/${id}`)
+    .then((response) => {
+      console.log('Fetched the posts', response.data);
+      setblog(response.data);  
+      
+    })
+    .catch((error) => {
+      //toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    }); 
+  }
+
+  const fetchComments = () => {
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/comment/all/${id}`)
+    .then((response) => {
+      console.log('Fetched the Comments', response.data);  
+      setcomments(response.data);  
+    })
+    .catch((error) => {
+      //toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    }); 
+  }
+
+  const checkisfollowing = () => {
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/check/follow/${blog.author_id}`,{headers})
+      .then((response) => {
+        console.log('Post saved!', response.data);
+        setisfollowing(response.data.success);
+        //toast.success("Saved the post");
+      })
+      .catch((error) => {
+        //toast.error("Error saving the post");
+        console.error('Error saving topic:', error);
+
+        // Implement error handling logic here
+      });
+  }
+  useEffect(()=>{
+checkisfollowing();
+  }, [blog]);
+  useEffect(()=>{
+    fetchBlog();
+    fetchliked();
+    fetchComments();
+    //checkisfollowing();
+    fetchplaylist();
+  }, [])
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -291,6 +443,62 @@ function PostsPage() {
     setisshareopen(true);
   };
 
+  const handlefollowclicked = () => {
+    axios.post(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/follow/${blog.author_id}`,{},{headers})
+    .then((response) => {
+      console.log('Post saved!', response.data);
+      setisfollowing(!isfollowing);
+      toast.success("Followed the author");
+    })
+    .catch((error) => {
+      //toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+    });
+  }
+
+  const handlesaveforlater = () => {
+    axios.post(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/saveForLater/${blog.id}`,{},{headers})
+    .then((response) => {
+      console.log('Post saved!', response.data);
+      toast.success("Saved for later");
+    })
+    .catch((error) => {
+      //toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+    });
+  }
+
+  const handlelikeclicked = () => {
+    if(like === false) {
+      axios.post(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/like/create/${id}`,{}, {headers})
+      .then((response) => {
+        console.log('like', response.data);
+      })
+      .catch((error) => {
+        //toast.error("Error saving the post");
+        console.error('Error liking:', error);
+        // Implement error handling logic here
+      });    
+    }
+    else{
+      axios.delete(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/like/remove/${id}`, {headers})
+      .then((response) => {
+        console.log('unlike', response.data);
+      })
+      .catch((error) => {
+        //toast.error("Error saving the post");
+        console.error('Error saving topic:', error);
+        // Implement error handling logic here
+      }); 
+    }   
+    fetchBlog();
+    setlike(!like);
+  }
+
+
+  const handleopenprofile = (blog) => {
+    navigate("/oprofile" ,{state : {authorid : blog.author_id}})
+  }
   const handleSaveList = (data) => {
     console.log("List Name:", data.listName);
     console.log("Checked Items:", data.checkedItems);
@@ -303,8 +511,7 @@ function PostsPage() {
       <div>
         <div className="postsPage py-[40px] mt-[70px] mx-auto">
           <h2 className="text-[30px] sm:text-[42px] font-bold">
-            Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-            Ourselves
+          {blog.title}
           </h2>
           <div className="homePosts flex justify-start my-[30px]">
             <div>
@@ -320,15 +527,20 @@ function PostsPage() {
                   <div
                     className="text-[20px]"
                     style={{ display: "flex", alignItems: "center" }}
+                    onClick={() => handleopenprofile(blog)}
                   >
-                    <Link to="/oprofile">
+                   
                       <h6 className="font-[500] cursor-pointer">
-                        John Abraham
+                      {blog.author_name}
                       </h6>
-                    </Link>
+                  
 
                     <span className="dot"></span>
-                    <span className="text-[#1A8917]">Follow</span>
+                    {
+                      isfollowing ? <span className="text-[#1A8917]">following</span> :
+                      <button className="postAuthorDetailsBtn" onClick={handlefollowclicked}>Follow</button>
+                    }
+                    
                   </div>
                   <div
                     className="pt-[5px] text-[#6b6b6b]"
@@ -336,7 +548,7 @@ function PostsPage() {
                   >
                     <span>10 min read</span>
                     <span className="dot"></span>
-                    <span>Aug 8</span>
+                    <span>{blog.published_at}</span>
                   </div>
                 </div>
               </div>
@@ -348,7 +560,7 @@ function PostsPage() {
           <div className="btnsMainDiv py-[15px] px-[10px]">
             <div className="btnsLeftDiv gap-5">
               <div className="btnsDiv">
-                <div onClick={() => setlike(!like)}>
+                <div onClick={() => handlelikeclicked()}>
                   <span>
                     {like ? (
                       <FavoriteBorderIcon sx={{ color: "red" }} />
@@ -358,13 +570,14 @@ function PostsPage() {
                   </span>
                 </div>
                 <div className="pl-[5px]">
-                  <span>234</span>
+                  <span>{blog.likes_count}</span>
                 </div>
               </div>
               <div className="btnsDiv" onClick={handleopencommentsmodal}>
                 <CommentModal
                   isOpen={commentsopen}
                   onClose={handleclosecommentsmodal}
+                  postid = {id}
                 />
                 <div>
                   <span>
@@ -374,12 +587,17 @@ function PostsPage() {
                   </span>
                 </div>
                 <div className="pl-[5px]">
-                  <span>103</span>
+                  <span>{blog.comments_count}</span>
                 </div>
               </div>
             </div>
 
             <div className="btnsRightDiv gap-8">
+            <div className="btnsDiv" onClick={handlesaveforlater}>
+                <div>
+                  <button className="rounded-full bg-slate-200 py-1 px-2" >save</button>
+                </div>
+              </div>
               <div className="btnsDiv" onClick={handleOpenModal}>
                 <div>
                   <span>
@@ -393,6 +611,7 @@ function PostsPage() {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 onSave={handleSaveList}
+                postid={id}
               />
 
               {/* <div className="btnsDiv">
@@ -424,29 +643,17 @@ function PostsPage() {
           <div className="w-full my-1 mx-1">
           <img 
           className="w-full"
-          src="https://assets-in.bmscdn.com/discovery-catalog/events/et00347867-pawjgqabkd-landscape.jpg"
+          src={blog.image}
           alt="Respected image"/>
          </div>
 
           <div>
             <div>
               <p className="postText">
-                Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-                Ourselves Oppenheimer Isn't a Story About the Atomic Bomb, It's
-                About Ourselves Oppenheimer Isn't a Story About the Atomic Bomb,
-                It's About Ourselves Oppenheimer Isn't a Story About the Atomic
-                Bomb, It's About Ourselves Oppenheimer Isn't a Story About the
-                Atomic Bomb, It's About Ourselves Oppenheimer Isn't a Story
-                About the Atomic Bomb, It's About Ourselves
+                {blog.text}
               </p>
               <p className="postText">
-                Oppenheimer Isn't a Story About the Atomic Bomb, It's About
-                Ourselves Oppenheimer Isn't a Story About the Atomic Bomb, It's
-                About Ourselves Oppenheimer Isn't a Story About the Atomic Bomb,
-                It's About Ourselves Oppenheimer Isn't a Story About the Atomic
-                Bomb, It's About Ourselves Oppenheimer Isn't a Story About the
-                Atomic Bomb, It's About Ourselves Oppenheimer Isn't a Story
-                About the Atomic Bomb, It's About Ourselves
+              {blog.text}
               </p>
             </div>
           </div>
@@ -459,17 +666,12 @@ function PostsPage() {
 
           <div className="postsTagsDiv gap-5 my-[10px]">
             <span>
-              <button className="tagsPostsBtn">Tag1</button>
+              <button className="tagsPostsBtn">{blog.topic}</button>
             </span>
-            <span>
-              <button className="tagsPostsBtn">Tag2</button>
-            </span>
-            <span>
-              <button className="tagsPostsBtn">Tag3</button>
-            </span>
+           
           </div>
 
-          <div className="btnsMainDiv py-[15px] px-[10px]">
+          {/* <div className="btnsMainDiv py-[15px] px-[10px]">
             <div className="btnsLeftDiv gap-5">
               <div className="btnsDiv">
                 <div onClick={() => setlike(!like)}>
@@ -482,7 +684,7 @@ function PostsPage() {
                   </span>
                 </div>
                 <div className="pl-[5px]">
-                  <span>234</span>
+                  <span>{blog.likes_count}</span>
                 </div>
               </div>
               <div className="btnsDiv" onClick={handleopencommentsmodal}>
@@ -527,7 +729,7 @@ function PostsPage() {
                     </svg>
                   </span>
                 </div>
-              </div> */}
+              </div> 
               <ShareModal
                 isOpen1={shareopen}
                 onClose1={handleclosesharemodal}
@@ -542,7 +744,7 @@ function PostsPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="bg-[#F9F9F9] py-[50px]">
@@ -558,12 +760,11 @@ function PostsPage() {
               <div>
                 <div className="postAuthorDetails pt-[5px]">
                   <div>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                    <Link to="/oprofile">
-                      <h6 className="font-[700] text-[20px] md:text-[25px]">
-                        Written by John Abraham
+                    <div style={{ display: "flex", alignItems: "center" }} onClick={() => handleopenprofile(blog)}>
+                      <h6 className="font-[500] cursor-pointer">
+                      {blog.author_name}
                       </h6>
-                      </Link>
+ 
                     </div>
                     <span>
                       <h6 className="my-[8px]">366 Followers</h6>
@@ -579,7 +780,10 @@ function PostsPage() {
 
                   <div>
                     <span>
-                      <button className="postAuthorDetailsBtn">Follow</button>
+                    {
+                      isfollowing ? <span className="text-[#1A8917]">following</span> :
+                      <button className="postAuthorDetailsBtn" onClick={handlefollowclicked}>Follow</button>
+                    }
                     </span>
                   </div>
                 </div>

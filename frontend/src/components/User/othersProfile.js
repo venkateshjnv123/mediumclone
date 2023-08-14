@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profile.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NavbarValidated from "../LandingPage/NavbarValidated";
-
+import axios from "axios";
 function Profile() {
 const navigate = useNavigate();
+const location = useLocation();
+const [details, setdetails] = useState([]);
+const id = location.state.authorid ;
   const handleShowposts = (name) => {
     navigate('/otherposts' , {state : {name : name}})
+  };
+  const auth_token = localStorage.getItem("jwtToken");
+  const headers =  {
+    "authToken": auth_token,
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json, text/plain, */*'
   }
 
+  const fetchdetails = () => {
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/details/${id}`, {headers})
+    .then((response) => {
+      console.log('Added the playlists', response.data);  
+      setdetails(response.data);
+    })
+    .catch((error) => {
+      console.error('Error saving topic:', error);
+    });
+  };
+  useEffect(()=>{
+fetchdetails();
+  },[])
   const gotopost = (name) => {
     navigate('/postpage',{state : {name : name}});
   }
@@ -18,7 +40,7 @@ const navigate = useNavigate();
       <div className="profileDiv px-[50px] mt-[70px]">
         <div className="profileDivLeft mr-[100px]">
           <div className="hidden md:block text-[50px] font-[700] mt-[20px] my-[40px] pl-[30px]">
-            <span>John Abraham</span>
+            <span>{details['name']}</span>
           </div>
 
           <hr />
@@ -169,25 +191,25 @@ const navigate = useNavigate();
             </div>
             <div className="profileName font-[700] my-[20px]">
               <div>
-                <h6 className="text-[30px]">John Abraham</h6>
+                <h6 className="text-[30px]">{details['name']}</h6>
               </div>
             </div>
             <div className="profileName font-[400] my-[20px]">
               <div>
-                <h6 className="text-[18px]">johnabraham@gmail.com</h6>
+                <h6 className="text-[18px]">Email : {details['email']}</h6>
               </div>
             </div>
             <div className="profileName font-[400] mt-[20px] mb-[20px] ">
               <div>
-                <h6 className="text-[18px]">+91 9291909491</h6>
+                <h6 className="text-[18px]">About : {details['about']}</h6>
               </div>
             </div>
 
-            <div className="hidden md:block md:mb-[40px] mb-[20px]">
+            {/* <div className="hidden md:block md:mb-[40px] mb-[20px]">
               <button className="rounded-[25px] px-[15px] py-[5px] bg-green-500 text-white">
                 Follow
               </button>
-            </div>
+            </div> */}
           </div>
 
           <hr className="profilehr" />
@@ -213,7 +235,7 @@ const navigate = useNavigate();
               <a>
                 <div className="profileName">
                   <div>
-                    <span className="font-[500]">Followers: </span>23
+                    <span className="font-[500]">Followers: </span>{details.followers_count}
                   </div>
                   <div>
                     <img
@@ -225,28 +247,11 @@ const navigate = useNavigate();
                 </div>
               </a>
             </div>
-            <div className="py-[10px] text-[18px]">
-              <a>
-                <div className="profileName">
-                  <div>
-                    <span className="font-[500]">Following: </span>23
-                  </div>
-                  <div>
-                    <img
-                      className="profileOpenLink"
-                      src="https://static.thenounproject.com/png/196595-200.png"
-                      alt="->"
-                    />
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div className="block md:hidden my-[10px]">
+            {/* <div className="block md:hidden my-[10px]">
               <button className="rounded-[25px] px-[15px] py-[5px] bg-green-500 text-white">
                 Follow
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

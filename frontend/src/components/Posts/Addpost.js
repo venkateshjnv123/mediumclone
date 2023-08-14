@@ -89,6 +89,12 @@ const BlogForm = () => {
     authorName: Yup.string().required("Author Name is required"),
     categories: Yup.array().required("Title is required"),
   });
+  const auth_token = localStorage.getItem("jwtToken");
+  const headers =  {
+    "authToken": auth_token,
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json, text/plain, */*'
+  }
 
   const onSubmit = (values, { setSubmitting, resetForm }) => {
     //let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
@@ -106,12 +112,7 @@ const BlogForm = () => {
       "title" : values["title"]
     } ;
    
-    const auth_token = localStorage.getItem("jwtToken");
-    const headers =  {
-      "authToken": auth_token,
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json, text/plain, */*'
-    }
+  
     axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/create/post', data,{headers})
       .then((response) => {
         console.log('Post saved!', response.data);
@@ -132,14 +133,31 @@ const BlogForm = () => {
     setSubmitting(false);
     // Handle form submission here, e.g., send data to server, etc.
   };
-  const handleSaveDraft = (values) => {
-    let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
-    values["status"] = "No";
+  const handleSaveDraft = (values, resetForm) => {
+    // let array1 = JSON.parse(localStorage.getItem("blogs")) || [];
+    // values["status"] = "No";
     values["date"] = formatDate(new Date());
-    array1.push(values);
-    console.log("Saving draft:", values);
-    toast.warning("data stored as draft");
-    localStorage.setItem("blogs", JSON.stringify(array1));
+    const data = {
+      "featured_image" : values["featuredImage"],
+      "text" : values["content"],
+      "topic_id" : 3,
+      "title" : values["title"]
+    } ;
+    // array1.push(values);
+    // console.log("Saving draft:", values);
+    // toast.warning("data stored as draft");
+    // localStorage.setItem("blogs", JSON.stringify(array1));
+    axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/draft/create', data,{headers})
+    .then((response) => {
+      console.log('Post saved!', response.data);
+      toast.success("Saved as a draft");
+      resetForm();
+    })
+    .catch((error) => {
+      toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    });
   };
 
   return (
@@ -319,11 +337,11 @@ const BlogForm = () => {
 
                 <div className="flex justify-center gap-5 py-[30px]">
                   <FormikConsumer>
-                    {({ values }) => (
+                    {({ values, resetForm }) => (
                       <button
                         type="button"
                         className="bg-blue-500 hover:bg-blue-600 text-white rounded-[25px] px-4 py-2"
-                        onClick={() => handleSaveDraft(values)}
+                        onClick={() => handleSaveDraft(values, resetForm)}
                       >
                         Save Draft
                       </button>
