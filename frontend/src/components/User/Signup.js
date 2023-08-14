@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaGoogle, FaFacebook, FaInstagram } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setnameValue, setusernameValue , setloggedinValue} from "../redux/reduxslice";
 import { toast } from "react-toastify";
@@ -25,11 +25,29 @@ const RegistrationPage = () => {
   const dispatch = useDispatch();
   const handleSubmit = (values) => {
     localStorage.setItem("signinvalues", JSON.stringify(values));
-    dispatch(setnameValue(values['name']));
+    fetch("https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/signup", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }, 
+      body : JSON.stringify({
+        "user" : {
+          "email" : values['email'],
+          "password" : values['password'],
+        }
+      }),   
+    })
+    .then((response) => {response.json() ;
+    if (!response.ok) {
+     console.log("Error");
+    }})
+        .then(json => { console.log(json);});
+    //dispatch(setnameValue(values['name']));
     dispatch(setusernameValue(values['email']));
-    dispatch(setloggedinValue(true));
-    localStorage.setItem("loggedin" , "yes");
-    navigate('/home');
+    //dispatch(setloggedinValue(true));
+    //localStorage.setItem("loggedin" , "yes");
+    //navigate('/home');
     console.log(values);
   };
 
@@ -75,12 +93,34 @@ const RegistrationPage = () => {
               return errors;
             }}
             onSubmit={async (values) => {
-              localStorage.setItem("signinvalues", JSON.stringify(values));
-              dispatch(setnameValue(values['name']));
-              dispatch(setusernameValue(values['email']));
-              toast.success("Registration successfull");
-              navigate('/home');
-              console.log(values);
+            localStorage.setItem("signinvalues", JSON.stringify(values));
+      fetch("https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/create/author", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json, text/plain, */*'
+      }, 
+      body : JSON.stringify({
+          "email" : values['email'],
+          "password" : values['password'],
+          "name" : values["name"]
+
+      }),   
+    })
+    .then((response) => {response.json();
+      console.log(response);
+    if (!response.ok) {
+     console.log("Error");
+    }})
+        .then((json) => { console.log(json)
+        //  toast.success(json['status']['message']) 
+          //localStorage.setItem("id", json['data']['id'])
+          dispatch(setloggedinValue(true));
+          localStorage.setItem("loggedin" , "yes");});
+    dispatch(setnameValue(values['name']));
+    dispatch(setusernameValue(values['email']));
+    navigate('/home');
+    console.log(values);
             }}
           >
             <Form>
@@ -89,7 +129,7 @@ const RegistrationPage = () => {
                   htmlFor="email"
                   className="block text-gray-700 font-[700] mb-2 tracking-[0.03rem] max-w-[50%] ml-[15px]"
                 >
-                  Email id
+                  Email
                 </label>
                 <Field
                   type="email"

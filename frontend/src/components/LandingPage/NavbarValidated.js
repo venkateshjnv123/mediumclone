@@ -9,12 +9,18 @@ import downCopyArrow from "../Logos/downCopyArrow.svg";
 import navToggleCross from "../Logos/navToggleCross.svg";
 import whatsappIcon from "../Logos/whatsappIcon.svg";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function NavbarValidated() {
   const [bar, setbar] = useState(true);
   const [cross, setcross] = useState(false);
 
   const [sideBar, setsideBar] = useState(false);
+
+  const handlelogout = () => {
+    toast.warning("logged out successfully");
+    localStorage.removeItem("jwtToken");
+  }
 
   return (
     <div className="nav navBarScroll">
@@ -53,12 +59,6 @@ export default function NavbarValidated() {
                 Write
               </li>
             </Link>
-            <Link to="/myposts">
-            <li className="nav-btn">
-                {/* <img src={happyface} alt="happyface" /> */}
-                My Posts
-              </li>
-              </Link>
               <Link to="/home">
             <li className="nav-btn">
                 {/* <img src={happyface} alt="happyface" /> */}
@@ -67,9 +67,15 @@ export default function NavbarValidated() {
               </Link>
             <Link to="/profile">
               <li className="nav-btn">
-                <button className="signupbtn">Profile</button>
+               Profile
               </li>
             </Link>
+            <Link to="/membership">
+              <li className="nav-btn">
+               Upgrade
+              </li>
+            </Link>
+            <button className="signupbtn" onClick={handlelogout}>Logout</button>
            
           </ul>
         </div>
@@ -84,11 +90,16 @@ export default function NavbarValidated() {
                 <h4 className="footleftText">Write</h4>
               </button>
             </Link>
+            {/* <Link to="/mydrafts">
+            <button className="footButton">
+                <h4 className="footleftText">Drafts</h4>
+              </button>
+              </Link>
             <Link to="/myposts">
             <button className="footButton">
                 <h4 className="footleftText">My Posts</h4>
               </button>
-              </Link>
+              </Link> */}
               <Link to="/home">
             <button className="footButton">
                 <h4 className="footleftText">Home</h4>

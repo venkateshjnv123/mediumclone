@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setviewValue } from "../redux/reduxslice";
 import { current } from "@reduxjs/toolkit";
 import NavbarValidated from "../LandingPage/NavbarValidated";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Datacards = ({ blogsdata }) => {
   return (
@@ -91,10 +93,12 @@ function HomePage() {
   const [authorName, setAuthorName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [topic, settopic] = useState("");
   const [likesCommentsOrder, setLikesCommentsOrder] = useState("high");
   const [membershipmodal, setmembershipmodal] = useState(false);
   const username = useSelector((state) => state.username.value);
-  console.log(username);
+
+
   const blogsdata = [
     {
       title: "Stop Using React Native Async Storage",
@@ -109,7 +113,7 @@ function HomePage() {
       views: 30,
     },
     {
-      title: "Stop Using React Native Async Storage",
+      title: "Learning new techniques",
       subtitle:
         "A Comparison of React Native MMKV and React Native Async Storage",
       data: "For quite some time, React Native Async Storage has been the go-to option for storing data in React Native applications. However, the introduction of React-Native MMKV presents developers with a more efficient and advanced choice.MMKV, originally designed as an efficient, small, and user-friendly mobile key-value storage framework for the WeChat app. It brings its fast, direct bindings to the native C++ library to the React Native platform through a simple JavaScript API. React-Native MMKV is now a prominent option for data storage in React Native applications. One of the key advantages of React-Native MMKV is its performance. With everything written in C++, it is ~30x faster than AsyncStorage. Furthermore, it also provides encryption support, making it a secure storage solution for your app. The use of JSI instead of the “old” Bridge further enhances its speed and efficiency.",
@@ -121,6 +125,30 @@ function HomePage() {
       views: 400,
     },
     {
+      title: "How you do that?",
+      subtitle:
+        "A Comparison of React Native MMKV and React Native Async Storage",
+      data: "For quite some time, React Native Async Storage has been the go-to option for storing data in React Native applications. However, the introduction of React-Native MMKV presents developers with a more efficient and advanced choice.MMKV, originally designed as an efficient, small, and user-friendly mobile key-value storage framework for the WeChat app. It brings its fast, direct bindings to the native C++ library to the React Native platform through a simple JavaScript API. React-Native MMKV is now a prominent option for data storage in React Native applications. One of the key advantages of React-Native MMKV is its performance. With everything written in C++, it is ~30x faster than AsyncStorage. Furthermore, it also provides encryption support, making it a secure storage solution for your app. The use of JSI instead of the “old” Bridge further enhances its speed and efficiency.",
+      author: "syam kumar",
+      image: "https://miro.medium.com/v2/resize:fit:1100/0*f5FAc401uPezI6pa",
+      categories: ["react", "software", "frontend"],
+      date: "12/27/2007",
+      likes: 60,
+      views: 99,
+    },
+    {
+      title: "Great great mother is there",
+      subtitle:
+        "A Comparison of React Native MMKV and React Native Async Storage",
+      data: "For quite some time, React Native Async Storage has been the go-to option for storing data in React Native applications. However, the introduction of React-Native MMKV presents developers with a more efficient and advanced choice.MMKV, originally designed as an efficient, small, and user-friendly mobile key-value storage framework for the WeChat app. It brings its fast, direct bindings to the native C++ library to the React Native platform through a simple JavaScript API. React-Native MMKV is now a prominent option for data storage in React Native applications. One of the key advantages of React-Native MMKV is its performance. With everything written in C++, it is ~30x faster than AsyncStorage. Furthermore, it also provides encryption support, making it a secure storage solution for your app. The use of JSI instead of the “old” Bridge further enhances its speed and efficiency.",
+      author: "syam kumar",
+      image: "https://miro.medium.com/v2/resize:fit:1100/0*f5FAc401uPezI6pa",
+      categories: ["react", "software", "frontend"],
+      date: "12/27/2004",
+      likes: 67,
+      views: 145,
+    },
+    {
       title: "Stop Using React Native Async Storage",
       subtitle:
         "A Comparison of React Native MMKV and React Native Async Storage",
@@ -128,17 +156,54 @@ function HomePage() {
       author: "syam kumar",
       image: "https://miro.medium.com/v2/resize:fit:1100/0*f5FAc401uPezI6pa",
       categories: ["react", "software", "frontend"],
-      date: "12/27/2010",
-      likes: 60,
-      views: 99,
+      date: "12/27/2013",
+      likes: 450,
+      views: 1000,
+    },
+    {
+      title: "Stop Using React Native Async Storage",
+      subtitle:
+        "A Comparison of React Native MMKV and React Native Async Storage",
+      data: "For quite some time, React Native Async Storage has been the go-to option for storing data in React Native applications. However, the introduction of React-Native MMKV presents developers with a more efficient and advanced choice.MMKV, originally designed as an efficient, small, and user-friendly mobile key-value storage framework for the WeChat app. It brings its fast, direct bindings to the native C++ library to the React Native platform through a simple JavaScript API. React-Native MMKV is now a prominent option for data storage in React Native applications. One of the key advantages of React-Native MMKV is its performance. With everything written in C++, it is ~30x faster than AsyncStorage. Furthermore, it also provides encryption support, making it a secure storage solution for your app. The use of JSI instead of the “old” Bridge further enhances its speed and efficiency.",
+      author: "syam kumar",
+      image: "https://miro.medium.com/v2/resize:fit:1100/0*f5FAc401uPezI6pa",
+      categories: ["react", "software", "frontend"],
+      date: "12/27/1999",
+      likes: 888,
+      views: 22,
     },
   ];
   const [poststoshow, setpoststoshow] = useState(blogsdata);
+  const [searchterm, setsearchterm] = useState("");
+  const [followerstoshow, setfollowerstoshow] = useState([]);
+  const [alltopics, setalltopics] = useState([]);
+  const [authorsearch, setauthorsearch] = useState("");
   const handlemembershipclose = () => {
     setmembershipmodal(false);
   };
 
+  const handleaddtopic = async() => {
+    const headers =  {
+        "authToken": localStorage.getItem("jwtToken"),
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json, text/plain, */*'
+      };
+    
+     axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/topic/create', {"name":topic},{headers})
+      .then((response) => {
+        console.log('Post saved!', response.data);
+        toast.success("Saved the topic");
+        settopic("");
+      })
+      .catch((error) => {
+        toast.error("Error saving the topic");
+        console.error('Error saving topic:', error);
+        // Implement error handling logic here
+      });
+
+  }
   const getFilteredPosts = () => {
+    console.log("yes");
     let filteredPosts = blogsdata;
 
     if (authorName) {
@@ -168,51 +233,114 @@ function HomePage() {
       filteredPosts.sort((a, b) => a.comments - b.comments);
     }
 
+    console.log(filteredPosts);
     setpoststoshow(filteredPosts);
   };
 
   const fetchapi = async () => {
-    const url = "https://medium2.p.rapidapi.com/";
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "de0ca2eba2msh61c7217b5c37ebdp16228fjsnddac264565f5",
-        "X-RapidAPI-Host": "medium2.p.rapidapi.com",
-      },
-    };
-    try {
-      const response = await fetch(url, options);
-      const result = await response.text();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
+    axios.get('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/posts/all')
+    .then((response) => {
+      console.log('Fetched the posts', response.data);
+     // toast.success("Saved the post");
+      setpoststoshow(response.data);
+      
+    })
+    .catch((error) => {
+      toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    });
   };
 
+  const fetchfollowers = () => {
+    axios.get('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/showAll')
+    .then((response) => {
+      console.log('Fetched the posts', response.data);
+      //toast.success("Saved the post");
+      setfollowerstoshow(response.data);
+      
+    })
+    .catch((error) => {
+      ///toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    });
+  }
+
+  const fetchtopic = () => {
+    axios.get('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/topic/showAll')
+    .then((response) => {
+      console.log('Fetched the topics', response.data);
+      //toast.success("Saved the post");
+      setalltopics(response.data);   
+    })
+    .catch((error) => {
+      ///toast.error("Error saving the post");
+      console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    });
+  }
+
   useEffect(() => {
-    fetchapi();
+   fetchapi();
+fetchfollowers();
+fetchtopic();
+    // axios.get("https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/current_user").then((response) => {
+    //  console.log(response.data);
+    // });
+
+  
+
   }, []);
 
   const views = useSelector((state) => state.views.value);
   const [currentviews, setcurrentviews] = useState(views);
   const members = useSelector((state) => state.membership.value);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handlepostclick = () => {
+  const handlesearchposts = () => {
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/posts/search?search=${searchterm}`)
+    .then((response) => {
+      console.log('Fetched the posts', response.data);
+      setpoststoshow(response.data);
+    })
+    .catch((error) => {
+      toast.error("Error searching the post");
+      //console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    });
+  }
+
+  const handlesearchauthor = (e) => {
+    setauthorsearch(e.target.value)
+    axios.get(`https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/search?search=${authorsearch}`)
+    .then((response) => {
+      console.log('Fetched the posts', response.data);
+      setfollowerstoshow(response.data);
+    })
+    .catch((error) => {
+      toast.error("Error searching the post");
+      //console.error('Error saving topic:', error);
+      // Implement error handling logic here
+    });
+  }
+  const handlepostclick = (blog) => {
     dispatch(setviewValue(currentviews + 1));
     setcurrentviews(currentviews + 1);
-    console.log(members);
-    if (members === false && currentviews > 1) {
-      setmembershipmodal(true);
-    } else {
-      navigate("/postpage");
-    }
+    console.log(blog);
+    //if (members === false && currentviews > 1) {
+    //  setmembershipmodal(true);
+   // } else {
+      navigate("/postpage", {state : {id : blog['id'], authorid : blog['author_id']}});
+   // }
   };
 
   const handleTabClick = (tab) => {
-    if (tab === "All") {
-      setpoststoshow(blogsdata);
-    }
+    // if (tab === "All") {
+    //   setpoststoshow(blogsdata);
+    // }
+    fetchapi();
     setSelectedTab(tab);
   };
   const tabOptions = [
@@ -228,14 +356,63 @@ function HomePage() {
     "Programming",
   ];
   const recommendedCategories = [
+    "All",
+    "For You",
+    "Following",
     "Software Development",
     "Startup",
-    "Software Development",
-    "Startup",
-    "Software Development",
-    "Startup",
-    "Software Development",
+    "Software Engineering",
+    "Technology",
+    "Self Improvement",
+    "Data Science",
+    "Programming",
   ];
+  const handlesearchauthors = () => {
+    axios
+      .get(
+        `https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/posts/search?search=${authorName}`
+      )
+      .then((response) => {
+        console.log("Fetched the posts", response.data);
+        setpoststoshow(response.data);
+      })
+      .catch((error) => {
+        toast.error("Error searching the author");
+        //console.error('Error saving topic:', error);
+        // Implement error handling logic here
+      });
+  };
+
+  const [filterDate, setFilterDate] = useState("");
+
+  const handleApplyFilter = () => {
+    axios
+      .get(
+        `https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/${filterDate}`
+      )
+      .then((response) => {
+        console.log("Fetched the posts", response.data);
+        setpoststoshow(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  const handlefilterlikes = () => {
+    axios
+    .get(
+      `https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/get/post/filter/likesAndComments/${likesCommentsOrder}`
+    )
+    .then((response) => {
+      console.log("Fetched the posts", response.data);
+      setpoststoshow(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+  }
+
 
   return (
     <>
@@ -252,7 +429,11 @@ function HomePage() {
                 type="text"
                 placeholder="Search for a post"
                 className="bg-slate-200 w-[400px] focus:outline-none px-4 py-2 rounded-[25px]"
+                value={searchterm}
+                onChange={(e)=>setsearchterm(e.target.value)}
               />
+              <button className="rounded-full bg-slate-300 py-1 px-2 ml-2" onClick={handlesearchposts}>search</button>
+
             </div>
             <div className="titlesScroll rounded overflow-x-scroll whitespace-nowrap relative ">
               {tabOptions.map((tab) => (
@@ -269,8 +450,8 @@ function HomePage() {
                 </div>
               ))}
             </div>
-            <div className="filterDivMain11 my-[20px] items-center p-4 border rounded shadow-md">
-              <div className="filterDiv11 w-fit md:w-4/5">
+            <div className="filterDivMain11 my-[20px] items-center p-4 border rounded shadow-md bg-gray-200">
+            <div className="filterDiv11 w-fit md:w-[100%]">
                 <div className="w-fit md:w-full filterDivSub11 my-[10px]">
                   <div className="w-fit mr-4 mb-4">
                     <input
@@ -278,39 +459,64 @@ function HomePage() {
                       value={authorName}
                       placeholder="Author name"
                       onChange={(e) => setAuthorName(e.target.value)}
-                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-[10px] py-[5px]"
+                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-[10px] py-[5px] mr-[15px]"
                     />
+                    <button
+                      // onClick={() => {
+                      //   getFilteredPosts();
+                      // }}
+                      onClick={handlesearchauthors}
+                      className="bg-[#121212] text-white font-[500] px-[15px] py-[5px] rounded-[25px] hover:bg-blue-700"
+                    >
+                      Apply
+                    </button>
                   </div>
 
                   <div className="w-fit mr-4">
                     <select
                       value={likesCommentsOrder}
                       onChange={(e) => setLikesCommentsOrder(e.target.value)}
-                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1"
+                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1 mr-[15px]"
                     >
-                      <option value="high">Most likes</option>
-                      <option value="low">Least likes</option>
-                      <option value="comments_high">Most comments</option>
-                      <option value="comments_low">Least comments</option>
+                      <option value="likes">Most likes</option>
+                      <option value="comments">Most comments</option>
                     </select>
+                    <button
+                      // onClick={() => {
+                      //   getFilteredPosts();
+                      // }}
+                      onClick={handlefilterlikes}
+                      className="bg-[#121212] text-white font-[500] px-[15px] py-[5px] rounded-[25px] hover:bg-blue-700"
+                    >
+                      Apply
+                    </button>
                   </div>
                 </div>
 
                 <div className="w-fit md:w-full filterDivSub11 my-[10px]">
-                  <div className="w-fit mb-4">
+                  <div className="w-fit mb-0">
                     <label className="text-gray-700 font-bold mr-2">
-                      Start Date:
+                      Filter by Date:
                     </label>
                     <br />
                     <input
                       type="date"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1"
+                      value={filterDate}
+                      onChange={(e) => setFilterDate(e.target.value)}
+                      className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1 mr-[15px]"
                     />
+                    <button
+                      // onClick={() => {
+                      //   getFilteredPosts();
+                      // }}
+                      onClick={handleApplyFilter}
+                      className="bg-[#121212] text-white font-[500] px-[15px] py-[5px] rounded-[25px] hover:bg-blue-700"
+                    >
+                      Apply
+                    </button>
                   </div>
 
-                  <div className="w-fit mb-4">
+                  {/* <div className="w-fit mb-0">
                     <label className="text-gray-700 font-bold mr-2">
                       End Date:
                     </label>
@@ -321,26 +527,15 @@ function HomePage() {
                       onChange={(e) => setEndDate(e.target.value)}
                       className="min-w-[300px] md:min-w-[210px] bg-white border rounded-[25px] px-2 py-1"
                     />
-                  </div>
+                  </div> */}
                 </div>
-              </div>
-
-              <div className="w-fit md:w-1/5">
-                <button
-                  onClick={() => {
-                    getFilteredPosts();
-                  }}
-                  className="bg-[#121212] text-white font-[500] px-[15px] py-[5px] rounded-[25px] hover:bg-blue-700"
-                >
-                  Apply Filters
-                </button>
               </div>
             </div>
             <div className="w-full mt-4">
-              {blogsdata.map((blog) => (
+              {poststoshow.map((blog) => (
                 <div
                   className="md:w-[90%] md:mx-auto md:w-90 border-b p-4 mb-4 hover:bg-gray-200 rounded-2xl active:bg-gray-200"
-                  onClick={handlepostclick}
+                  onClick={() => handlepostclick(blog)}
                 >
                   <div>
                     <h3 className="text-xl mb-2 font-[700] cursor-pointer">
@@ -349,29 +544,27 @@ function HomePage() {
                   </div>
                   {/* Author Name */}
                   <div className="flex text-lg font-bold mb-2 text-[15px]">
-                    {blog.author}
+                    {blog.author_name}
                     <span className="dot relative top-[13px]"></span>
                     <span className="text-gray-400 text-sm ml-2 relative top-[4px]">
-                      {blog.date}
+                      {blog.published_at}
                     </span>
                   </div>
 
                   {/* Content */}
 
-                  <div className="flex flex-wrap gap-2">
-                    {blog.categories.map((category) => (
-                      <div className=" tagsPostsBtn cursor-pointer">
-                        {category}
+                      <div className="tagsPostsBtn cursor-pointer w-[60px]">
+                        {blog.topic}
                       </div>
-                    ))}
+          
 
                     {/* Add more categories as needed */}
-                  </div>
+              
 
                   {/* Image */}
                   <div className="textImgMobDiv flex justify-between items-center mb-4 ">
                     <p className="w-full md:w-3/5 text-gray-700 mb-4 overflow-hidden line-clamp-3 pt-[15px]">
-                      {blog.data}
+                      {blog.text}
                     </p>
                     <div className="w-full md:w-1/5 pt-[25px] md:pt-[0px]">
                       <img
@@ -391,7 +584,7 @@ function HomePage() {
                         </span>
                       </div>
                       <div className="pl-[5px]">
-                        <span>{blog.likes}</span>
+                        <span>{blog.likes_count}</span>
                       </div>
                     </div>
                     <div className="btnsDiv">
@@ -403,7 +596,7 @@ function HomePage() {
                         </span>
                       </div>
                       <div className="pl-[5px]">
-                        <span>{blog.views}</span>
+                        <span>{blog.comments_count}</span>
                       </div>
                     </div>
                   </div>
@@ -424,21 +617,26 @@ function HomePage() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Search for a category"
+                  placeholder="Add a category"
+                  value={topic}
+                  onChange={(e) => settopic(e.target.value)}
                   className="bg-slate-200 w-[50%] focus:outline-none px-4 py-2 my-[5px] rounded-[25px]"
                 />
+                <button className="rounded-full bg-slate-300 py-1 px-2 ml-2" onClick={handleaddtopic}>Add topic</button>
                 <button className="rounded-full bg-slate-300 py-1 px-2 ml-2">
                 <Link to="/alltopics">Explore topics</Link>
               </button>
               </div>
-              {recommendedCategories.map((category) => (
+              <div className="flex flex-col justify-center">
+              {alltopics.map((category) => (
                 <div
-                  key={category}
-                  className="bg-[#d4d4d4] px-3 py-1 rounded-full cursor-pointer"
+                  key={category.id}
+                  className="bg-[#d4d4d4] px-3 py-1 rounded-full cursor-pointer my-1"
                 >
-                  {category}
+               {category.id}:{category.name}
                 </div>
               ))}
+              </div>
             </div>
 
             <hr />
@@ -452,28 +650,24 @@ function HomePage() {
                 <input
                   type="text"
                   placeholder="Search for an author"
+                  value={authorsearch}
+                  onChange={(e) => handlesearchauthor(e)}
                   className="bg-slate-200 w-[80%] focus:outline-none px-4 py-2 my-[5px] rounded-[25px]"
                 />
+                <button className="rounded-full bg-slate-300 py-1 px-2 ml-2" onClick={handlesearchauthor}>search</button>
               </div>
               {/* Sample other usernames */}
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-700">
-                  John abraham - 198k followers
-                </span>
-                <button className="text-blue-500 font-bold">Follow</button>
-              </div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-700">venkatesh patnala - 100 followers</span>
-                <button className="text-blue-500 font-bold">Follow</button>
-              </div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-700">venkatesh patnala - 100 followers</span>
-                <button className="text-blue-500 font-bold">Follow</button>
-              </div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-700">vivek paida - 100 followers</span>
-                <button className="text-blue-500 font-bold">Follow</button>
-              </div>
+              {
+                followerstoshow.map((follower) => (
+                  <div className="flex items-center justify-between mb-2">
+                  <span className="text-gray-700">
+                    {follower['name']}
+                  </span>
+                  <button className="text-blue-500 font-bold">Follow</button>
+                </div>
+                ))
+              }
+            
               {/* Add more usernames as needed */}
             </div>
           </div>

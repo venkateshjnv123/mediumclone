@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { FormControl, InputGroup } from "react-bootstrap";
 import "./mainPoster.css";
 import { Link, useNavigate } from "react-router-dom";
 export default function Homepage() {
   const navigate = useNavigate();
+
   return (
     <div
       className="mainPoster bg-zinc-300"

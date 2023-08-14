@@ -5,24 +5,59 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setloggedinValue, setnameValue, setusernameValue } from "../redux/reduxslice";
-
+import axios from "axios";
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleSubmit = (values) => {
-    const val = JSON.parse(localStorage.getItem('signinvalues'));
-    if(val['email'] === values['email'] && val['password'] === values['password']){
-      dispatch(setusernameValue(val['username']));
-      dispatch(setnameValue(val['name']));
-      dispatch(setloggedinValue(true));
-      localStorage.setItem("loggedin" , "yes");
-      navigate('/home');
-      toast.success("logged in successfully");
+  const handleSubmit = async(values) => {
+    //const val = JSON.parse(localStorage.getItem('signinvalues'));
+   // if(val['email'] === values['email'] && val['password'] === values['password']){
+      // dispatch(setusernameValue(val['username']));
+      // dispatch(setnameValue(val['name']));
+      // dispatch(setloggedinValue(true));
+      // localStorage.setItem("loggedin" , "yes");
+      // navigate('/home');
+      // toast.success("logged in successfully");
+    const data = {
+            "email" : values['email'],
+            "password" : values['password'],
+        }
+     axios.post('https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/login', data)
+     .then((response)=> {
+      console.log('Sign-up successful:', response.data);
+      const jwtToken = response.data.token;
+      localStorage.setItem('jwtToken', jwtToken);
+      navigate("/home");
+     }).catch((error) => {
+      toast.error("Incorrect details entered");
+     })
+      
+    //   fetch("https://3000-venkateshjn-mediumclone-012z6jj5k9g.ws-us103.gitpod.io/author/login", {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json, text/plain, */*',
+    //     'Content-Type': 'application/json, text/plain, */*'
+    //   }, 
+    //   body : JSON.stringify({
+    //       "email" : values['email'],
+    //       "password" : values['password'],
+    //   }),   
+    // })
+    // .then((response) => {
+    //   console.log(response.data);
+    // if (!response.ok) {
+    //  console.log("Error");
+    // }})
+    //     .then((json) => { //console.log(json)
+    //     //  toast.success(json['status']['message']) 
+    //       //localStorage.setItem("id", json['data']['id'])r1
+    //       localStorage.setItem("loggedin" , "yes");
+    //       navigate("/home");});
 
-    }
-    else{
-      toast.error("entered incorrect details");
-    }
+    // }
+    // else{
+    //  
+    // }
     console.log(values);
   };
 

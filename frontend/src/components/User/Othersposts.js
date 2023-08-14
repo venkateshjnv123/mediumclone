@@ -49,7 +49,6 @@ function Othersposts() {
     navigate("/postpage", { state: { blogdetails: blog } });
   };
 
-
   return (
     <div>
          <NavbarValidated/>
